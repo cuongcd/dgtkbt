@@ -1,0 +1,28 @@
+<?php
+return [
+    'permissions' => 'Permissions',
+    'staffs' => 'Staff',
+    'roles' => 'Roles',
+    'users' => 'Quản Lý Nhân Viên',
+    'menu' => 'Menu',
+    'log' => 'Log',
+    'dashboard' =>'Thông Báo',
+    'rooms' => 'Quản Lý Phòng',
+    'levels' => 'Quản Lý Bậc',
+    'months' => 'Quản Lý Tháng',
+    'positions' =>'Quản Lý Chức Danh',
+    'works' => 'Công Việc Chuyên Môn',
+    'progress' => 'Tiến Độ Công Việc',
+    'qualities' => 'Chất Lượng Công Việc',
+    'contributes' => 'Đóng Góp',
+    'discriplines' => 'Kỷ Luật Lao Động',
+    'dignities' => 'Phẩm Chất Cá Nhân',
+    'self-rates' =>'Tự Đánh Giá',
+    'job' => 'Công Việc Được Giao',
+    'staffs' => 'Giao Việc Nhân Viên',
+    'rates' => 'Đánh Giá Nhân Viên',
+    'result' => 'Kết Quả Đánh Giá',
+    'classification' => 'Tổng hợp Đánh Giá',
+    'my-acount' => 'Thông Tin Tài Khoản',
+    'notify' => 'Quản Lý Thông Báo'
+];

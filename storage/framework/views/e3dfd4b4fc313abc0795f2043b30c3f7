@@ -1,0 +1,114 @@
+    
+
+<?php $__env->startSection('content'); ?>
+
+    <div class="wrapper wrapper-content fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="product_edit" action="<?php echo e(route('works.save', [])); ?>"
+                      method="post" class="form-horizontal" role="form">
+                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>"/>
+                    <input type="hidden" name="tab" value=""/>
+                    <div class="tab-content tab-product">
+                        <div id="product_info" class="tab-pane fade in active">
+                            <?php echo $__env->make('product.template_review', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="ajax-loading-mask" class="loading-mask" style="display: none;">
+        <div id="ajax-loading" class="loading" style="display: block;">
+            <img src="<?php echo e(URL::to('images/loading.gif')); ?>" alt="<?php echo e(Lang::get('catalog.loading')); ?>"/>
+
+            <p><?php echo e(Lang::get('catalog.please_wait')); ?></p>
+        </div>
+    </div>
+
+    <?php /*<script type="text/javascript">*/ ?>
+        <?php /*<!--*/ ?>
+        <?php /*var product = new Product('#product_edit', '<?php echo e(route("products.duplicate", ["id" => $product->getKey()])); ?>', '<?php echo e(route("products.delete", ["id" => $product->getKey()])); ?>', '<?php echo e(Lang::get("catalog.delete_product_confirm")); ?>');*/ ?>
+        <?php /*//-->*/ ?>
+    <?php /*</script>*/ ?>
+    <?php /*<script type="text/javascript">*/ ?>
+        <?php /*function getUrlParameter(sParam) {*/ ?>
+            <?php /*var sPageURL = decodeURIComponent(window.location.search.substring(1)),*/ ?>
+                    <?php /*sURLVariables = sPageURL.split('&'),*/ ?>
+                    <?php /*sParameterName,*/ ?>
+                    <?php /*i;*/ ?>
+
+            <?php /*for (i = 0; i < sURLVariables.length; i++) {*/ ?>
+                <?php /*sParameterName = sURLVariables[i].split('=');*/ ?>
+
+                <?php /*if (sParameterName[0] === sParam) {*/ ?>
+                    <?php /*return sParameterName[1] === undefined ? true : sParameterName[1];*/ ?>
+                <?php /*}*/ ?>
+            <?php /*}*/ ?>
+        <?php /*}*/ ?>
+        <?php /*$(document).ready(function(){*/ ?>
+            <?php /*var tab = getUrlParameter('tab');*/ ?>
+                <?php /*var url = window.location.pathname.split('/');*/ ?>
+                <?php /*var id = url[3];*/ ?>
+                <?php /*$.ajax({*/ ?>
+                    <?php /*url: "/products/" + id + "/filter?ajax=1",*/ ?>
+                    <?php /*beforeSend: function () {*/ ?>
+                        <?php /*$('#ajax-loading-mask').show();*/ ?>
+                        <?php /*$('#ajax-loading').show();*/ ?>
+                    <?php /*},*/ ?>
+                    <?php /*success: function(result){*/ ?>
+                        <?php /*$('#ajax-loading-mask').hide();*/ ?>
+                        <?php /*$('#ajax-loading').hide();*/ ?>
+                        <?php /*$("#related_product").html(result);*/ ?>
+                    <?php /*}});*/ ?>
+            <?php /*if(tab != '' || tab != null){*/ ?>
+                <?php /*$('.nav-tabs a[href="#'+tab+'"]').tab('show');*/ ?>
+            <?php /*}*/ ?>
+        <?php /*});*/ ?>
+        <?php /*$("#product_edit").on('submit', function () {*/ ?>
+            <?php /*var url = window.location.pathname.split('/');*/ ?>
+            <?php /*var id = url[3];*/ ?>
+            <?php /*var grid_related_id = "related_products_" + id + "-grid-content";*/ ?>
+            <?php /*$("#"+grid_related_id).find("thead input").each(function(){*/ ?>
+                <?php /*$(this).prop('disabled', true);*/ ?>
+            <?php /*});*/ ?>
+            <?php /*$("#"+grid_related_id).find("thead select").each(function(){*/ ?>
+                <?php /*$(this).prop('disabled', true);*/ ?>
+            <?php /*});*/ ?>
+            <?php /*$('#product_review').find('input').each(function () {*/ ?>
+                <?php /*$(this).prop('disabled', true);*/ ?>
+            <?php /*});*/ ?>
+
+            <?php /*var tab = $('.nav-tabs > li.active > a').attr('href');*/ ?>
+            <?php /*$('input[type="hidden"][name="tab"]').val(tab.slice(1,tab.length));*/ ?>
+
+            <?php /*var isValid = true;*/ ?>
+            <?php /*if (this.hasChildNodes('.nav.nav-tabs')) {*/ ?>
+                <?php /*var validator = $(this).validate();*/ ?>
+                <?php /*$(this).find("select").each(function () {*/ ?>
+                    <?php /*if (!validator.element(this)) {*/ ?>
+                        <?php /*isValid = false;*/ ?>
+                        <?php /*$('a[href=#' + $(this).closest('.tab-pane:not(.active)').attr('id') + ']').tab('show');*/ ?>
+                        <?php /*return false;*/ ?>
+                    <?php /*}*/ ?>
+                <?php /*});*/ ?>
+                <?php /*if (isValid) {*/ ?>
+                    <?php /*$(this).find("input").each(function () {*/ ?>
+                        <?php /*if (!validator.element(this)) {*/ ?>
+                            <?php /*isValid = false;*/ ?>
+                            <?php /*$('a[href=#' + $(this).closest('.tab-pane:not(.active)').attr('id') + ']').tab('show');*/ ?>
+                            <?php /*return false;*/ ?>
+                        <?php /*}*/ ?>
+                    <?php /*});*/ ?>
+                <?php /*}*/ ?>
+            <?php /*}*/ ?>
+            <?php /*if (!isValid) {*/ ?>
+                <?php /*return false;*/ ?>
+            <?php /*}*/ ?>
+        <?php /*});*/ ?>
+    <?php /*</script>*/ ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('product.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

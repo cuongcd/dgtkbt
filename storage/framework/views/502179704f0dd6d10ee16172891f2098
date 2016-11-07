@@ -1,0 +1,65 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element"> <span>
+            <a href="<?php echo route('users.edit',Auth::id()); ?>">
+                <img alt="image" width="60" class="img-circle" src="/img/avatar.png">
+            </a>
+            </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear"> <span class="text-muted text-xs block"><?php echo Auth::user()->first_name; ?> <b
+                                        class="caret"></b></span> </span> </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="<?php echo route('my_acount'); ?>"><?php echo e(Lang::get('general.my_account')); ?></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="<?php echo e(URL::to('users/logout')); ?>"><?php echo e(Lang::get('general.logout')); ?></a></li>
+                    </ul>
+                </div>
+            </li>
+            <?php if(!empty($menus)): ?>
+                <?php foreach($menus as $key => $menu): ?>
+                    <li <?php if(!empty($menu['active'])): ?> class="active" <?php endif; ?>>
+                        <a href="<?php echo url() . $menu['url']; ?>">
+                            <i class="fa <?php echo $menu['icon']; ?>"></i>
+                            <span class="nav-label"><?php echo e(trans('menus.' . $key)); ?></span>
+                            <?php if(!empty($menu['children'])): ?>
+                                <span class="fa arrow"></span>
+                            <?php endif; ?>
+                        </a>
+                        <?php if(!empty($menu['children'])): ?>
+                            <ul class="nav nav-second-level collapse <?php if(!empty($menu['active'])): ?> in <?php endif; ?>">
+                                <?php foreach($menu['children'] as $key => $menu): ?>
+                                    <li <?php if(!empty($menu['active'])): ?> class="active" <?php endif; ?>>
+                                        <a href="<?php echo url() . $menu['url']; ?>">
+                                            <i class="fa <?php echo $menu['icon']; ?>"></i>
+                                            <?php echo e(trans('menus.' . $key)); ?>
+
+                                            <?php if(!empty($menu['children'])): ?>
+                                                <span class="fa arrow"></span>
+                                            <?php endif; ?>
+                                        </a>
+                                        <?php if(!empty($menu['children'])): ?>
+                                            <ul class="nav nav-third-level collapse <?php if(!empty($menu['active'])): ?> in <?php endif; ?>">
+                                                <?php foreach($menu['children'] as $key => $menu): ?>
+                                                    <li <?php if(!empty($menu['active'])): ?> class="active" <?php endif; ?>>
+                                                        <a href="<?php echo url() . $menu['url']; ?>">
+                                                            <i class="fa <?php echo $menu['icon']; ?>"></i>
+                                                            <?php echo e(trans('menus.' . $key)); ?>
+
+                                                        </a>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                    </li>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </ul>
+    </div>
+</nav>

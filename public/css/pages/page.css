@@ -1,0 +1,21 @@
+.modal-backdrop {
+    display: none;
+}
+
+.dz-details {
+    width: 200px !important;
+    height: 200px !important;
+}
+
+.dz-progress {
+    display: none !important;
+}
+
+.dz-preview {
+    margin: 10px 10px 8px 7px !important;
+}
+
+.dz-details img {
+    width: 200px !important;
+    height: 200px !important;
+}

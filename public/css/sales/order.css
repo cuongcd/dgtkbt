@@ -1,0 +1,70 @@
+.sales-order .clear {clear:both;}
+.sales-order .panel-default .panel-heading .col-lg-7 {padding-left:0 !important;}
+/* order product */
+.sales-order #product_search_autocomplete {position:absolute;padding: 2px 30px 0 0;width:100%; z-index: 9;}
+.sales-order #product_search_autocomplete .search-container {
+    border:1px solid #ddd;
+    border-radius:3px;    
+    width:100%;
+    z-index:99;
+    background:#f5f5f5;
+    max-height: 200px;
+    padding: 2px;
+}
+.sales-order #product_search_autocomplete .search-container ul.folder-list{overflow-y: scroll; max-height: 196px; padding:5px 10px;}
+.sales-order .data-loading{background: url('../../images/loading.gif') no-repeat; display:none;}
+.sales-order .product-search .data-loading{margin:2px 0 0 -34px; height:34px; width:34px; position: absolute; z-index: 9;}
+.sales-order #product_search_autocomplete .search-container ul li:hover{background: #A3E1D4; cursor:pointer}
+.sales-order #sales_create_order_items input.item-qty {width:60px !important; float:right;}
+.sales-order .invoice-table .cell-right{text-align:right;}
+/* end of order product */
+
+/* order customer */
+.sales-order #customer_search_autocomplete {position:absolute;padding: 2px 30px 0 0;width:100%; z-index:99;}
+.sales-order #customer_search_autocomplete .search-container {
+    border:1px solid #ddd;
+    border-radius:3px;    
+    width:100%;
+    z-index:99;
+    background:#f5f5f5;
+    max-height: 200px;
+    padding: 2px;
+}
+.sales-order #customer_search_autocomplete .search-container ul.folder-list{overflow-y: scroll; max-height: 196px; padding:5px 10px;}
+.sales-order #customer_search_autocomplete .search-container ul li:hover{background: #A3E1D4; cursor:pointer}
+.sales-order .customer-search .data-loading{margin:2px 0 0 -34px; height:34px; width:34px; position: absolute; z-index: 9;}
+.sales-order #sales_create_order_customer .checkbox input[type="checkbox"] {margin-left:0 !important;}
+.sales-order #sales_create_order_customer .form-horizontal .control-label {text-align:left !important;}
+/* end of order customer */
+
+/* order shipping & payment */
+.sales-order #payment_method-error,
+.sales-order #shipping_method-error {
+    position: absolute;
+    margin: -20px 0 0 -20px;
+    font-weight:bold;
+}
+.sales-order #sales_order_payment_methods {padding-left:50px;}
+.sales-order #sales_order_shipping_methods {padding-left:50px;}
+/* end of order shipping & payment */
+
+/* order comments */
+.sales-order .order-comments textarea {}
+/* end of order comments */
+
+/* order address */
+.sales-order .address-form .hr-line-dashed {clear:both; margin:10px 0; border:0;}
+.sales-order .address-form .col-lg-2 {width:25%;}
+/* end of order address */
+
+/* order totals */
+.sales-order .invoice-total > tbody > tr > td:last-child {width:30% !important;}
+.sales-order .invoice-total .input-total{width:80px; height:20px;}
+.sales-order .invoice-total .input-title{height:24px !important; text-align: right;}
+.sales-order .invoice-total .fa {margin:3px 0 0 10px;}
+/* end of order totals */
+
+/* view order */
+.sales-order .order-info .form-group {margin:0 !important;}
+.sales-order .order-comments .hr-line-dashed {margin: 10px 0 5px 0;}
+/* end of view order */

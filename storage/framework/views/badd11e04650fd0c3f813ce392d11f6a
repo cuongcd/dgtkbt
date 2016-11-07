@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi-vn">
+<head>
+	<meta charset="utf-8">
+	<title> <?php echo e(isset($pageTitle) ? $pageTitle : null); ?> </title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	
+	<?php echo HTML::style('css/bootstrap.css'); ?>
+
+    <?php echo HTML::style('font-awesome/css/font-awesome.css'); ?>
+
+    <?php echo HTML::style('css/plugins/dataTables/dataTables.bootstrap.css'); ?>
+
+    <?php echo HTML::style('css/animate.css'); ?>
+
+    <?php echo HTML::style('css/style.css'); ?>
+
+    <?php echo HTML::style('css/plugins/dataTables/dataTables.tableTools.min.css'); ?>
+
+    <?php echo HTML::style('css/plugins/iCheck/custom.css'); ?>
+
+    <?php echo HTML::style('css/search-dropdown.css'); ?>
+
+    <?php echo HTML::style('css/plugins/datapicker/datepicker3.css'); ?>
+
+
+    <?php echo HTML::style('css/product/edit.style.css'); ?>
+
+    <?php echo HTML::script('js/product.js'); ?>
+
+    
+    <?php echo HTML::style('css/plugins/dropzone/basic.css'); ?>
+
+    <?php echo HTML::style('css/plugins/switchery/switchery.css'); ?>
+
+	<?php echo HTML::style('css/plugins/summernote/summernote.css'); ?>
+
+	<?php echo HTML::style('css/plugins/summernote/summernote-bs3.css'); ?>
+
+	<?php echo HTML::style('css/plugins/chosen/chosen.css'); ?>
+
+	<?php echo HTML::style('css/plugins/pgwmodal/pgwmodal.min.css'); ?>
+
+	<?php echo HTML::style('css/plugins/jsTree/style.min.css'); ?>
+
+	<?php echo HTML::style('css/plugins/jasny/jasny-bootstrap.min.css'); ?>
+
+    
+    <!-- Mainly scripts -->
+    <?php echo HTML::script('js/jquery-1.11.1.min.js'); ?>
+
+    <?php echo HTML::script('js/bootstrap.min.js'); ?>
+
+    <?php echo HTML::script('js/plugins/metisMenu/jquery.metisMenu.js'); ?>
+
+    <?php echo HTML::script('js/plugins/slimscroll/jquery.slimscroll.min.js'); ?>
+
+    
+    <!-- Custom and plugin javascript -->
+    <?php echo HTML::script('js/inspinia.js'); ?>
+
+    <?php echo HTML::script('js/plugins/datepicker/bootstrap-datepicker.js'); ?>
+
+    <?php echo HTML::script('js/plugins/pace/pace.min.js'); ?>
+
+    <?php echo HTML::script('js/plugins/validate/jquery.validate.min.js'); ?>
+
+    
+    <?php echo HTML::script('js/plugins/dropzone/dropzone.js'); ?>
+
+	<?php echo HTML::script('js/plugins/switchery/switchery.js'); ?>
+
+	<?php echo HTML::script('js/plugins/summernote/summernote.min.js'); ?>
+
+	<?php echo HTML::script('js/plugins/sortable/Sortable.min.js'); ?>
+
+	<?php echo HTML::script('js/plugins/chosen/chosen.jquery.js'); ?>
+
+	<?php echo HTML::script('js/plugins/iCheck/icheck.min.js'); ?>
+
+	<?php echo HTML::script('js/plugins/pgwmodal/pgwmodal.min.js'); ?>
+
+	<?php echo HTML::script('js/plugins/jsTree/jstree.min.js'); ?>
+
+	<?php echo HTML::script('js/plugins/jasny/jasny-bootstrap.min.js'); ?>
+
+	<?php echo HTML::script('js/grid.js'); ?>
+
+	<?php echo HTML::script('js/jquery.base64.min.js'); ?>
+
+	<?php echo HTML::script('js/mix.js'); ?>
+
+	<?php echo HTML::script('js/product-custom-option.js'); ?>
+
+
+    <!-- #FAVICONS -->
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+	
+</head>
+
+<body>
+<div id="wrapper">
+	<?php echo Widget::get('menu'); ?>
+
+	<div id="page-wrapper" class="white-bg">
+       <?php echo $__env->make('layouts._header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+       <?php echo $__env->make('layouts._messages', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+       <?php echo $__env->yieldContent('content'); ?>
+       <?php echo $__env->make('layouts._footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	</div>
+</div>
+</body>
+</html>

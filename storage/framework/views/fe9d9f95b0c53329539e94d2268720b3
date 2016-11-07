@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="col-lg-12">
+        <fieldset>
+            <?php foreach($form->getFields() as $field): ?>
+                <?php if($field->getType() != 'hidden'): ?>
+                <div class="form-group">
+                <?php endif; ?>
+                    <?php if(!in_array($field->getType(), ['hidden'])): ?>
+                    <label class="col-lg-3 control-label">
+                        <?php if($field->getType() != 'buttons'): ?>
+                            <?php echo e($field->getLabel()); ?>
+
+                            <?php if($field->isRequired()): ?> <span class="required">*</span> <?php endif; ?>
+                        <?php endif; ?>
+                    </label>
+                    <div class="col-lg-8">
+                    <?php endif; ?>
+                    <?php if($field->getBefore()): ?>
+                        <span class="hidden"><?php echo $field->getBefore(); ?></span>
+                    <?php endif; ?>
+                    <?php if($field->getType() == 'select'): ?>
+                        <?php echo Form::select($field->getKey(),  $field->getValues(), ($form->getValue($field) !== null)?$form->getValue($field):$field->getValue(),
+                            $field->getAttributesHtml()); ?>
+
+                    <?php elseif($field->getType() == 'multiselect'): ?>
+                        <?php echo Form::select($field->getKey().'[]', $field->getValues(), $form->getValue($field)?$form->getValue($field):$field->getValue(),
+                            $field->getAttributesHtml()); ?>
+
+                    <?php elseif(in_array($field->getType(), ['search', 'range', 'date', 'datetime', 'time', 'email', 'color', 'tel', 'url', 'week', 'month', 'number'])): ?>
+                        <?php echo Form::input($field->getType(), $field->getKey(), $form->getValue($field), $field->getAttributesHtml()); ?>
+
+                    <?php elseif($field->getType() == 'textarea'): ?>
+                        <?php echo Form::textarea($field->getKey(), $form->getValue($field), $field->getAttributesHtml()); ?>
+
+                    <?php elseif($field->getType() == 'password'): ?>
+                        <?php echo Form::password($field->getKey(), $field->getAttributesHtml()); ?>
+
+                    <?php elseif($field->getType() == 'confirm_password'): ?>
+                        <?php echo Form::password($field->getKey(), $field->getAttributesHtml()); ?>
+
+                    <?php elseif($field->getType() == 'file'): ?>
+                        <?php echo Form::file($field->getKey(), $field->getAttributesHtml()); ?>
+
+                    <?php elseif($field->getType() == 'hidden'): ?>
+                        <?php echo Form::hidden($field->getKey(), $form->getValue($field), $field->getAttributesHtml()); ?>
+
+                    <?php elseif($field->getType() == 'checkbox'): ?>
+                        <div class="checkbox i-checks">
+                            <label>
+                                <div class="icheckbox_square-green">
+                                    <?php $options = ['class' => 'i-checks']?>
+                                    <?php echo Form::checkbox($field->getKey(), $field->getValue(),
+                                        ($form->getValue($field) == $field->getValue())?true:$field->getChecked(),
+                                        $field->getDisabled()?array_merge(['disabled'], $options):$options); ?>
+
+                                </div>
+                                <?php echo $field->getText(); ?>
+
+                            </label>
+                        </div>
+                    <?php elseif($field->getType() == 'radio'): ?>
+                        <?php foreach($field->getValues() as $value => $text): ?>
+                        <div class="radio i-checks">
+                            <label>
+                                <div class="iradio_square-green">
+                                    <?php $options = ['class' => 'i-checks']?>
+                                    <?php $selectedValue = $form->getValue($field)?$form->getValue($field):$field->getValue()?>
+                                    <?php if(is_array($text) && isset($text[1]) && $text[1]): ?>
+                                        <?php echo Form::radio($field->getKey(), $value, $value==$selectedValue?true:false, ['disabled']); ?>
+
+                                    <?php else: ?>
+                                        <?php echo Form::radio($field->getKey(), $value, $value==$selectedValue?true:false); ?>
+
+                                    <?php endif; ?>
+                                </div>
+                                <?php if(!is_array($text)): ?> <?php echo $text; ?> <?php else: ?> <?php echo $text[0]; ?> <?php endif; ?>
+                            </label>
+                        </div>
+                        <?php endforeach; ?>
+                    <?php elseif($field->getType() == 'checkbox-group'): ?>
+                        <?php foreach($field->getValues() as $value => $text): ?>
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <div class="icheckbox_square-green">
+                                        <?php $options = ['class' => 'i-checks']?>
+                                        <?php echo Form::checkbox($field->getKey().'['.$text[0].']', $value, in_array($value, $form->getValue($field)?$form->getValue($field):[])?true:false,
+                                            (isset($text[2]) && $text[2])?['disabled']:[]); ?>
+
+                                    </div>
+                                    <?php echo $text[1]; ?>
+
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php elseif($field->getType() == 'label'): ?>
+                        <p class="form-control-static"><?php echo $field->getText(); ?></p>
+                    <?php elseif($field->getType() == 'buttons'): ?>
+                        <?php foreach($field->getValues() as $buttonName => $button): ?>
+                            <button class="right btn btn-sm <?php if($buttonName != 'back'): ?> btn-primary <?php else: ?> btn-default <?php endif; ?>" type="button" id="<?php echo e($buttonName); ?>"
+                                <?php if($button->getOnclick()): ?> onclick="<?php echo $button->getOnclick(); ?>" <?php endif; ?>>
+                                <i class="fa <?php echo e($button->getIcon()); ?>"></i>
+                                <span class="bold"><?php echo e($button->getLabel()); ?></span>
+                            </button>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <?php echo Form::text($field->getKey(), $form->getValue($field), $field->getAttributesHtml()); ?>
+
+                    <?php endif; ?>
+
+                    <?php if($field->getScript()): ?>
+                        <script type="text/javascript"><?php echo $field->getScript(); ?></script>
+                    <?php endif; ?>
+
+                    <?php if($field->getAfter()): ?>
+                        <span class="help-block m-b-none"><?php echo $field->getAfter(); ?></span>
+                    <?php endif; ?>
+                <?php if(!in_array($field->getType(), ['hidden']) ): ?>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+    </fieldset>
+
+    </div>
+</div>
+<?php if($form->getJs()): ?>
+<?php if(count($form->getJsParams())): ?>
+<script type="text/javascript">
+    <?php foreach($form->getJsParams() as $key => $value): ?>
+    var <?php echo e($key); ?> = '<?php echo e($value); ?>';
+    <?php endforeach; ?>
+</script>
+<?php endif; ?>
+<script type="text/javascript" src="<?php echo e($form->getJsPath()); ?>"></script>
+<?php endif; ?>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi-vn">
+<head>
+    <meta charset="UTF-8">
+    <title> <?php echo e(isset($pageTitle) ? $pageTitle : null); ?> </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <?php echo $__env->make('layouts._resources', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+</head>
+
+<body>
+<div id="wrapper">
+    <?php echo Widget::get('menu'); ?>
+
+    <div id="page-wrapper" class="white-bg">
+        <div id="ajax-loading-mask" class="loading-mask"></div>
+        <div id="ajax-loading" class="loading">
+            <img src="<?php echo e(URL::to('images/loading.gif')); ?>" alt="<?php echo e(Lang::get('general.loading...')); ?>"/>
+
+            <p><?php echo e(Lang::get('general.please_wait')); ?></p>
+        </div>
+        <?php echo $__env->make('layouts._header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <?php echo $__env->make('layouts._messages', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            <?php echo $content; ?>
+
+        </div>
+        <?php echo $__env->make('layouts._footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+</div>
+</body>
+</html>

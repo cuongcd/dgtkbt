@@ -1,0 +1,258 @@
+/******************************************************************************
+ ******************* Product Editing Page *************************************
+ ******************************************************************************
+ */
+
+.ibox-tools .btn {
+	margin-bottom: 5px;
+}
+#product_edit .ibox-title {
+	padding: 10px 20px;
+	height: 45px;
+    background-color: #ffffff;
+	border-style: solid solid none;
+    border-width: 4px 0px 0;
+    margin-bottom: 0;
+}
+#product_edit .ibox-title h5 {
+	line-height: initial;
+	font-size: 14px;
+	margin: 0 0 7px;
+	padding: 0;
+	text-overflow: ellipsis;
+	float: left;
+}
+#product_edit .ibox-content {
+	background-color: #ffffff;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0px;
+}
+
+#product_edit .smnote-editor-container {
+	border: 1px solid #E5E6E7;
+}
+
+#product_edit .note-editor {
+	height: auto;
+}
+
+#product_edit .tbl-row {
+	display: table-row;
+}
+#product_edit .tbl-cell {
+	display: table-cell;
+}
+#product_edit textarea.form-control {
+	height: auto;
+}
+#product_edit .form-control, #product_edit .single-line {
+	height: inherit;
+}
+
+/*
+ ************************** Product Image ************************************* 
+ */
+#product_edit div.product-images .dz-message {
+	position: relative;
+	cursor: pointer;
+}
+#product_edit div.product-images .dz-started .dz-message {
+	display: none;
+}
+
+#product_edit div.product-images .dz-message div {
+	position: absolute;
+	width: 100%;
+	top: 45%;
+	text-align: center;
+	font-size: 1.2em;
+}
+
+#product_edit .dropzone {
+	padding: 0;
+	border: none;
+	background: none;
+}
+#product-images .dz-message {
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	background: rgba(0, 0, 0, 0.02);
+}
+#product-images .dz-preview.base-image {
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	margin: 0; padding: 0;
+	width: 100%;
+}
+#product-images .dz-preview.thumb-image {
+	border: 1px solid rgba(0, 0, 0, 0.08);
+    margin: 15px 0 0; padding: 0;
+    width: 33.333333%;
+}
+#product-images .dz-preview .dz-details {
+	width: 100%; height: auto;
+	margin: 0; padding: 0;
+}
+#product-images .dz-preview .dz-details img {
+	width: 100%; height: auto;
+	position: relative;
+	z-index: 1;
+	min-height: 51px;
+}
+#product-images .dz-preview.thumb-image .dz-details img {
+	min-height: 35px;
+}
+#product-images .dz-preview .dz-details button.btn-danger {
+	position: absolute;
+	top: 10px; right: 10px;
+}
+#product-images .dz-preview.thumb-image .dz-details button.btn-danger {
+	top: 2px; right: 2px;
+}
+#product-images .dz-preview .dz-details .dz-filename {
+	position: absolute;
+	top: 0; left: 0; width: 100%;
+	text-align: center;
+	padding: 10px 45px 10px 10px;
+}
+#product-images .dz-preview.thumb-image .dz-details .dz-filename {
+	padding: 2px 33px 2px 2px;
+}
+#product-images .dz-preview:hover .dz-details img {
+	display: block;
+}
+#product-images .dz-preview:hover .dz-details button.btn-danger {
+	z-index: 2;
+}
+#product-images .dz-preview:hover .dz-details .dz-filename {
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+#product-images .dz-preview:hover .dz-details .dz-filename textarea {
+	width: 100%;
+}
+#product-images .dz-preview .dz-progress {
+	position: relative;
+	top: 0; left: 0;
+}
+
+/*
+ ************************** Product Attribute ********************************** 
+ */
+#product_edit .txt-right {
+	text-align: right;
+}
+#product_edit select.form-control {
+	height: 30px;
+}
+#product_edit .input-group-addon.remove {
+	border: none; padding: 0;
+	vertical-align: top;
+}
+#product_edit .chosen-single, #product_edit .chosen-choices, #product_edit .chosen-drop, #product_edit .chosen-search input[type="text"], #product_edit .chosen-choices li.search-choice {
+	border: 1px solid #E5E6E7 !important;
+}
+#product_edit .chosen-single {
+	padding-top: 2px;
+}
+#product_edit .chosen-single abbr {
+	top: 9px;
+}
+#product_edit .chosen-single div {
+	top: 3px;
+}
+#product_edit .chosen-choices {
+	padding: 1px;
+}
+#product_edit .att-action .chosen-container {
+	top: -2px;
+}
+.float-e-margins #att-existed .btn, .float-e-margins #att-custom .btn {
+	margin-bottom: 0;
+}
+#product-categories .chosen-choices {
+    border: none !important;
+}
+#product-categories .chosen-choices .search-choice {
+    margin: 3px 5px 3px 0;
+}
+/*
+ ************************** Product Variants ***********************************
+ */
+#product_edit .table th {
+	padding-left: 20px;
+}
+#pgwModal .chosen-single, #pgwModal .chosen-drop, #pgwModal .chosen-search input[type="text"], #pgwModal .chosen-choices li.search-choice {
+    border: 1px solid #E5E6E7 !important;
+}
+#pgwModal .chosen-choices {
+	border: none !important;
+}
+#pgwModal .chosen-choices .search-choice {
+	margin: 3px 5px 3px 0;
+	font-size: 1.1em;
+}
+#pgwModal .chosen-single {
+    padding-top: 2px;
+}
+#pgwModal .chosen-single abbr {
+    top: 9px;
+}
+#pgwModal .chosen-single div {
+    top: 3px;
+}
+#pgwModal .chosen-choices {
+    padding: 1px;
+}
+#product_edit .variant-action .chosen-container {
+	top: -2px;
+}
+#variant-container .option-0 { color: #29BC94; }
+#variant-container .option-1 { color: #763EAF; }
+#variant-container .option-2 { color: #ED5565; }
+#variant-container .option-3 { color: #FF9517; }
+#variant-container .option-4 { color: #1AB394; }
+
+#product_edit .ibox-title .btn {
+	margin: 0; padding: 7px 10px;
+}
+
+#variants-container { overflow-x: auto; }
+#variants-container th.sku { width: 20%; }
+#variants-container th.price { width: 25%; }
+#variants-container th.action { width: 32px; }
+#variants-container td { min-width: 80px; }
+#variants-container td.action { min-width: 32px; }
+
+#variants-container select.form-control, #variants-container input.form-control, #variants-container button, #variants-container .input-group-addon, #variants-container span.form-control {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-color: #FFF;
+	height: 30px;
+}
+#variants-container tr:hover select.form-control, #variants-container tr:hover input.form-control, #variants-container tr:hover button, #variants-container tr:hover .input-group-addon, #variants-container tr:hover span.form-control {
+	border-color: #E5E6E7;
+}
+#pgwModal .pm-container .pm-title {
+	font-size: 1.2em;
+	padding: 10px 20px;
+}
+#pgwModal .pm-container .pm-close {
+	top: 10px; right: 20px;
+}
+#pgwModal .form-group {
+	min-height: 30px;
+}
+#pgwModal .loading {
+	position: absolute;
+	top: 88px;
+}
+
+@media (max-width: 767px) {
+	#variants-container .input-group-addon, #variant-container .input-group-addon {
+	   display: none;
+	}
+}
+

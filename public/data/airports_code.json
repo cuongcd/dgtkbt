@@ -1,0 +1,24 @@
+   {
+      "code": "VVNB",
+      "name" : "Hanoi"
+    },
+    {
+      "code": "VVNT",
+      "name" : "Nhatrang"
+    },
+    {
+      "code": "VVPB",
+      "name" : "Hue"
+    },
+    {
+      "code": "VVPQ",
+      "name" : "Phu Quoc"
+    },
+    {
+      "code": "VVDN",
+      "name" : "Danang"
+    },
+    {
+      "code": "VVGL",
+      "name" : "Hanoi Gia Lam"
+    }  

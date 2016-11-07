@@ -1,0 +1,99 @@
+<?php echo HTML::style('css/bootstrap.css'); ?>
+
+<?php echo HTML::style('font-awesome/css/font-awesome.css'); ?>
+
+<?php /*<?php echo HTML::style('css/plugins/dataTables/dataTables.bootstrap.css'); ?>*/ ?>
+<?php echo HTML::style('css/animate.css'); ?>
+
+<?php echo HTML::style('css/style.css'); ?>
+
+<?php echo HTML::style('css/plugins/dataTables/jquery.dataTables.min.css'); ?>
+
+<?php /*<?php echo HTML::style('css/plugins/iCheck/custom.css'); ?>*/ ?>
+<?php /*<?php echo HTML::style('css/search-dropdown.css'); ?>*/ ?>
+<?php echo HTML::style('css/plugins/jsTree/style.css'); ?>
+
+<?php /*<?php echo HTML::style('css/promotion/promotion.css'); ?>*/ ?>
+<?php echo HTML::style('css/plugins/tagsinput/bootstrap-tagsinput.css'); ?>
+
+        <!-- Mainly scripts -->
+<?php echo HTML::script('js/jquery-1.11.1.min.js'); ?>
+
+<?php echo HTML::script('js/bootstrap.min.js'); ?>
+
+<?php echo HTML::script('js/plugins/metisMenu/jquery.metisMenu.js'); ?>
+
+<?php /*<?php echo HTML::script('js/plugins/slimscroll/jquery.slimscroll.min.js'); ?>*/ ?>
+<?php /*<?php echo HTML::script('js/plugins/jquery-ui/jquery-ui.min.js'); ?>*/ ?>
+
+
+        <!-- Custom and plugin javascript -->
+<?php echo HTML::script('js/inspinia.js'); ?>
+
+<?php /*<?php echo HTML::script('js/plugins/pace/pace.min.js'); ?>*/ ?>
+<?php echo HTML::script('js/plugins/validate/jquery.validate.min.js'); ?>
+
+<?php /*<?php echo HTML::script('js/plugins/number/jquery.number.min.js'); ?>*/ ?>
+<?php echo HTML::script('js/plugins/iCheck/icheck.min.js'); ?>
+
+<?php /*<?php echo HTML::script('js/plugins/datepicker/bootstrap-datepicker.js'); ?>*/ ?>
+<?php /*<!-- Grid -->*/ ?>
+<?php echo HTML::script('js/jquery.base64.min.js'); ?>
+
+<?php echo HTML::script('js/grid.js'); ?>
+
+        <!-- Order -->
+<!-- Form -->
+<?php echo HTML::script('js/form.js'); ?>
+
+<?php echo HTML::script('js/tabs.js'); ?>
+
+
+        <!-- Tree -->
+<?php echo HTML::script('js/plugins/jsTree/jstree.min.js'); ?>
+
+<?php /*<?php echo HTML::script('js/category.js'); ?>*/ ?>
+        <!--chart-->
+<?php echo HTML::script('js/highcharts.js'); ?>
+
+<?php echo HTML::script('js/modules/exporting.js'); ?>
+
+
+        <!--setting-->
+<?php /*<?php echo HTML::style('css/product/edit.style.css'); ?>*/ ?>
+<?php echo HTML::style('css/plugins/dropzone/basic.css'); ?>
+
+<?php /*<?php echo HTML::style('css/plugins/switchery/switchery.css'); ?>*/ ?>
+<?php echo HTML::style('css/plugins/summernote/summernote.css'); ?>
+
+<?php echo HTML::style('css/plugins/summernote/summernote-bs3.css'); ?>
+
+<?php /*<?php echo HTML::style('css/plugins/chosen/chosen.css'); ?>*/ ?>
+<?php /*<?php echo HTML::style('css/plugins/pgwmodal/pgwmodal.min.css'); ?>*/ ?>
+<?php echo HTML::script('js/plugins/dropzone/dropzone.js'); ?>
+
+<?php /*<?php echo HTML::script('js/plugins/switchery/switchery.js'); ?>*/ ?>
+<?php echo HTML::script('js/plugins/summernote/summernote.min.js'); ?>
+
+<?php /*<?php echo HTML::script('js/plugins/sortable/Sortable.min.js'); ?>*/ ?>
+<?php /*<?php echo HTML::script('js/plugins/chosen/chosen.jquery.js'); ?>*/ ?>
+<?php /*<?php echo HTML::script('js/plugins/pgwmodal/pgwmodal.min.js'); ?>*/ ?>
+<?php /*<?php echo HTML::script('js/sync.js'); ?>*/ ?>
+<?php /*<?php echo HTML::script('http://maps.google.com/maps/api/js?sensor=true'); ?>*/ ?>
+<?php /*<?php echo HTML::script('js/gmaps.js'); ?>*/ ?>
+<?php /*<?php echo HTML::script('js/php-date-formatter.js'); ?>*/ ?>
+
+<?php echo HTML::script('js/plugins/tagsinput/bootstrap-tagsinput.min.js'); ?>
+
+<?php echo HTML::script('js/plugins/dataTables/jquery.dataTables.js'); ?>
+
+        <!-- mix -->
+<?php echo HTML::script('js/mix.js'); ?>
+
+        <!-- customer-->
+<!-- #FAVICONS -->
+<?php /*<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">*/ ?>
+<?php /*<link rel="icon" href="/img/favicon.ico" type="image/x-icon">*/ ?>
+<?php echo HTML::script('js/alert-jquery.js'); ?>
+
+<?php echo HTML::style('css/alert-jquery.css'); ?>

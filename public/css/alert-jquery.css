@@ -1,0 +1,67 @@
+#popup_container {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #649427;
+    border-radius: 5px 5px 5px 5px;
+    color: #000000;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    max-width: 600px;
+    min-width: 300px;
+}
+
+#popup_title {
+    background: none repeat scroll 0 0 #65A327;
+    color: #FFFFFF;
+    cursor: default;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.75em;
+    margin: 0;
+    padding: 5px 0;
+    text-align: center;
+}
+#popup_content {
+    background: url("../../info.gif") no-repeat scroll 16px 16px transparent;
+    margin: 0;
+    padding: 1em 1.75em;
+}
+#popup_content.alert {
+    background-image: url("../../info.gif");
+}
+#popup_content.confirm {
+    background-image: url("../../info.gif");
+}
+#popup_content.prompt {
+    background-image: url("../../help.gif");
+}
+#popup_message {
+    border-bottom: 1px solid #CCCCCC;
+    padding-bottom: 10px;
+    padding-left: 0;
+}
+#popup_panel {
+    text-align: center;
+}
+#popup_prompt {
+    margin: 0.5em 0;
+}
+#popup_panel .ok_button {
+}
+#popup_panel .cancel_button {
+}
+#popup_panel .ok_button input, #popup_panel .cancel_button input {
+    border: 0 none;
+    color: #528F16;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    height: 30px;
+    text-align: center;
+    width: 85px;
+    margin: 10px;
+}
+#popup_content table {
+    border: 0 none;
+    margin-top: 10px;
+    width: 100%;
+}

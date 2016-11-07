@@ -1,0 +1,79 @@
+.tab1,.tab2,.tab3,.tab4{ width: 25%; text-align: center; }
+.tab1 a,.tab2 a,.tab3 a,.tab4 a{
+    border: 0px !important;
+    transition: border-bottom 0.5s ease;
+    -webkit-transition:border-bottom 0.5s ease;
+    -moz-transition:border-bottom 0.5s ease;
+    -o-transition:border-bottom 0.5s ease;
+}
+.active a{ 
+    border-bottom: 5px !important;
+    border-bottom-color: #BFBFBF !important;
+    border-bottom-style: solid !important;
+}
+.tab1 a{
+    background: url(../img/tab1.png) no-repeat center 0px;
+    height: 59px;
+    padding-top: 111px !important;
+    display: block; 
+    cursor: pointer;
+    height: 141px;
+    cursor: pointer;
+}
+.tab1:hover a{
+	background: url(../img/tab1.png) no-repeat center -156px;
+}
+
+.tab2 a{
+    background: url(../img/tab2.png) no-repeat center 0px;
+    height: 59px;
+    display: block; 
+    cursor: pointer;
+    height: 141px;
+    padding-top: 111px !important;
+}
+.tab2:hover a{
+	background: url(../img/tab2.png) no-repeat center -156px;
+}
+
+.tab3 a{
+    background: url(../img/tab3.png) no-repeat center 0px;
+    height: 59px;
+    display: block; 
+    cursor: pointer;
+    padding-top: 111px !important;
+    height: 141px;
+    cursor: pointer;
+}
+.tab3:hover a{
+	background: url(../img/tab3.png) no-repeat center -156px;
+}
+
+.tab4 a{
+    background: url(../img/tab4.png) no-repeat center 0px;
+    height: 59px;
+    display: block; 
+    padding-top: 111px !important;
+    cursor: pointer;
+    height: 141px;
+    cursor: pointer;
+}
+.tab4:hover a{
+	background: url(../img/tab4.png) no-repeat center -156px;
+}
+
+.nav-tabs{
+	height: 141px;
+}
+
+.doitac{
+        margin: 10px auto 10px;    
+}
+.doitac img {
+    border: solid 1px #d7d7d7;
+    margin: 5px 5px 0px 0px;
+    width: 23.4%;
+}
+.tab-content div{
+    padding-top: 12px;
+}

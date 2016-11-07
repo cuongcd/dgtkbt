@@ -1,0 +1,12 @@
+<script type="text/javascript">
+ var <?php echo e($grid->getGridId()); ?>Grid = new grid(
+'<?php echo e($grid->getGridId()); ?>',
+'<?php echo e($grid->getGridUrl()); ?>',
+'<?php echo e($grid->getAjaxGridUrl()); ?>',
+<?php echo (json_encode($grid->getParams()))?json_encode($grid->getParams()):'[]'; ?>,
+'filter',
+<?php if($grid->isUseAjax()): ?> true <?php else: ?> false <?php endif; ?>);
+var <?php echo e($grid->getGridId()); ?>Massaction = new gridMassaction('<?php echo e($grid->getGridId()); ?>', <?php echo e($grid->getGridId()); ?>Grid, 'Please select items');
+<?php echo e($grid->getGridId()); ?>Massaction.setActionItems(<?php echo json_encode($grid->getMassActions()); ?>);
+<?php echo e($grid->getGridId()); ?>Massaction.setGridIds(<?php echo json_encode($grid->getAllIds()); ?>);
+</script>

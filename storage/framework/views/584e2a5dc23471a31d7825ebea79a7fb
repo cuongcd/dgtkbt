@@ -1,0 +1,32 @@
+    
+
+<?php $__env->startSection('content'); ?>
+
+    <div class="wrapper wrapper-content fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="product_edit" action="<?php echo e(route('works.save', [])); ?>"
+                      method="post" class="form-horizontal" role="form">
+                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>"/>
+                    <input type="hidden" name="tab" value=""/>
+                    <div class="tab-content tab-product">
+                        <div id="product_info" class="tab-pane fade in active">
+                            <?php echo $__env->make('quality.template_review', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="ajax-loading-mask" class="loading-mask" style="display: none;">
+        <div id="ajax-loading" class="loading" style="display: block;">
+            <img src="<?php echo e(URL::to('images/loading.gif')); ?>" alt="<?php echo e(Lang::get('catalog.loading')); ?>"/>
+
+            <p><?php echo e(Lang::get('catalog.please_wait')); ?></p>
+        </div>
+    </div>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('quality.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

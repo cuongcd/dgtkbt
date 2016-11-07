@@ -1,0 +1,30 @@
+<?php echo Form::open(array('route' => 'users.login', 'autocomplete'=>'off','class'=>'smart-form client-form')); ?>
+
+<header>
+</header>
+<?php echo $__env->make('layouts._messages', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<fieldset id="fromlogin">
+    <section>
+        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+            <?php echo Form::text('username', Input::get('username'), array('placeholder'=>Lang::get('users.email'), 'required', 'autofocus','autocomplete'=>'on')); ?>
+
+        </label>
+    </section>
+    <input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>">
+    <section>
+        <label class="input"> <i class="icon-append fa fa-lock"></i>
+            <?php echo Form::password('password', array('placeholder'=> Lang::get('users.password'), 'required','autocomplete'=>'on')); ?>
+
+        </label>
+    </section>
+</fieldset>
+<footer>
+    <?php echo Form::submit('Sign in', array('class'=>'btn btn-primary')); ?>
+
+    <label class="checkbox" style="margin:10px 0 0 0px;float:left;">
+        <?php echo Form::checkbox('remember_me', '1',true); ?>
+
+        <i></i><?php echo Lang::get('users.remember_me'); ?></label>
+</footer>
+<?php echo Form::close(); ?>

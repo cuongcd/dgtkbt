@@ -1,0 +1,65 @@
+.sky_ticket_children{
+	display: none;
+}
+.sky_ticket_parent{
+	cursor: pointer;
+}
+.sky_ticket_parent:hover td{
+    background: #ffe655 !important; 
+}
+.detail{
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+} 
+.detail:hover *{
+	color: #FF8B17;
+}
+.box-detail{
+	background-color: #fff;
+    border: 1px solid #C7C3C3;
+    height: 20px;
+    line-height: 17px;
+    width: 20px;
+    padding: 2px;
+}
+.box-detail span{
+	font-size: 6px;top: 0px;
+}
+.text-padding10 p{
+	padding: 10px 0px; margin: 0px;
+}
+.show_time{
+    padding: 10px 0px !important; font-weight: bold;
+}
+.selectedrow td{
+	background: #ffe655 !important;
+}
+.none-border-left-right{
+    border-right-width: 0px !important;
+    border-left-width: 0px !important;
+}
+.none-border-right{
+	border-right-width: 0px !important;
+}
+.none-border-left{
+	border-left-width: 0px !important;
+}
+.color-ograne{
+	color: #C1551E;
+}
+
+.skybooked{
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    font-weight: bold;
+}
+.none-padding-marine{
+	padding: 0px !important;
+    margin: 0px !important;
+}
