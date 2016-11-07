@@ -468,3 +468,6 @@ Route::group(array('prefix' => 'notify'), function () {
     Route::post('save/{id?}', array('as' => 'notify.save', 'uses' => 'NotifyController@save'));
     Route::get('delete/{id}', array('as' => 'notify.delete', 'uses' => 'NotifyController@delete'));
 });
+Route::group(array('prefix' => 'mvp'), function () {
+    Route::get('/', array('as' => 'notify', 'uses' => 'NotifyController@indexWithoutParam'));
+});
