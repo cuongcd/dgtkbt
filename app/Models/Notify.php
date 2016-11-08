@@ -18,6 +18,6 @@ class Notify extends Eloquent
         ];
     }
 
-    protected $table = 'role';
+    protected $table = 'notify';
     protected $primaryKey = '_id';
 }
