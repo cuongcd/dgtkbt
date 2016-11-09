@@ -1,1 +1,4 @@
-laravel.log
+storage.app
+storage.debugbar
+storage.framework
+storage.logs
