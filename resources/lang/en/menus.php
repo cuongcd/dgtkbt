@@ -24,5 +24,8 @@ return [
     'result' => 'Kết Quả Đánh Giá',
     'classification' => 'Tổng hợp Đánh Giá',
     'my-acount' => 'Thông Tin Tài Khoản',
-    'notify' => 'Quản Lý Thông Báo'
+    'notify' => 'Quản Lý Thông Báo',
+    'missions' => 'Vị Trí Làm Việc',
+    'points'    => 'Loại Xếp Loại'
+
 ];

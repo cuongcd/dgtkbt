@@ -9,23 +9,15 @@
 namespace App\Helpers;
 
 use App\Models\DanhGia as Models;
+use App\Models\Point;
 
 class XepLoai
 {
     public static function XepLoai($diem)
     {
-        if ($diem >= 90)
-            return "A*";
-        if ($diem >= 85)
-            return "A1";
-        if ($diem >= 80)
-            return "A2";
-        if ($diem >= 70)
-            return "B1";
-        if ($diem >= 60)
-            return "B2";
-        if ($diem >= 50)
-            return "B3";
+        $xeploai = Point::where('diem','<=',$diem)->orderBy('diem','DESC')->get();
+        if($xeploai)
+            return $xeploai[0]->name;
         return "C";
     }
 

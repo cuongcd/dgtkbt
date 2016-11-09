@@ -241,5 +241,6 @@ return [
     'new_user' => 'New User',
     'user' =>'User',
     'role' =>'Role',
-    'current_month' => 'Đặt Làm Tháng Hiện Tại'
+    'current_month' => 'Đặt Làm Tháng Hiện Tại',
+    'missions' => 'Vị Trí Làm Việc',
 ];

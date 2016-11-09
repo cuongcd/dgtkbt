@@ -29,6 +29,10 @@ return [
         'url' => '/positions',
         'icon' => 'fa-list-alt',
     ],
+    'missions' => [
+        'url' => '/missions',
+        'icon' => 'fa-list-alt',
+    ],
     'works' => [
         'url' => '/works',
         'icon' => 'fa-list-alt',
@@ -51,6 +55,10 @@ return [
     ],
     'contributes'=>[
         'url' => '/contributes',
+        'icon' => 'fa-list-alt',
+    ],
+    'points'=>[
+        'url' => '/points',
         'icon' => 'fa-list-alt',
     ],
     'my-acount'=>[

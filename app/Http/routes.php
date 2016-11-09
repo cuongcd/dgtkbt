@@ -468,6 +468,41 @@ Route::group(array('prefix' => 'notify'), function () {
     Route::post('save/{id?}', array('as' => 'notify.save', 'uses' => 'NotifyController@save'));
     Route::get('delete/{id}', array('as' => 'notify.delete', 'uses' => 'NotifyController@delete'));
 });
+
+// Nhân vật tiêu biểu .
 Route::group(array('prefix' => 'mvp'), function () {
     Route::get('/', array('as' => 'notify', 'uses' => 'NotifyController@indexWithoutParam'));
+});
+
+// vị trí công việc.
+
+Route::group(array('prefix' => 'missions'), function () {
+    Route::get('/', array('as' => 'missions', 'uses' => 'WorkMissionController@indexWithoutParam'));
+    Route::get('index', array('as' => 'missions.list', 'uses' => 'WorkMissionController@indexWithoutParam'));
+    Route::get('create', array('as' => 'missions.create', 'uses' => 'WorkMissionController@create'));
+    Route::get('edit/{id}', array('as' => 'missions.edit', 'uses' => 'WorkMissionController@edit'));
+    Route::get('export/{type}', array('as' => 'missions.export', 'uses' => 'WorkMissionController@export'));
+    Route::get('index/filter/{param?}', array('as' => 'missions.list.param', 'uses' => 'WorkMissionController@index'));
+    Route::get('grid/filter/{param?}', array('as' => 'missions.grid', 'uses' => 'WorkMissionController@grid'));
+    Route::post('mass-delete', array('as' => 'missions.mass-delete', 'uses' => 'WorkMissionController@massDelete'));
+    Route::post('mass-status', array('as' => 'missions.mass-status', 'uses' => 'WorkMissionController@massStatus'));
+    Route::post('save/{id?}', array('as' => 'missions.save', 'uses' => 'WorkMissionController@save'));
+    Route::get('delete/{id}', array('as' => 'missions.delete', 'uses' => 'WorkMissionController@delete'));
+    Route::get('getlist', array('as' => 'missions.getlist', 'uses' => 'WorkMissionController@getList'));
+
+});
+Route::group(array('prefix' => 'points'), function () {
+    Route::get('/', array('as' => 'points', 'uses' => 'PointController@indexWithoutParam'));
+    Route::get('index', array('as' => 'points.list', 'uses' => 'PointController@indexWithoutParam'));
+    Route::get('create', array('as' => 'points.create', 'uses' => 'PointController@create'));
+    Route::get('edit/{id}', array('as' => 'points.edit', 'uses' => 'PointController@edit'));
+    Route::get('export/{type}', array('as' => 'points.export', 'uses' => 'PointController@export'));
+    Route::get('index/filter/{param?}', array('as' => 'points.list.param', 'uses' => 'PointController@index'));
+    Route::get('grid/filter/{param?}', array('as' => 'points.grid', 'uses' => 'PointController@grid'));
+    Route::post('mass-delete', array('as' => 'points.mass-delete', 'uses' => 'PointController@massDelete'));
+    Route::post('mass-status', array('as' => 'points.mass-status', 'uses' => 'PointController@massStatus'));
+    Route::post('save/{id?}', array('as' => 'points.save', 'uses' => 'PointController@save'));
+    Route::get('delete/{id}', array('as' => 'points.delete', 'uses' => 'PointController@delete'));
+    Route::get('getlist', array('as' => 'points.getlist', 'uses' => 'PointController@getList'));
+
 });

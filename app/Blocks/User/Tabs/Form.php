@@ -77,6 +77,21 @@ class Form extends BaseForm
                 'required' => true,
             ]);
         }
+        if (isset($data["_id"])) {
+            $this->_addField('mission_id', [
+                'label' => 'Vị Trí Làm Việc',
+                'type' => 'select',
+                "values" => Position::getListPositions($data['room_id']),
+                'required' => true,
+            ]);
+        } else {
+            $this->_addField('mission_id', [
+                'label' => 'Vị Trí Làm Việc',
+                'type' => 'select',
+                "values" => [],
+                'required' => true,
+            ]);
+        }
         $this->_addField('vaitro_id', [
             'label' => 'Vai Trò',
             'type' => 'select',

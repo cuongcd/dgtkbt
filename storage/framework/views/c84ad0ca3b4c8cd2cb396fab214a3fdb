@@ -1,0 +1,109 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5><?php echo e($tabs->getTitle()); ?></h5>
+                <div class="ibox-tools">
+                    <?php foreach($tabs->getButtons() as $buttonName => $button): ?>
+                        <button class="btn btn-sm <?php if($buttonName == 'back'): ?> btn-default <?php elseif($buttonName == 'delete'): ?> btn-danger <?php else: ?> btn-primary <?php endif; ?>" type="button" onclick="<?php echo e($button->getOnclick()); ?>">
+                            <i class="fa <?php echo e($button->getIcon()); ?>"></i>
+                            <span class="bold"><?php echo e($button->getLabel()); ?></span>
+                        </button>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <?php echo Form::open(array('url' => $tabs->getAction(), 'id'=> $tabs->getId(), 'method'=> $tabs->getMethod(),'enctype' => 'multipart/form-data', 'class'=>'form-horizontal')); ?>
+
+
+            <div class="panel">
+                    <div class="panel-heading row">
+                        <div class="panel-options">
+                            <ul class="nav nav-tabs">
+                                <?php $i = 0?>
+                                <?php foreach($tabs->getTabs() as $name => $tab): ?>
+                                    <li class="<?php echo e($name); ?> <?php if($i==0): ?> active <?php endif; ?>">
+                                        <a data-toggle="tab" href="#tab-<?php echo e($i++); ?>" data-url="<?php if(isset($tab['url'])): ?><?php echo e($tab['url']); ?><?php endif; ?>"><?php echo e($tab['label']); ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body row">
+                        <div class="tab-content">
+                            <?php $i = 0?>
+                            <?php foreach($tabs->getTabs() as $name => $tab): ?>
+                                <div class="<?php echo e($name); ?> tab-pane <?php if($i==0): ?> active <?php endif; ?>" id="tab-<?php echo e($i++); ?>">
+                                    <?php if(isset($tab['content'])): ?>
+                                        <div class="row">
+                                            <?php foreach($tab['content'] as $form): ?>
+                                                <?php if(isset($form['hidden'])): ?>
+                                                    <?php echo $form['content']; ?>
+
+                                                <?php else: ?>
+                                                    <div class="col-lg-<?php echo e($form['width']); ?>">
+                                                        <div class="ibox panel panel-default">
+                                                            <div class="panel-heading font-bold">
+                                                                <?php echo e($form['title']); ?>
+
+                                                                <?php if(isset($form['collapse']) && $form['collapse']): ?>
+                                                                <div class="ibox-tools">
+                                                                    <a class="collapse-link">
+                                                                        <i class="fa fa-chevron-up"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <div class="ibox-content panel-body">
+                                                                <?php if(isset($form['content'])): ?> <?php echo $form['content']->html(); ?> <?php endif; ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <?php echo e($tab['title']); ?>
+
+                                            </div>
+                                            <div class="panel-body"></div>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+
+            <?php echo Form::close(); ?>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green'
+        });
+    });
+    var countrystates = <?php echo json_encode($tabs->getCountryStates()); ?>;
+    var <?php echo e($tabs->getId()); ?> = new form('<?php echo e($tabs->getId()); ?>', countrystates);
+    var <?php echo e($tabs->getId()); ?>tabs = new tabs('<?php echo e($tabs->getId()); ?>');
+    function deleteItem(url){
+        if (confirm('<?php echo e(Lang::get('general.are_you_sure')); ?>')) {
+            window.location = url;
+        }
+    }
+</script>
+<?php if($tabs->getJs()): ?>
+    <?php if(count($tabs->getJsParams())): ?>
+        <script type="text/javascript">
+            <?php foreach($tabs->getJsParams() as $key => $value): ?>
+            var <?php echo e($key); ?> = '<?php echo e($value); ?>';
+            <?php endforeach; ?>
+        </script>
+    <?php endif; ?>
+    <script type="text/javascript" src="<?php echo e($tabs->getJsPath()); ?>"></script>
+<?php endif; ?>
