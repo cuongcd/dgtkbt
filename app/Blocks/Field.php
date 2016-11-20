@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: KK
+ * Date: 3/31/2015
+ * Time: 9:20 AM
+ */
 namespace App\Blocks;
 class Field  extends Widget{
     protected $_name;
@@ -31,10 +36,15 @@ class Field  extends Widget{
     protected $_min;
     protected $_max;
     protected $_step;
+    protected $_inline = false;
+    protected $_tooltip;
+    protected $_fileFormat;
+    protected $_wysiwyg;
+    protected $_crop_image;
+
     public function __construct($key, $data){
         $this->_key = $key;
         foreach($data as $property => $value){
-
             if($property == 'attributes'){
                 if(!is_array($value))
                     $value = [$value];
@@ -84,15 +94,23 @@ class Field  extends Widget{
             $attributes['equalto'] = '#'.$this->getConfirm();
         if($this->getPattern())
             $attributes['pattern'] = $this->getPattern();
-        if($this->getType() == 'textarea')
+        if($this->getType() == 'textarea'){
             $attributes['rows'] = $this->getRows();
-        elseif($this->getType() == 'number'){
+            if($this->isWysiwyg())
+                $attributes['class'] .= ' wysiwyg';
+        }
+
+        elseif($this->getType() == 'number') {
             $attributes['min'] = $this->getMin();
             $attributes['max'] = $this->getMax();
             $attributes['step'] = $this->getStep();
-        }
-        elseif($this->getType() == 'hidden')
+        }elseif($this->getType() == 'image' || $this->getType() == 'images'){
+
+        } elseif($this->getType() == 'hidden')
             return ['id' => $this->getId()];
+        elseif($this->getType() == 'color')
+            $attributes['class'] .= ' color-picker';
+
 
         if($this->isDisabled())
             $attributes[] = 'disabled';
@@ -116,5 +134,38 @@ class Field  extends Widget{
         if($this->getType() == 'multiselect')
             $attributes['multiple'] = true;
         return $attributes;
+    }
+
+    public function getAccept(){
+        if($this->getType() == 'image' || $this->getType() == 'images'){
+            if($this->getFileFormat()){
+                if(is_array($this->getFileFormat())){
+                    $formats = [];
+                    foreach($this->getFileFormat() as $format){
+                        $formats[] = 'image/'.$format;
+                    }
+                    return implode(', ', $formats);
+                }else
+                    return 'image/'.$this->getFileFormat();
+            }else{
+                return 'image/*';
+            }
+        }else{
+            if($this->getFileFormat()){
+                if(is_array($this->getFileFormat())){
+                    $formats = [];
+                    foreach($this->getFileFormat() as $format){
+                        $formats[] = '.'.$format;
+                    }
+                    return implode(', ', $formats);
+                }else{
+                    return '.'.$this->getFileFormat();
+                }
+            }
+        }
+    }
+
+    public function getCropImageInfo(){
+        return $this->_crop_image;
     }
 }

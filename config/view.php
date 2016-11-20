@@ -13,6 +13,7 @@ return [
 	|
 	*/
 
+	'cache' =>false,
 	'paths' => [
 		realpath(base_path('resources/views'))
 	],

@@ -664,10 +664,19 @@
         $('#month_id').change(function () {
             var thang = $('#month_id option:selected').text();
             $('#thang_danh_gia').text(thang);
+            $('#ajax-loading-mask').show();
+            $('#ajax-loading').show();
             getTongDiem();
-            getStatusDamhGia();
-            isUpdateDanhGia();
-            LoadData();
+            setTimeout(function(){
+                getStatusDamhGia();
+            }, 2000);
+            setTimeout(function(){
+                isUpdateDanhGia();
+            }, 2000);
+            setTimeout(function(){
+                LoadData();
+            }, 2000);
+
         });
         $('#duyet_danh_gia').change(function () {
             var thang_id = $('#month_id').val();
@@ -682,6 +691,8 @@
                 },
                 success: function (response) {
                     alert("Bạn Đã Update Thành Công");
+                    getStatusDamhGia();
+                    isUpdateDanhGia();
                 }
             });
 

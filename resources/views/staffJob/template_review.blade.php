@@ -24,13 +24,6 @@
 
                         <div class="col-lg-2">
                             <input type="date" id="month_id" name="month_id">
-                            {{--<select class="form-control input-sm valid" id="month_id" name="month_id"--}}
-                                    {{--aria-invalid="false">--}}
-                                {{--<option value=""></option>--}}
-                                {{--@foreach(\App\Helpers\Month::getAllMonth() as $key => $value)--}}
-                                    {{--<option value="{{$key}}">{{$value}}</option>--}}
-                                {{--@endforeach--}}
-                            {{--</select>--}}
                         </div>
 
                     </div>
@@ -249,7 +242,9 @@
         });
         $('#month_id').change(function () {
             getGrid();
-            getBanDanhGia();
+            setTimeout(function(){
+                getBanDanhGia();
+            }, 2000);
         });
         $('#update_grid').click(function () {
             getGrid();
@@ -498,6 +493,8 @@
                 },
                 success: function (response) {
                     getGrid()
+                    $('#ajax-loading-mask').hide();
+                    $('#ajax-loading').hide();
                 }
 
             });
@@ -511,18 +508,17 @@
                 },
                 url: "/staffs/getbandanhgia",
                 beforeSend: function () {
-                    $('#ajax-loading-mask').show();
-                    $('#ajax-loading').show();
                 },
                 success: function (response) {
                     if (response == 1)
                         bandanhgia = 1;
                     else
                         bandanhgia = 0;
-
                 }
 
-            });
+
+
+        });
         }
     });
 

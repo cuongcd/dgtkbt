@@ -15,6 +15,20 @@ $(document).ready(function () {
                 $("#ajax-loading").hide();
             }
         });
+        $.ajax({
+            type: "GET",
+            data: {'_id': $('#room_id').val()},
+            url: missition_url,
+            success: function (response) {
+                $('#mission_id').html(response);
+                $('.chosen-select').trigger("chosen:updated");
+                $("#ajax-loading-mask").hide();
+                $("#ajax-loading").hide();
+            }, error: function (response) {
+                $("#ajax-loading-mask").hide();
+                $("#ajax-loading").hide();
+            }
+        });
 
     });
     $('#chuyen_bac').click(function(){

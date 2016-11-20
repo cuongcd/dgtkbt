@@ -21,6 +21,10 @@ return [
         'url' => '/classification',
         'icon' => 'fa-bar-chart',
     ],
+    'mvps'=>[
+        'url' => '/mvps',
+        'icon' => 'fa fa-smile-o',
+    ],
     'my-acount'=>[
         'url' => '/my-acount',
         'icon' => 'fa fa-smile-o',

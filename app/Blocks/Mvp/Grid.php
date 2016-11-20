@@ -1,36 +1,40 @@
-<?php namespace App\Blocks\User;
+<?php namespace App\Blocks\Mvp;
 
 use App\Blocks\BaseGrid;
-use App\Helpers\Level;
-use App\Helpers\Position;
-use App\Helpers\Room;
+use App\Helpers\User;
 use URL;
 use Lang;
+use Auth;
+use App\Models\User as UserModel;
 
 class Grid extends BaseGrid
 {
+    private $is_permission = false;
     public function __construct($gridId, $resource, $collectionKey, $params = null, $toExport = false)
     {
-        $this->setTitle('Quản Lý Nhân Viên');
-        $this->setGridUrl(URL::to('users/index'));
-        $this->setAjaxGridUrl(URL::route('users.grid'));
+        $this->setTitle("");
+        $this->setGridUrl(URL::to('mvps/index'));
+        $this->setAjaxGridUrl(URL::route('mvps.grid'));
         parent::__construct($gridId, $resource, $collectionKey, $params, $toExport);
-
+        $id = Auth::id();
+        $user = UserModel::find($id);
+        if($user->vaitro_id==config('vaitro.TruongBan') || $user->vaitro_id==config('vaitro.PhoTruongBan')){
+            $this->is_permission = true;
+        }
+        if($user->vaitro_id==config('vaitro.TruongPhong') || $user->vaitro_id==config('vaitro.PhoTruongPhong'))
+            $this->is_permission = true;
     }
 
     protected function _addButtons()
     {
         parent::_addButtons();
-        $this->_addButton('add', [
-            'url' => URL::route('users.create'),
-            'label' => Lang::get('general.add_new')
-        ]);
+
     }
 
     protected function _addGridButtons()
     {
         $this->_addGridButton('download', [
-            'url' => URL::route('users.export', ['xlsx']),
+            'url' => URL::route('mvps.export', ['xlsx']),
             'label' => Lang::get('general.export_excel')
         ]);
         parent::_addGridButtons();
@@ -44,42 +48,38 @@ class Grid extends BaseGrid
     * */
     protected function _addMassactions()
     {
+        if ($this->is_permission) {
         $this
             ->_addMassaction('delete', [
                 'label' => Lang::get('general.delete'),
-                'url' => URL::route('users.mass-delete'),
+                'url' => URL::route('mvps.mass-delete'),
                 'confirm' => Lang::get('general.are_you_sure'),
             ]);
+         }
     }
 
     protected function _addColumns()
     {
         $this
-            ->_addColumn('email', [
-                'label' => 'email',
-            ])
-            ->_addColumn('first_name', [
-                'label' => 'Họ Tên',
-            ])
-            ->_addColumn('room_id', [
-                'label' => 'Phòng',
-                'type' =>'select',
-                'options' => Room::getListRoom(),
-
-            ])
-            ->_addColumn('level_id', [
-                'label' => 'Bậc',
-                'type' =>'select',
-                'options' => Level::getListLevel(),
-            ])
-            ->_addColumn('chucdanh_id', [
-                'label' => 'Chức Danh',
-                'type' =>'select',
+            ->_addColumn('user_id', [
+                'label' => 'Tên Nhân Viên',
                 'filter' =>false,
-                'options' => Position::getAllPositions()
+                'type'  => 'select',
+                'options' => User::getAllUser(),
             ])
-            ->_addColumn('seq_no', [
-                'label' => 'Thứ Tự',
+            ->_addColumn('nguoidexuat_id', [
+                'label' => 'Người Đề Xuất',
+                'filter' =>false,
+                'type'  => 'select',
+                'options' => User::getAllUser()
+//                'edit' =>true,
+            ])
+            ->_addColumn('ghichu', [
+                'label' => 'Thành Tích',
+                'filter' =>false,
+            ])
+            ->_addColumn('macdinh', [
+                'label' => 'Ban Duyệt',
                 'filter' =>false,
             ])
 
@@ -89,7 +89,7 @@ class Grid extends BaseGrid
                 'align' => 'center',
                 'links' => [
                     [
-                        'route' => 'users.edit',
+                        'route' => 'works.edit',
                         'fields' => ['_id'],
                         'getters' => ['_id'],
                         'type' => 'edit',
@@ -104,6 +104,6 @@ class Grid extends BaseGrid
 
     public function getRowUrl($row)
     {
-        return URL::route('users.edit', $row->_id);
+        return URL::route('works.edit', $row->_id);
     }
 }

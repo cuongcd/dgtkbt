@@ -11,21 +11,23 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Work extends Eloquent
+class Mvp extends Eloquent
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['name', 'level_id','chucdanh_id','room_id','heso','macdinh','mission_id'];
+    protected $fillable = ['user_id','thang_id','ghichu','nguoidexuat_id'];
 
     public static function rules($id = null)
     {
         return $rules = [
-            'name' => 'required',
+            'user_id' => 'required',
+            'thang_id' => 'required',
+            'ghichu'    => 'required',
         ];
     }
 
-    protected $table = 'chuyenmon';
+    protected $table = 'nv_tieubieu_thang';
     protected $primaryKey = '_id';
 
 

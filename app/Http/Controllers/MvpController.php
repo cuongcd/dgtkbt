@@ -9,23 +9,24 @@
 namespace App\Http\Controllers;
 
 use Input;
-use App\Blocks\WorkMission\Grid;
 use Redirect;
 use Lang;
+use View;
 use App;
-use App\Blocks\WorkMission\Tabs;
-
-class WorkMissionController extends Controller
+use App\Blocks\Mvp\Tabs;
+use App\Blocks\Mvp\Grid as GridReview;
+use Auth;
+class MvpController extends Controller
 {
     function __construct()
     {
         $this->middleware('auth');
-        $this->setGridId('missions');
-        $this->setTabsId('missions');
-        $this->setResource('App\Models\Mission');
-        $this->setSingularKey('missions');
-        $this->setPluralKey('missions');
-        $this->setModelClass('App\Models\Mission');
+        $this->setGridId('mvps');
+        $this->setTabsId('mvps');
+        $this->setResource('App\Models\Mvp');
+        $this->setSingularKey('mvps');
+        $this->setPluralKey('works');
+        $this->setModelClass('App\Models\Mvp');
     }
 
 
@@ -34,10 +35,18 @@ class WorkMissionController extends Controller
      */
     public function indexWithoutParam()
     {
-        $grid = new Grid($this->getGridId(), $this->getResource(), $this->getPluralKey());
-        $this->setGrid($grid);
-        $this->setPageTitle('Quản Lý Vị Trí Làm Việc');
-        return $this->loadGrid();
+
+        $reviewGrid = [];
+        if (isset($reviews) && !empty($reviews)) {
+            $reviewGrid = $this->reviews(null);
+        }
+        $product = [];
+        View::share([
+            'pageTitle' => 'Nhân Vật Tiêu Biểu',
+            'product' => $product,
+        ]);
+        return view('mvp.edit')->with('reviewGrid', $reviewGrid);
+
     }
 
 
@@ -47,11 +56,16 @@ class WorkMissionController extends Controller
      */
     public function index($filter = null)
     {
-        $params = $this->_parseFilter($filter);
-        $grid = new Grid($this->getGridId(), $this->getResource(), $this->getPluralKey(), $params);
-        $this->setGrid($grid);
-        $this->setPageTitle('Quản Lý Vị Trí Làm Việc');
-        return $this->loadGrid();
+        $reviewGrid = [];
+        if (isset($reviews) && !empty($reviews)) {
+            $reviewGrid = $this->reviews(null);
+        }
+        $product = [];
+        View::share([
+            'pageTitle' => 'Công Việc Chuyên Môn',
+            'product' => $product,
+        ]);
+        return view('product.edit')->with('reviewGrid', $reviewGrid);
     }
 
 
@@ -60,11 +74,11 @@ class WorkMissionController extends Controller
      * @param $filter
      */
     public function grid($filter)
-    {
-        $params = $this->_parseFilter($filter);
-        $grid = new Grid($this->getGridId(), $this->getResource(), $this->getPluralKey(), $params);
-        $this->setGrid($grid);
-        echo $this->loadAjaxGrid();
+    {   $params = $this->_parseFilter($filter);
+        $gridReview = new GridReview('works', 'App\Models\Work', 'works', $params);
+        $this->setGrid($gridReview);
+        return $this->loadGridReview();
+
     }
 
 
@@ -74,8 +88,7 @@ class WorkMissionController extends Controller
      */
     public function export($type)
     {
-        $grid = new Grid($this->getGridId(), $this->getResource(), $this->getPluralKey());
-        $this->exportFile($type, $grid);
+
     }
 
 
@@ -87,14 +100,16 @@ class WorkMissionController extends Controller
     {
         $idsString = Input::get($this->getGridId());
         $ids = explode(',', $idsString) ? explode(',', $idsString) : $idsString;
+//        print_r(json_encode($ids));die();
         $data = $this->massDestroy($ids);
         if (isset($data['errors)'])) {
-            return Redirect::route('missions.list')->with('error', $data['errors'][0]['message'])->withInput();
+            return Redirect::route('mvps.list')->with('error', $data['errors'][0]['message'])->withInput();
         } else {
             $count = count($data);
-            return Redirect::route('missions.list')->with('success',
+            return Redirect::route('mvps.list')->with('success',
                 Lang::get('messages.number_records_have_been_deleted', ['count' => $count]));
         }
+
     }
 
     /**
@@ -103,10 +118,29 @@ class WorkMissionController extends Controller
      */
     public function create()
     {
-        $this->setPageTitle('Thêm Vị Trí Làm Việc');
+        $this->setPageTitle("Công Việc Chuyên Môn");
         $tabs = new Tabs($this->getTabsId());
         $this->setTabs($tabs);
         return $this->loadTabs();
+    }
+    public function reviews($productId = null)
+    {
+        $input = Input::all();
+        if(isset($input['thang_id']) && $input['thang_id'] != null) {
+            $input['thang_id'] = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        }
+        $param['filter']= $input;
+        $gridReview = new GridReview('mvps', 'App\Models\Mvp', 'mvps', $param);
+        $this->setGrid($gridReview);
+        return $this->loadGridReview();
+    }
+
+    protected function loadGridReview()
+    {
+        return view('mvp.review', [
+            'content' => view('grid.container', ['grid' => $this->getGrid()]),
+            'pageTitle' => $this->getPageTitle()
+        ]);
     }
 
 
@@ -117,18 +151,19 @@ class WorkMissionController extends Controller
      */
     public function edit($id)
     {
-        $data = App\Models\Mission::find($id);
+        $data = App\Models\Work::find($id);
 
         if (isset($data['errors'])) {
-            return Redirect::route('missions.list')
+            return Redirect::route('works')
                 ->with('error', $data['errors'][0]['message'])
                 ->withInput();
         }
         App::instance($this->getTabsId(), $data);
-        $this->setPageTitle('Chức Danh' . ' # ' . $data['name']);
+        $this->setPageTitle(Lang::get('mvps.edit_CVCM') . ' # ' . $data['_id']);
         $tabs = new Tabs($this->getTabsId());
         $this->setTabs($tabs);
         return $this->loadTabs();
+
     }
 
     /**
@@ -146,20 +181,19 @@ class WorkMissionController extends Controller
         }
         if (isset($data['errors']))
             return $id ?
-                Redirect::route('missions.edit', [$id])
+                Redirect::route('mvps.edit', [$id])
                     ->with('error', $data['errors'][0]['message'])
                     ->withInput() :
 
-                Redirect::route('missions.create')
+                Redirect::route('mvps.create')
                     ->with('error', $data['errors'][0]['message'])
                     ->withInput();
         elseif (Input::get('tab')) {
             $id = $data['_id'];
-            return Redirect::route('missions.edit', [$id, 'tab' => Input::get('tab')])->with('success',
-                Lang::get('messages.the_role_has_been_saved'));
+            return Redirect::route('mvps.edit', [$id, 'tab' => Input::get('tab')])->with('success',"Lưu thành công công việc");
         } else {
-            return Redirect::route('missions.list')
-                ->with('success', Lang::get('messages.the_role_has_been_saved'));
+            return Redirect::route('mvps')
+                ->with('success', "Lưu thành công công việc");
         }
     }
 
@@ -176,30 +210,33 @@ class WorkMissionController extends Controller
             $data = $this->destroy($id);
             if (isset($data['errors']))
                 return $id ?
-                    Redirect::route('missions.edit', [$id])
+                    Redirect::route('mvps.edit', [$id])
                         ->with('error', $data['errors'][0]['message'])
                         ->withInput() :
 
-                    Redirect::route('missions.list')
+                    Redirect::route('mvps')
                         ->with('error', $data['errors'][0]['message'])
                         ->withInput();
             else {
-                return Redirect::route('missions.list')
+                return Redirect::route('mvps')
                     ->with('success', Lang::get('messages.the_role_has_been_deleted'));
             }
         } else {
-            return Redirect::route('missions.list')
+            return Redirect::route('mvps')
                 ->with('error', Lang::get('messages.does_not_exist'));
         }
+
+    }
+    public function addNew(){
+        auth()->check();
+        $input = $this->_processData(Input::all());
+        $input['nguoidexuat_id'] = \Auth::id();
+        $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        $input['thang_id'] = $thang_id;
+        $data = $this->store($input);
+        return;
     }
     public function getList(){
-        $input = Input::all();
-        $data = App\Helpers\ViTriLamViec::ViTriLamViecByRoomId($input["_id"]);
-        $tmp ="";
-        foreach ($data as $key => $value)
-        {
-            $tmp .= '<option value='.$key .'> '.$value.'</option>';
-        }
-        return $tmp;
+
     }
 }

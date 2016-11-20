@@ -506,3 +506,21 @@ Route::group(array('prefix' => 'points'), function () {
     Route::get('getlist', array('as' => 'points.getlist', 'uses' => 'PointController@getList'));
 
 });
+
+
+Route::group(array('prefix' => 'mvps'), function () {
+    Route::get('/', array('as' => 'mvps', 'uses' => 'MvpController@indexWithoutParam'));
+    Route::get('index', array('as' => 'mvps.list', 'uses' => 'MvpController@indexWithoutParam'));
+    Route::get('create', array('as' => 'mvps.create', 'uses' => 'MvpController@create'));
+    Route::get('edit/{id}', array('as' => 'mvps.edit', 'uses' => 'MvpController@edit'));
+    Route::get('export/{type}', array('as' => 'mvps.export', 'uses' => 'MvpController@export'));
+    Route::get('index/filter/{param?}', array('as' => 'mvps.list.param', 'uses' => 'MvpController@index'));
+    Route::get('grid/filter/{param?}', array('as' => 'mvps.grid', 'uses' => 'MvpController@grid'));
+    Route::post('mass-delete', array('as' => 'mvps.mass-delete', 'uses' => 'MvpController@massDelete'));
+    Route::post('mass-status', array('as' => 'mvps.mass-status', 'uses' => 'MvpController@massStatus'));
+    Route::post('save/{id?}', array('as' => 'mvps.save', 'uses' => 'MvpController@save'));
+    Route::get('addnew', array('as' => 'mvps.addnew', 'uses' => 'MvpController@addNew'));
+    Route::get('delete/{id}', array('as' => 'mvps.delete', 'uses' => 'MvpController@delete'));
+    Route::get('reviews', array('as' => 'mvps.reviews', 'uses' => 'MvpController@reviews'));
+
+});

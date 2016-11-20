@@ -7,7 +7,7 @@ use Redirect;
 use Lang;
 use App;
 use App\Blocks\User\Tabs as UserTabs;
-
+use DB;
 class UserController extends Controller
 {
     function __construct()
@@ -126,6 +126,14 @@ class UserController extends Controller
             $data['permissions'][$i]['_id'] = $role->_id;
             $data['permissions'][$i++]['name'] = $role->name;
         }
+        $taikhoanvitrilamviecs = DB::table('taikhoan_vitrilamviec')->where('user_id','=',$id)->get();
+
+        if(count($taikhoanvitrilamviecs)) {
+            foreach($taikhoanvitrilamviecs as $key => $value) {
+                $data['mission_id'][] = $value->vitrilamviec_id;
+            }
+        }
+
         App::instance($this->getTabsId(), $data);
         $this->setPageTitle(Lang::get('users.edit_user') . ' # ' . $data['first_name'] . ' ' . $data['last_name']);
         $tabs = new UserTabs($this->getTabsId());
@@ -147,11 +155,27 @@ class UserController extends Controller
             unset($input['password']);
 
         $input['email'] = mb_strtolower($input['email']);
+        if(strpos($input['email'], '@') < 1) {
+            $input['email'] = $input['email'] . '@vtv.com';
+        }
         if (!$id) {
             $data = $this->store($input);
         } else {
             $data = $this->update($id, $input);
         }
+        if(!isset($data['errors'])) {
+            $id = $data['_id'];
+            if(isset($input['mission_id'])) {
+                DB::table('taikhoan_vitrilamviec')->where('user_id','=',$id)->delete();
+                foreach ( $input['mission_id'] as $key =>$value ) {
+                        $tmp['user_id'] = $id;
+                        $tmp['vitrilamviec_id'] = $value;
+                        $taikhoanvitrilamviec = new App\Models\TaiKhoanViTriLamViec($tmp);
+                        $taikhoanvitrilamviec->save();
+                }
+            }
+        }
+
         if (isset($data['errors']))
             return $id ?
                 Redirect::route('users.edit', [$id])

@@ -1,23 +1,20 @@
-<?php namespace App\Blocks\User;
+<?php namespace App\Blocks\Mvp;
 
 use App\Blocks\BaseTabs;
-use App\Blocks\User\Tabs\Form as UserForm;
-use App\Blocks\User\Tabs\FormLevel;
+use App\Blocks\Mvp\Tabs\Form as UserForm;
 use URL;
 use Lang;
-use App\Blocks\User\Tabs\GeneralForm;
 class Tabs extends BaseTabs
 {
     public function __construct($tabId)
     {
-        $prefixRoute = 'users';
+        $prefixRoute = 'mvps';
         parent::__construct($tabId, $prefixRoute);
         $data = $this->getData();
-        $title = $data['_id'] ? 'Nhân Viên' . ' # ' . $data['first_name'] : 'Thêm Nhân Viên';
+        $title = $data['_id'] ? 'Công Việc Chuyên Môn  # ' . $data['_id'] : "Công Việc Chuyên Môn";
         $this->setTitle($title);
         $this->setJs('inventory/users.js', [
             'url' => URL::route("positions.getlist"),
-            'changeUrl' => URL::route("users.changer_level"),
             'missition_url' => URL::route("missions.getlist"),
         ]);
     }
@@ -31,37 +28,13 @@ class Tabs extends BaseTabs
         $data = $this->getData();
         $form = new UserForm($data);
         $this->_addTab('form', [
-            'label' => Lang::get('general.user'),
+            'label' => 'Công Việc Chuyên Môn',
             'content' => [
                 'information_form' => [
                     'title' => Lang::get('general.information'),
                     'content' => $form,
                     'width' => '12',
                     'collapse' => true,
-                ]
-            ]
-        ]);
-        if(isset($data["_id"])){
-            $form = new FormLevel($data);
-            $this->_addTab('level', [
-                'label' => 'Chuyển Bậc',
-                'content' => [
-                    'form' => [
-                        'title' => Lang::get('general.information'),
-                        'content' => $form,
-                        'width' => '12'
-                    ]
-                ]
-            ]);
-        }
-        $form = new GeneralForm($data);
-        $this->_addTab('role', [
-            'label' => trans('general.information'),
-            'content' => [
-                'form' => [
-                    'title' => Lang::get('general.information'),
-                    'content' => $form,
-                    'width' => '12'
                 ]
             ]
         ]);
@@ -79,7 +52,7 @@ class Tabs extends BaseTabs
         if ($this->getDataId() && isset($data['status']) && $data['status'] == 1) {
             $this->_addButton('delete', [
                     'label' => Lang::get('general.delete'),
-                    'url' => URL::route('users.delete', array($this->getDataId())),
+                    'url' => URL::route('mvps.delete', array($this->getDataId())),
                     'sort' => 50
                 ]
             );

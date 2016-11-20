@@ -134,7 +134,16 @@ class RateController extends Controller
         } else {
             $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
         }
+
         $param['filter']['thang_id'] = $thang_id;
+        if(!(isset($input['room_id'])) || $input['room_id'] <= 0) {
+            $id = Auth::id();
+
+            $user = App\Models\User::find($id);
+            $param['filter']['room_id'] = $user->room_id;
+            $input['room_id'] = $user->room_id;
+        }
+
         App\Helpers\DanhGia::getDanhGiaByPhong($input['room_id'], $thang_id);
         $gridReview = new GridReview('staffsRate', 'App\Models\User', 'staffsRate', $param);
         $this->setGrid($gridReview);

@@ -1,4 +1,4 @@
-<?php namespace App\Blocks\Work\Tabs;
+<?php namespace App\Blocks\Mvp\Tabs;
 
 use App\Blocks\BaseForm;
 use App\Helpers\Level;

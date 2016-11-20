@@ -141,8 +141,6 @@
         function getGrid() {
             var room_id = parseInt($('#room_id').val());
             var month_id = $('#month_id').val();
-            if(isNaN(room_id))
-                return;
             $.ajax({
                 data: {
                     'room_id': room_id,

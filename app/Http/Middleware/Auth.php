@@ -51,7 +51,7 @@ class Auth
             }
             return new RedirectResponse(url('/users/login'));
         } catch (\Exception $e) {
-            return new RedirectResponse(url('/users/login'));
+//            return new RedirectResponse(url('/users/login'));
         }
     }
 }

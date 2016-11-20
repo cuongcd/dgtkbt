@@ -9,7 +9,7 @@ class Grid extends BaseGrid
 {
     public function __construct($gridId, $resource, $collectionKey, $params = null, $toExport = false)
     {
-        $this->setTitle('Quản Lý Vị Trí Làm Viz');
+        $this->setTitle('Quản Lý Vị Trí Làm Việc');
         $this->setGridUrl(URL::to('missions/index'));
         $this->setAjaxGridUrl(URL::route('missions.grid'));
         parent::__construct($gridId, $resource, $collectionKey, $params, $toExport);
@@ -127,16 +127,16 @@ class Grid extends BaseGrid
             $model = $model->orderBy($query['order'], $query['dir']);
         }
 
-        $offset = isset($query['page']) ? 10 * ($query['page'] - 1) : 0;
+        $offset = isset($query['page']) ? 20 * ($query['page'] - 1) : 0;
         $total = $model->count();
-        $rows = $model->skip($offset)->take(10)->get();
+        $rows = $model->skip($offset)->take(20)->get();
         $ids = $model->lists('_id');
 
         return [
             'all_ids' => $ids,
             'items' => $rows->toArray(),
             'total' => $total,
-            'page_size' => 10,
+            'page_size' => 20,
             'from' => $offset,
         ];
     }

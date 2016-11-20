@@ -26,6 +26,7 @@ return [
     'my-acount' => 'Thông Tin Tài Khoản',
     'notify' => 'Quản Lý Thông Báo',
     'missions' => 'Vị Trí Làm Việc',
-    'points'    => 'Loại Xếp Loại'
+    'points'    => 'Loại Xếp Loại',
+    'mvps'      => 'Nhân Vật Tiêu Biểu',
 
 ];

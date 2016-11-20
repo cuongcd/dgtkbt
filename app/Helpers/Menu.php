@@ -19,12 +19,7 @@ class Menu
 
         $user = UserModel::find($id);
         if($user->vaitro_id==config('vaitro.TruongBan') || $user->vaitro_id==config('vaitro.PhoTruongBan')){
-
             $menu = Config::get('menus');
-//            $menu['abc'] = ['url' => '/my-acount1',
-//                'icon' => 'fa fa-smile-o',
-//            ];
-//            print_r(json_encode($menu)); die();
             return $menu;
         }
         if($user->vaitro_id==config('vaitro.TruongPhong') || $user->vaitro_id==config('vaitro.PhoTruongPhong'))

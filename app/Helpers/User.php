@@ -34,8 +34,29 @@ class User
     public static function GetAllThongBao(){
         $notifies = (Notify::where('status','=',1)->get());//->orderBy('seq_no','ASC')
         return $notifies;
-//        print_r(json_encode($notifies));
-//        die();die
+    }
+
+    public static function getAllUser() {
+        $temps = UserModel::select('_id','first_name')->where('first_name', '<>','null')->get();
+        $result = [];
+        foreach($temps as $key => $value) {
+            $result[$value->_id] = $value->first_name;
+        }
+
+        return $result;
+    }
+
+    public function isPermissionAddMvp() {
+        $is_permission = false;
+        $id = Auth::id();
+        $user = UserModel::find($id);
+        var_dump($user);die();
+        if($user->vaitro_id==config('vaitro.TruongBan') || $user->vaitro_id==config('vaitro.PhoTruongBan')){
+            $is_permission = true;
+        }
+        if($user->vaitro_id==config('vaitro.TruongPhong') || $user->vaitro_id==config('vaitro.PhoTruongPhong'))
+            $is_permission  = true;
+        return $is_permission;
     }
 
 }

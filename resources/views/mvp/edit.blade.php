@@ -11,7 +11,7 @@
                     <input type="hidden" name="tab" value=""/>
                     <div class="tab-content tab-product">
                         <div id="product_info" class="tab-pane fade in active">
-                            @include('product.template_review')
+                            @include('mvp.template_review')
                         </div>
                     </div>
                 </form>

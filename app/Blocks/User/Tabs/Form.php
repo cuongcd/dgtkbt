@@ -5,6 +5,7 @@ use App\Helpers\Level;
 use App\Helpers\Position;
 use App\Helpers\Role;
 use App\Helpers\Room;
+use App\Helpers\ViTriLamViec;
 use Lang;
 
 class Form extends BaseForm
@@ -79,23 +80,28 @@ class Form extends BaseForm
         }
         if (isset($data["_id"])) {
             $this->_addField('mission_id', [
+                'type' => 'multiselect',
+                'class' => 'chosen-select',
                 'label' => 'Vị Trí Làm Việc',
-                'type' => 'select',
-                "values" => Position::getListPositions($data['room_id']),
-                'required' => true,
+                'values' =>ViTriLamViec::ViTriLamViecByRoomId($data['room_id']),
             ]);
         } else {
             $this->_addField('mission_id', [
+                'type' => 'multiselect',
+                'class' => 'chosen-select',
                 'label' => 'Vị Trí Làm Việc',
-                'type' => 'select',
-                "values" => [],
-                'required' => true,
+                'values' => ViTriLamViec::getAllViTriLamViec(),
             ]);
         }
         $this->_addField('vaitro_id', [
             'label' => 'Vai Trò',
             'type' => 'select',
             'values' => Role::getListRoles(),
+            'required' => true,
+        ]);
+        $this->_addField('seq_no', [
+            'label' => 'Thứ Tự',
+            'type' => 'num',
             'required' => true,
         ]);
 

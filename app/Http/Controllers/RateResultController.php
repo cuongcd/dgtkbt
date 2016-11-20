@@ -165,6 +165,13 @@ class RateResultController extends Controller
         $param['filter'] = $input;
         if(isset($input['thang_id']) &&  $input['thang_id'] > 0)
             $param['filter']['thang_id'] = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        if(!(isset($input['room_id'])) || $input['room_id'] <= 0) {
+            $id = Auth::id();
+
+            $user = App\Models\User::find($id);
+            $param['filter']['room_id'] = $user->room_id;
+            $input['room_id'] = $user->room_id;
+        }
         $gridReview = new GridReview('results', 'App\Models\User', 'results', $param);
         $this->setGrid($gridReview);
         return $this->loadGridReview();

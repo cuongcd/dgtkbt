@@ -15,7 +15,8 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['email', 'password', 'isAdmin', 'first_name', 'last_name', 'note', 'phone','status','username','room_id','level_id','chucdanh_id','vaitro_id'];
+    protected $fillable = ['email', 'password', 'isAdmin', 'first_name', 'last_name', 'note', 'phone',
+        'status','username','room_id','level_id','chucdanh_id','vaitro_id','seq_no'];
 
     protected $table = 'users';
 

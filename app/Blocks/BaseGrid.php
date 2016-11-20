@@ -87,6 +87,7 @@ class BaseGrid extends Widget
         if (isset($query['filter'])) {
             foreach ($query['filter'] as $key => $val) {
                 if (is_array($val)) {
+                    die('aaaaa');
                     if (isset($val['like'])) {
                         $model = $model->where($key, 'like', '%' . $val['like'] . '%');
                     }
@@ -102,6 +103,7 @@ class BaseGrid extends Widget
                     }
 
                 } else {
+
                     $model = $model->where($key, '=', $val);
                 }
             }
@@ -110,7 +112,6 @@ class BaseGrid extends Widget
         if (isset($query['order']) && $query['order'] != 'seq_no') {
             $model = $model->orderBy($query['order'], $query['dir']);
         }
-
         $offset = isset($query['page']) ? 20 * ($query['page'] - 1) : 0;
         $total = $model->count();
         $rows = $model->skip($offset)->take(20)->get();
