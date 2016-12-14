@@ -27,3 +27,5 @@ storage/framework/sessions/fea8ff8d92255868892760563d6c9380096a4845
 
 public/assets/import
 *.xlsx
+
+.idea/dataSources.ids
