@@ -25,4 +25,5 @@ storage/framework/views/832733ae3cc50c4e2b65aebf141b58bd
 
 storage/framework/sessions/fea8ff8d92255868892760563d6c9380096a4845
 
-public/assets
+public/assets/import
+*.xlsx
