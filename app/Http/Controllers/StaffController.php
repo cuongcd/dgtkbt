@@ -135,6 +135,8 @@ class StaffController extends Controller
         $param['filter'] = $input;
         if(isset($input['thang_id']) && $input['thang_id'] > 0){
             $param['filter']['thang_id'] = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $param['filter']['thang_id'] =App\Helpers\Month::getCurrentMonth()->_id;
         }
         if (!isset($input['room_id']) || $input['room_id'] <= 0) {
             $id = Auth::id();
@@ -286,8 +288,11 @@ class StaffController extends Controller
         if (isset($work['errors'])) {
             return;
         }
-        $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
-        $tmp = App\Models\StaffJob::where('congviec_id','=',$input['congviec_id'])->where('user_id','=',$data['_id'])
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+        }        $tmp = App\Models\StaffJob::where('congviec_id','=',$input['congviec_id'])->where('user_id','=',$data['_id'])
             ->where('thang_id','=',$thang_id)->first();
         if($tmp){
             $tmp->khoiluong =  $input['khoiluong'];
@@ -318,7 +323,13 @@ class StaffController extends Controller
             return;
         if (!isset($input['jobname']) || !isset($input['khoiluong']) || !isset($input['thang_id']) || !isset($input['heso']))
             return;
-        $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+        }
+
         $staffJob = new App\Models\StaffJob();
         $staffJob->congviec_id = 0;
         $staffJob->name = $input['jobname'];
@@ -345,11 +356,15 @@ class StaffController extends Controller
             return;
         if (!isset($input['thang_id']))
             return;
-        $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+        }
         $work = App\Models\Work::where('level_id','=',$data->level_id)
             ->where('room_id','=',$data->room_id)
             ->where('chucdanh_id','=',$data->chucdanh_id)->get();
-//        print_r(json_encode($work)); die();
         if (isset($work['errors'])) {
             return;
         }
@@ -388,7 +403,12 @@ class StaffController extends Controller
         if (!isset($input['thang_id']) ||!isset($input['month_apply']))
             return;
 
-        $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+        }
+
         $month_apply_id = App\Helpers\Month::getMonthIdByDate($input['month_apply']);
 
         $word = App\Models\StaffJob::where('user_id','=', $data->_id)
@@ -423,7 +443,13 @@ class StaffController extends Controller
 
     public function getBanDanhGia(){
         $input = $this->_processData(Input::all());
-        $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+        }
+
         if(App\Helpers\DanhGia::getIsBanDanhGia($thang_id))
         {
             echo (1);

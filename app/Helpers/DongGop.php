@@ -15,7 +15,7 @@ class DongGop
         $data = \Session::get('staffData');
         if(!isset($data))
             return [];
-        $Job = ModelClass::where('level_id' ,'=',$data->level_id)->where('chucdanh_id','=',$data->chucdanh_id)->get();
+        $Job = ModelClass::get();
         if (isset($Job['errors'])) {
             return [];
         }

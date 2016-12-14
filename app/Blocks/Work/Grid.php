@@ -29,11 +29,11 @@ class Grid extends BaseGrid
 
     protected function _addGridButtons()
     {
-//        $this->_addGridButton('download', [
-//            'url' => URL::route('works.export', ['xlsx']),
-//            'label' => Lang::get('general.export_excel')
+//        $this->_addGridButton('import', [
+//            'label' => trans('general.import'),
+//            'type' => 'upload'
 //        ]);
-//        parent::_addGridButtons();
+//        parent::_addGridButton();
     }
 
     /*

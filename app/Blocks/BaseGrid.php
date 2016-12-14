@@ -87,7 +87,6 @@ class BaseGrid extends Widget
         if (isset($query['filter'])) {
             foreach ($query['filter'] as $key => $val) {
                 if (is_array($val)) {
-                    die('aaaaa');
                     if (isset($val['like'])) {
                         $model = $model->where($key, 'like', '%' . $val['like'] . '%');
                     }

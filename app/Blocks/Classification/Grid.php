@@ -166,12 +166,17 @@ class Grid extends BaseGrid
             }
         }
 
-        if (isset($query['order']) && $query['order'] != 'seq_no') {
-            if ($query['order'] == '_id' || $query['order'] == 'status')
-                $model = $model->orderBy($query['order'], $query['dir']);
-            else
-                $model = $model->orderBy($query['order'], $query['dir']);
-        }
+
+        $query['order'] = 'seq_no' ;
+        $query['dir'] = 'ASC';
+        $model = $model->orderBy($query['order'], $query['dir']);
+
+//        if (isset($query['order']) && $query['order'] != 'seq_no') {
+//            if ($query['order'] == '_id' || $query['order'] == 'status')
+//                $model = $model->orderBy($query['order'], $query['dir']);
+//            else
+//                $model = $model->orderBy($query['order'], $query['dir']);
+//        }
         $total = $model->count();
         $offset = isset($query['page']) ? 15 * ($query['page'] - 1) : 0;
         $rows = $model->skip($offset)->take(15)->get();

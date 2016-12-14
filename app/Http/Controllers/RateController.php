@@ -327,14 +327,20 @@ class RateController extends Controller
         if (!$tmp) {
             return;
         }
-//        print_r(json_encode($tmp)); die();
 
         $tiendo = new App\Models\TiendoTaiKhoanThang();
         $tiendo->name = $tmp->name;
         $tiendo->tiendo_id = $tmp->_id;
         $tiendo->diemtru = $tmp->diemtru;
         $tiendo->user_id = $data->_id;
-        $tiendo->thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+        }
+
+        $tiendo->thang_id = $thang_id;
         if (App\Helpers\VaiTro::getEditPhong())
             $tiendo->td_phongtru = $input['diemtru'];
         $tiendo->td_bantru = $input['diemtru'];
@@ -437,14 +443,21 @@ class RateController extends Controller
         if (!$tmp) {
             return;
         }
-//        print_r(json_encode($tmp)); die();
 
         $tiendo = new App\Models\ChatLuongTaiKhoanThang();
         $tiendo->name = $tmp->name;
         $tiendo->chatluong_id = $tmp->_id;
         $tiendo->diemtru = $tmp->diemtru;
         $tiendo->user_id = $data->_id;
-        $tiendo->thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+        }
+
+        $tiendo->thang_id = $thang_id;
+
         if (App\Helpers\VaiTro::getEditPhong())
             $tiendo->cl_phongtru = $input['diemtru'];
         $tiendo->cl_bantru = $input['diemtru'];
@@ -547,14 +560,19 @@ class RateController extends Controller
         if (!$tmp) {
             return;
         }
-//        print_r(json_encode($tmp)); die();
 
         $kyluat = new App\Models\KyLuatTaiKhoanThang();
         $kyluat->name = $tmp->name;
         $kyluat->kyluat_id = $tmp->_id;
         $kyluat->diemtru = $tmp->diemtru;
         $kyluat->user_id = $data->_id;
-        $kyluat->thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+        }
+
+        $kyluat->thang_id = $thang_id;
         if (App\Helpers\VaiTro::getEditPhong())
             $kyluat->kl_phongtru = $input['diemtru'];
         $kyluat->kl_bantru = $input['diemtru'];
@@ -666,7 +684,14 @@ class RateController extends Controller
         $phamchat->phamchat_id = $tmp->_id;
         $phamchat->diemtru = $tmp->diemtru;
         $phamchat->user_id = $data->_id;
-        $phamchat->thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+        }
+
+        $phamchat->thang_id = $thang_id;
         if (App\Helpers\VaiTro::getEditPhong())
             $phamchat->pc_phongtru = $input['diemtru'];
         $phamchat->pc_bantru = $input['diemtru'];
@@ -771,17 +796,24 @@ class RateController extends Controller
         }
 //        print_r(json_encode($tmp)); die();
 
-        $phamchat = new App\Models\DongGopTaiKhoanThang();
-        $phamchat->name = $tmp->name;
-        $phamchat->donggop_id = $tmp->_id;
-        $phamchat->diemcong = $tmp->diemcong;
-        $phamchat->user_id = $data->_id;
-        $phamchat->thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        $donggop = new App\Models\DongGopTaiKhoanThang();
+        $donggop->name = $tmp->name;
+        $donggop->donggop_id = $tmp->_id;
+        $donggop->diemcong = $tmp->diemcong;
+        $donggop->user_id = $data->_id;
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+        }
+        $donggop->thang_id = $thang_id;
+
         if (App\Helpers\VaiTro::getEditPhong())
-            $phamchat->dg_phongcong = $input['diemtru'];
-        $phamchat->dg_bancong = $input['diemtru'];
-        $phamchat->ghichu = $input['ghichu'];
-        $phamchat->save();
+            $donggop->dg_phongcong = $input['diemtru'];
+        $donggop->dg_bancong = $input['diemtru'];
+        $donggop->ghichu = $input['ghichu'];
+        $donggop->save();
+
         return;
     }
 
@@ -835,7 +867,7 @@ class RateController extends Controller
         if (isset($input['thang_id']) && $input['thang_id'] > 0)
             $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
         else
-            $thang_id = App\Helpers\Month::getCurrentMonth();
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
         $self = 0;
         if(isset($input['self']) && $input['self'] == 1)
             $self = 1;
@@ -855,8 +887,12 @@ class RateController extends Controller
         if (isset($input['thang_id']) && $input['thang_id'] > 0)
             $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
         else
-            $thang_id = App\Helpers\Month::getCurrentMonth();
-        return App\Helpers\DanhGia::getStatusRate($thang_id);
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+
+        $self = false;
+        if(isset($input['self']) && $input['self'] == 1)
+            $self = true;
+        return App\Helpers\DanhGia::getStatusRate($thang_id, $self);
     }
     public function isUpdate()
     {
@@ -870,8 +906,12 @@ class RateController extends Controller
         if (isset($input['thang_id']) && $input['thang_id'] > 0)
             $thang_id =  App\Helpers\Month::getMonthIdByDate($input['thang_id']);
         else
-            $thang_id = App\Helpers\Month::getCurrentMonth();
-        return App\Helpers\DanhGia::isUpdateDanhGia($thang_id);
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+
+        $self = false;
+        if(isset($input['self']) && $input['self'] == 1)
+            $self = true;
+        return App\Helpers\DanhGia::isUpdateDanhGia($thang_id, $self);
     }
 
 

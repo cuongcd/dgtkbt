@@ -9,25 +9,18 @@ use App\Models\User as UserModel;
 
 class Grid extends BaseGrid
 {
-    private $is_permission = false;
+    public $is_permission;
     public function __construct($gridId, $resource, $collectionKey, $params = null, $toExport = false)
     {
         $this->setTitle("");
         $this->setGridUrl(URL::to('mvps/index'));
         $this->setAjaxGridUrl(URL::route('mvps.grid'));
         parent::__construct($gridId, $resource, $collectionKey, $params, $toExport);
-        $id = Auth::id();
-        $user = UserModel::find($id);
-        if($user->vaitro_id==config('vaitro.TruongBan') || $user->vaitro_id==config('vaitro.PhoTruongBan')){
-            $this->is_permission = true;
-        }
-        if($user->vaitro_id==config('vaitro.TruongPhong') || $user->vaitro_id==config('vaitro.PhoTruongPhong'))
-            $this->is_permission = true;
     }
 
     protected function _addButtons()
     {
-        parent::_addButtons();
+//        parent::_addButtons();
 
     }
 
@@ -37,7 +30,8 @@ class Grid extends BaseGrid
             'url' => URL::route('mvps.export', ['xlsx']),
             'label' => Lang::get('general.export_excel')
         ]);
-        parent::_addGridButtons();
+
+//        parent::_addGridButtons();
     }
 
     /*
@@ -48,14 +42,25 @@ class Grid extends BaseGrid
     * */
     protected function _addMassactions()
     {
-        if ($this->is_permission) {
-        $this
-            ->_addMassaction('delete', [
-                'label' => Lang::get('general.delete'),
-                'url' => URL::route('mvps.mass-delete'),
-                'confirm' => Lang::get('general.are_you_sure'),
-            ]);
-         }
+
+        $id = Auth::id();
+        $user = UserModel::find($id);
+        if($user->vaitro_id == config('vaitro.TruongBan') || $user->vaitro_id == config('vaitro.PhoTruongBan')){
+            $this
+                ->_addMassaction('delete', [
+                    'label' => Lang::get('general.delete'),
+                    'url' => URL::route('mvps.mass-delete'),
+                    'confirm' => Lang::get('general.are_you_sure'),
+                ]);
+        }
+        if($user->vaitro_id == config('vaitro.TruongPhong') || $user->vaitro_id  ==config('vaitro.PhoTruongPhong')) {
+            $this
+                ->_addMassaction('delete', [
+                    'label' => Lang::get('general.delete'),
+                    'url' => URL::route('mvps.mass-delete'),
+                    'confirm' => Lang::get('general.are_you_sure'),
+                ]);
+        }
     }
 
     protected function _addColumns()
@@ -66,44 +71,53 @@ class Grid extends BaseGrid
                 'filter' =>false,
                 'type'  => 'select',
                 'options' => User::getAllUser(),
+                'sort' => false,
             ])
             ->_addColumn('nguoidexuat_id', [
                 'label' => 'Người Đề Xuất',
                 'filter' =>false,
                 'type'  => 'select',
-                'options' => User::getAllUser()
+                'options' => User::getAllUser(),
+                'sort' => false,
 //                'edit' =>true,
             ])
             ->_addColumn('ghichu', [
                 'label' => 'Thành Tích',
                 'filter' =>false,
+                'sort' => false,
             ])
-            ->_addColumn('macdinh', [
+            ->_addColumn('is_banduyet', [
                 'label' => 'Ban Duyệt',
                 'filter' =>false,
-            ])
-
-            ->_addColumn('action', [
-                'label' => Lang::get('general.action'),
-                'type' => 'action',
-                'align' => 'center',
-                'links' => [
-                    [
-                        'route' => 'works.edit',
-                        'fields' => ['_id'],
-                        'getters' => ['_id'],
-                        'type' => 'edit',
-                        'label' => Lang::get('general.edit'),
-                        'options' => ['title' => Lang::get('general.edit')],
-                    ],
-                ],
-                'filter' => false,
+                'type' => 'select',
                 'sort' => false,
+                'options' => [
+                    0 => 'Chưa duyệt',
+                    1 => 'Đã duyệt'
+                ]
             ]);
+
+//            ->_addColumn('action', [
+//                'label' => Lang::get('general.action'),
+//                'type' => 'action',
+//                'align' => 'center',
+//                'links' => [
+//                    [
+//                        'route' => 'works.edit',
+//                        'fields' => ['_id'],
+//                        'getters' => ['_id'],
+//                        'type' => 'edit',
+//                        'label' => Lang::get('general.edit'),
+//                        'options' => ['title' => Lang::get('general.edit')],
+//                    ],
+//                ],
+//                'filter' => false,
+//                'sort' => false,
+//            ]);
     }
 
     public function getRowUrl($row)
     {
-        return URL::route('works.edit', $row->_id);
+//        return URL::route('works.edit', $row->_id);
     }
 }

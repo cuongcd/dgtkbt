@@ -28,5 +28,6 @@ return [
     'missions' => 'Vị Trí Làm Việc',
     'points'    => 'Loại Xếp Loại',
     'mvps'      => 'Nhân Vật Tiêu Biểu',
+    'roomcharges' => 'Phòng Phụ Trách'
 
 ];

@@ -15,6 +15,7 @@ class Tabs extends BaseTabs
         $this->setTitle($title);
         $this->setJs('inventory/users.js', [
             'url' => URL::route("positions.getlist"),
+            'missition_url' => URL::route("missions.getlist"),
         ]);
     }
 

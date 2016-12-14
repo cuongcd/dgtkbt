@@ -57,10 +57,17 @@
                         </div>
 
 
-                        <label class="col-lg-2 control-label">Chức Danh</label>
+                        <label class="col-lg-1 control-label">Chức Danh</label>
 
                         <div class="col-lg-2">
                             <select class="form-control input-sm valid" id="position_id" name="position_id" aria-invalid="false">
+
+                            </select>
+                        </div>
+                        <label class="col-lg-1 control-label">Vị Trí </label>
+
+                        <div class="col-lg-2">
+                            <select class="form-control input-sm valid" id="mission_id" name="mission_id" aria-invalid="false">
 
                             </select>
                         </div>
@@ -73,6 +80,20 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-8">
+                        </div>
+                        <div class="right">
+                            <button class="btn btn-sm btn-info import-button" type="button" id="uploadfile">
+                                <i class="fa fa-upload"></i>
+                                <span class="bold">Import File</span>
+                            </button>
+                        </div>
+
+                        <div class="right">
+                            <input type="file" id="basicModuleImage"  name="basicModuleImage" />
+                        </div>
                         <div class="col-lg-2">
                             <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                                  id="add_new_key">
@@ -81,7 +102,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hr-line-dashed"></div>
                 </fieldset>
             </div>
         </div>
@@ -117,6 +137,20 @@
                     $("#ajax-loading").hide();
                 }
             });
+            $.ajax({
+                type: "GET",
+                data: {'_id': $('#room_id').val()},
+                url: 'missions/getlist',
+                success: function (response) {
+                    $('#mission_id').html(response);
+                    $("#mission_id").val($("#position_id option:first").val());
+                    $("#ajax-loading-mask").hide();
+                    $("#ajax-loading").hide();
+                }, error: function (response) {
+                    $("#ajax-loading-mask").hide();
+                    $("#ajax-loading").hide();
+                }
+            });
             getGrid();
         });
         $('#position_id').change(function(){
@@ -125,10 +159,15 @@
         $('#level_id').change(function(){
             getGrid();
         });
+        $('#mission_id').change(function(){
+            getGrid();
+        });
         $('#save_cv').click(function(){
             var room_id = parseInt($('#room_id').val());
             var level_id = parseInt($('#level_id').val());
             var position_id = parseInt($('#position_id').val());
+            var mission_id = parseInt($('#mission_id').val());
+
             var name = $('#newname').val();
             var heso = parseInt($('#diemtru').val());
             if(room_id <= 0 || isNaN(room_id)) {
@@ -141,6 +180,10 @@
             }
             if(position_id <= 0 || isNaN(position_id)){
                 alert('bạn chưa chọn chức danh!!!');
+                return;
+            }
+            if(mission_id <= 0 || isNaN(mission_id)){
+                alert('bạn chưa chọn vị trí làm việc!!!');
                 return;
             }
             if(heso <= 0 || isNaN(heso))
@@ -161,6 +204,7 @@
                     'chucdanh_id': position_id,
                     'name' : name,
                     'diemtru' : heso,
+                    'mission_id' : mission_id,
                 },
                 url: "/progress/addnew",
                 beforeSend: function () {
@@ -181,10 +225,12 @@
             var room_id = $('#room_id').val();
             var level_id = $('#level_id').val();
             var position_id = $('#position_id').val();
+            var mission_id = parseInt($('#mission_id').val());
             $.ajax({
                 data: {'room_id': room_id,
                     'level_id': level_id,
                     'position_id': position_id,
+                    'mission_id' : mission_id,
                 },
                 url: "/progress/reviews",
                 beforeSend: function () {
@@ -200,5 +246,65 @@
             $("#contentReview").css("display", "block");
             $("#progress-grid-content").css("display", "block");
         }
+        $('#uploadfile').click(function () {
+            var room_id = parseInt($('#room_id').val());
+            var level_id = parseInt($('#level_id').val());
+            var position_id = parseInt($('#position_id').val());
+            var mission_id = parseInt($('#mission_id').val());
+            var file_data = $("#basicModuleImage").prop("files")[0];
+
+            if(room_id <= 0 || isNaN(room_id)) {
+                alert('bạn chưa chọn phòng!!!');
+                return;
+            }
+            if(level_id <= 0 || isNaN(level_id)) {
+                alert('bạn chưa chọn bậc!!!');
+                return;
+            }
+            if(position_id <= 0 || isNaN(position_id)){
+                alert('bạn chưa chọn chức danh!!!');
+                return;
+            }
+            if(mission_id <= 0 || isNaN(mission_id)){
+                alert('bạn chưa chọn vị trí làm việc!!!');
+                return;
+            }
+            if(!file_data) {
+                alert('bạn chưa chọn file!!!');
+                return;
+            }
+
+            var form_data = new FormData();
+            form_data.append("room_id", room_id)
+            form_data.append("level_id", level_id)
+            form_data.append("position_id", position_id)
+            form_data.append("mission_id", mission_id)
+            form_data.append("file", file_data)
+
+
+
+            $.ajax({
+                url: 'progress/import',
+                type: 'post',
+                dataType: 'text',  // what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+
+                data: form_data,
+
+                beforeSend: function () {
+                    $('#ajax-loading-mask').show();
+                    $('#ajax-loading').show();
+                },
+                success: function (response) {
+                    $('#ajax-loading-mask').hide();
+                    $('#ajax-loading').hide();
+                    alert(response);
+                    getGrid();
+                }
+            });
+
+        });
     });
 </script>

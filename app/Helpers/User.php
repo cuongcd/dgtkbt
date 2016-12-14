@@ -6,6 +6,7 @@ use DB;
 use App\Models\User as UserModel;
 use App\Models\Role as UserRole;
 use App\Models\Notify as Notify;
+use Config;
 class User
 {
 
@@ -46,17 +47,69 @@ class User
         return $result;
     }
 
-    public function isPermissionAddMvp() {
+    public static function isPermissionAddMvp() {
         $is_permission = false;
         $id = Auth::id();
         $user = UserModel::find($id);
-        var_dump($user);die();
-        if($user->vaitro_id==config('vaitro.TruongBan') || $user->vaitro_id==config('vaitro.PhoTruongBan')){
+        if($user->vaitro_id == Config('vaitro.TruongBan') || $user->vaitro_id == Config('vaitro.PhoTruongBan')){
             $is_permission = true;
         }
-        if($user->vaitro_id==config('vaitro.TruongPhong') || $user->vaitro_id==config('vaitro.PhoTruongPhong'))
+        if($user->vaitro_id == Config('vaitro.TruongPhong') || $user->vaitro_id == Config('vaitro.PhoTruongPhong'))
             $is_permission  = true;
         return $is_permission;
+    }
+
+    public static function getAllUserPhuTrach() {
+        if (auth()->check()) {
+            $id = Auth::id();
+            $user = UserModel::find($id);
+
+            if ($user->vaitro_id == config('vaitro.TruongBan'))
+                return self::getAllUser();
+            elseif ($user->vaitro_id == config('vaitro.PhoTruongBan')){
+                $phong = self::getUsserByRoomId($user->room_id);
+                $taikhoan_phongphutrach = DB::table('taikhoan_phongphutrach')->where('user_id','=',$user->_id)->get();
+
+
+                if(count($taikhoan_phongphutrach)) {
+                    foreach($taikhoan_phongphutrach as $key => $value) {
+                        $temp = self::getUsserByRoomId($value->room_id);
+                        foreach($temp as $key => $value) {
+                            $phong[$key] = $value;
+                        }
+                    }
+                }
+                return $phong;
+            }
+            else
+                return self::getUsserByRoomId($user->room_id);
+
+        }
+
+    }
+
+    public static function getUsserByRoomId( $room_id) {
+        $temps = UserModel::select('_id','first_name')
+                ->where('room_id', '=',$room_id)
+                ->where('first_name', '<>','null')->get();
+        $result = [];
+        foreach($temps as $key => $value) {
+            $result[$value->_id] = $value->first_name;
+        }
+
+        return $result;
+    }
+
+    public static function isVaiTroCapBan() {
+            $is_permission = false;
+            $id = Auth::id();
+            $user = UserModel::find($id);
+
+            if($user->vaitro_id == Config('vaitro.TruongBan') || $user->vaitro_id == Config('vaitro.PhoTruongBan')){
+                $is_permission = true;
+            }
+
+            return $is_permission;
     }
 
 }

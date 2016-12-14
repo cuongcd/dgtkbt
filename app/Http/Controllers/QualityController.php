@@ -15,6 +15,7 @@ use View;
 use App;
 use App\Blocks\Quality\Tabs;
 use App\Blocks\Quality\Grid as GridReview;
+use Excel;
 
 class QualityController extends Controller
 {
@@ -224,5 +225,55 @@ class QualityController extends Controller
         $input = $this->_processData(Input::all());
         $data = $this->store($input);
         return;
+    }
+    public function import() {
+
+        ini_set('max_execution_time', 300);
+        $input = $this->_processData(Input::all());
+        $file = $input['file'];
+
+        if (!$file->isValid())
+            return 'No data could be read in the file.';
+        $filename = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        $extension_guessed = $file->guessExtension();
+
+        if ($extension != $extension_guessed) {
+            return 'No data could be read in the file.';
+        }
+        $filename_new = str_random(20) . '.' . $extension;
+
+        $path = public_path() . '/assets/import';
+
+        $file->move($path, $filename_new);
+        $sheet = Excel::load($path . '/' . $filename_new, function ($reader) {
+        })->get();
+
+        if (is_null($sheet)) {
+            File::delete($path . '/' . $filename_new);
+            return 'Could not load any sheets in the file.';
+        }
+
+        $job_total = $sheet->count();
+        if ($job_total < 1) {
+            File::delete($path . '/' . $filename_new);
+            return 'No data could be read in the file.';
+        }
+        try {
+            foreach ($sheet as $data) {
+//                for ($i = 0; $i < count($data); $i++) {
+                    $input['name'] = isset($data->tenloi) ? $data->tenloi : "";
+                    $input['diemtru'] = isset($data->diemtru) ? $data->diemtru : 0;
+                    $input['chucdanh_id'] = $input['position_id'];
+
+                    $temp = $this->store($input);
+//                }
+//                return 'Products were import success.';
+
+            }
+            return 'import thành công chất lượng công việc.';
+        } catch (\Exception $e) {
+            return 'Import lỗi, mời bạn thử lại sau';
+        }
     }
 }

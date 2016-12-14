@@ -126,7 +126,7 @@ class ClassificationController extends Controller
             $thang_name = str_replace("/","-",$thang_name);
 
         }
-        $gridReview = new GridExport('DGLD VTVNEWS '.$thang_name, 'App\Models\User', 'DGLD VTVNEWS '.$thang_name, $param);
+        $gridReview = new GridExport('DGLD BAN TKBT '.$thang_name, 'App\Models\User', 'DGLD BAN TKBT '.$thang_name, $param);
         $this->exportFile($type, $gridReview);
     }
 
@@ -162,6 +162,9 @@ class ClassificationController extends Controller
         $param['filter'] = $input;
         if(isset($input['thang_id']) && $input['thang_id'] > 0){
             $param['filter']['thang_id'] = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $param['filter']['thang_id'] = App\Helpers\Month::getCurrentMonth()->_id;
+
         }
         if(!(isset($input['room_id'])) || $input['room_id'] <= 0) {
             $id = Auth::id();

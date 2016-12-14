@@ -26,20 +26,13 @@
                         <label class="col-lg-1 control-label">Tháng</label>
 
                         <div class="col-lg-2">
-                            <input type="date" id="month_id" name="month_id" >
-                            <?php /*<select class="form-control input-sm valid" id="month_id" name="month_id" */ ?>
-                                    <?php /*aria-invalid="false">*/ ?>
-                                <?php /*<option value=""></option>*/ ?>
-                                <?php /*<?php foreach(\App\Helpers\Month::getAllMonth() as $key => $value): ?>*/ ?>
-                                    <?php /*<option value="<?php echo e($key); ?>"><?php echo e($value); ?></option>*/ ?>
-                                <?php /*<?php endforeach; ?>*/ ?>
-                            <?php /*</select>*/ ?>
-
-                            <?php /*<input type="text" name="city" list="cityname">*/ ?>
-                            <?php /*<datalist id="cityname">*/ ?>
-                                <?php /*<option value="Boston">*/ ?>
-                                <?php /*<option value="Cambridge">*/ ?>
-                            <?php /*</datalist>*/ ?>
+                            <div class='input-group date jsDatetimePicker'>
+                                <input type='text' class="form-control" id="month_id" name="month_id" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                            </div>
                         </div>
                         <label class="col-lg-3 control-label" style="color: red">Tháng Đánh Giá: <?php echo e(\App\Helpers\Month::getCurrentMonth()->name); ?> </label>
                         <?php if(\App\Helpers\VaiTro::getEditPhong()): ?>
@@ -67,6 +60,9 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+        $(".jsDatetimePicker").datepicker({
+            autoclose:true
+        });
         $("#contentReview").css("display", "block");
         $("#staffs-grid-content").css("display", "block");
         getGrid();

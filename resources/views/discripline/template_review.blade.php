@@ -1,91 +1,102 @@
 <div id="product_review">
 
-    <div class="modal fade bs-example-modal-lg tax" id="add_new_cv" tabindex="-1" role="dialog"
-         aria-labelledby="myLargeModalLabel" style="overflow-y: hidden;">
-        <div class="modal-dialog modal-lg tax">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title">Thêm Mới Kỷ Luật Lao Động</h4>
-                </div>
-                <div class="modal-body">
-                    <label class="col-lg-3 control-label">Tên:</label>
+    {{--<div class="modal fade bs-example-modal-lg tax" id="add_new_cv" tabindex="-1" role="dialog"--}}
+         {{--aria-labelledby="myLargeModalLabel" style="overflow-y: hidden;">--}}
+        {{--<div class="modal-dialog modal-lg tax">--}}
+            {{--<div class="modal-content">--}}
+                {{--<div class="modal-header">--}}
+                    {{--<button type="button" class="close" data-dismiss="modal">--}}
+                        {{--<span aria-hidden="true">&times;</span>--}}
+                        {{--<span class="sr-only">Close</span>--}}
+                    {{--</button>--}}
+                    {{--<h4 class="modal-title">Thêm Mới Kỷ Luật Lao Động</h4>--}}
+                {{--</div>--}}
+                {{--<div class="modal-body">--}}
+                    {{--<label class="col-lg-3 control-label">Tên:</label>--}}
 
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" id='newname' name="newname">
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <label class="col-lg-3 control-label">Điểm Trừ :</label>
+                    {{--<div class="col-lg-9">--}}
+                        {{--<input type="text" class="form-control" id='newname' name="newname">--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="modal-body">--}}
+                    {{--<label class="col-lg-3 control-label">Điểm Trừ :</label>--}}
 
-                    <div class="col-lg-9">
-                        <input type="number" class="form-control" id='diemtru' name="diemtru" min="0">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="save_cv" class="btn btn-success" data-dismiss="modal">Save
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+                    {{--<div class="col-lg-9">--}}
+                        {{--<input type="number" class="form-control" id='diemtru' name="diemtru" min="0">--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="modal-footer">--}}
+                    {{--<button type="button" id="save_cv" class="btn btn-success" data-dismiss="modal">Save--}}
+                    {{--</button>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 
     <label class="control-label">Kỷ Luật Lao Động</label>
     <div class="ibox float-e-margins" id="productReviews">
-        <div class="ibox-title">
-                <div class="ibox-tools">
-                <a class="collapse-link" id="product-review"><i class="fa fa-chevron-down"></i></a>
-            </div>
-        </div>
+        {{--<div class="ibox-title">--}}
+                {{--<div class="ibox-tools">--}}
+                {{--<a class="collapse-link" id="product-review"><i class="fa fa-chevron-down"></i></a>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
-        <div class="row" style="margin-top: 10px">
-            <div class="col-lg-12">
-                <fieldset>
-                    <div class="form-group locale-element">
-                        <label class="col-lg-1 control-label">Phòng</label>
+        {{--<div class="row" style="margin-top: 10px">--}}
+            {{--<div class="col-lg-12">--}}
+                {{--<fieldset>--}}
+                    {{--<div class="form-group locale-element">--}}
+                        {{--<label class="col-lg-1 control-label">Phòng</label>--}}
 
-                        <div class="col-lg-2">
-                            <select class="form-control input-sm valid" id="room_id" name="room_id" aria-invalid="false">
-                                <option value=""></option>
-                                @foreach(\App\Helpers\Room::getListRoom() as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        {{--<div class="col-lg-2">--}}
+                            {{--<select class="form-control input-sm valid" id="room_id" name="room_id" aria-invalid="false">--}}
+                                {{--<option value=""></option>--}}
+                                {{--@foreach(\App\Helpers\Room::getListRoom() as $key => $value)--}}
+                                    {{--<option value="{{$key}}">{{$value}}</option>--}}
+                                {{--@endforeach--}}
+                            {{--</select>--}}
+                        {{--</div>--}}
 
 
-                        <label class="col-lg-2 control-label">Chức Danh</label>
+                        {{--<label class="col-lg-1 control-label">Chức Danh</label>--}}
 
-                        <div class="col-lg-2">
-                            <select class="form-control input-sm valid" id="position_id" name="position_id" aria-invalid="false">
+                        {{--<div class="col-lg-2">--}}
+                            {{--<select class="form-control input-sm valid" id="position_id" name="position_id" aria-invalid="false">--}}
 
-                            </select>
-                        </div>
-                        <label class="col-lg-1 control-label">Bậc</label>
+                            {{--</select>--}}
+                        {{--</div>--}}
 
-                        <div class="col-lg-2">
-                            <select class="form-control input-sm valid" id="level_id" name="level_id" aria-invalid="false">
-                                @foreach(\App\Helpers\Level::getListLevel() as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
-                                 id="add_new_key">
-                                <i class="fa fa-plus"></i>
-                                <span class="bold" data-toggle="modal" data-target="#add_new_cv">Thêm </span>
-                            </div>
-                        </div>
+                        {{--<label class="col-lg-1 control-label">Vị Trí </label>--}}
 
-                    </div>
-                    <div class="hr-line-dashed"></div>
-                </fieldset>
-            </div>
-        </div>
+                        {{--<div class="col-lg-2">--}}
+                            {{--<select class="form-control input-sm valid" id="mission_id" name="mission_id" aria-invalid="false">--}}
+
+                            {{--</select>--}}
+                        {{--</div>--}}
+
+                        {{--<label class="col-lg-1 control-label">Bậc</label>--}}
+
+                        {{--<div class="col-lg-2">--}}
+                            {{--<select class="form-control input-sm valid" id="level_id" name="level_id" aria-invalid="false">--}}
+                                {{--@foreach(\App\Helpers\Level::getListLevel() as $key => $value)--}}
+                                    {{--<option value="{{$key}}">{{$value}}</option>--}}
+                                {{--@endforeach--}}
+                            {{--</select>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-lg-12">--}}
+                        {{--<div class="col-lg-10">--}}
+                        {{--</div>--}}
+                        {{--<div class="col-lg-2">--}}
+                            {{--<div class="btn btn-sm btn-primary right" style="margin-left: 10px"--}}
+                                 {{--id="add_new_key">--}}
+                                {{--<i class="fa fa-plus"></i>--}}
+                                {{--<span class="bold" data-toggle="modal" data-target="#add_new_cv">Thêm </span>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</fieldset>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
         <div>
             <div id="reviewGrid"></div>
@@ -118,6 +129,20 @@
                     $("#ajax-loading").hide();
                 }
             });
+            $.ajax({
+                type: "GET",
+                data: {'_id': $('#room_id').val()},
+                url: 'missions/getlist',
+                success: function (response) {
+                    $('#mission_id').html(response);
+                    $("#mission_id").val($("#position_id option:first").val());
+                    $("#ajax-loading-mask").hide();
+                    $("#ajax-loading").hide();
+                }, error: function (response) {
+                    $("#ajax-loading-mask").hide();
+                    $("#ajax-loading").hide();
+                }
+            });
             getGrid();
         });
         $('#position_id').change(function(){
@@ -126,11 +151,16 @@
         $('#level_id').change(function(){
             getGrid();
         });
+        $('#mission_id').change(function(){
+            getGrid();
+        });
 
         $('#save_cv').click(function(){
             var room_id = parseInt($('#room_id').val());
             var level_id = parseInt($('#level_id').val());
             var position_id = parseInt($('#position_id').val());
+            var mission_id = parseInt($('#mission_id').val());
+
             var name = $('#newname').val();
             var heso = parseInt($('#diemtru').val());
             if(room_id <= 0 || isNaN(room_id)) {
@@ -143,6 +173,10 @@
             }
             if(position_id <= 0 || isNaN(position_id)){
                 alert('bạn chưa chọn chức danh!!!');
+                return;
+            }
+            if(mission_id <= 0 || isNaN(mission_id)){
+                alert('bạn chưa chọn vị trí làm việc!!!');
                 return;
             }
             if(heso <= 0 || isNaN(heso))
@@ -163,6 +197,7 @@
                     'chucdanh_id': position_id,
                     'name' : name,
                     'diemtru' : heso,
+                    'mission_id' : mission_id,
                 },
                 url: "/discriplines/addnew",
                 beforeSend: function () {
@@ -178,15 +213,19 @@
         });
 
         function getGrid(){
-            if(typeof($('#position_id').val()) === "null" )
-                return;
-            var room_id = $('#room_id').val();
-            var level_id = $('#level_id').val();
-            var position_id = $('#position_id').val();
+//            if(typeof($('#position_id').val()) === "null" )
+//                return;
+//            var room_id = $('#room_id').val();
+//            var level_id = $('#level_id').val();
+//            var position_id = $('#position_id').val();
+//            var mission_id = parseInt($('#mission_id').val());
+
             $.ajax({
-                data: {'room_id': room_id,
-                    'level_id': level_id,
-                    'position_id': position_id,
+                data: {
+//                    'room_id': room_id,
+//                    'level_id': level_id,
+//                    'position_id': position_id,
+//                    'mission_id' : mission_id
                 },
                 url: "/discriplines/reviews",
                 beforeSend: function () {

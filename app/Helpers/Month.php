@@ -51,15 +51,51 @@ class Month
     }
     // $pdate = 2016-12-31;
     public static function getMonthByDate($pdate) {
+        $pdate = str_replace('/','-',$pdate);
         $parts = explode('-', $pdate);
-        $month = $parts[1];
-        $year= $parts[0];
+        $month = $parts[0];
+        $year= $parts[2];
 
         return 'Tháng '.$month.'/'.$year;
     }
     public static function getMonthIdByDate($date) {
-        $month = self::getMonthByDate($date);
+        $date = str_replace('/','-',$date);
+        $parts = explode('-', $date);
+        $month = $parts[0];
+        $year= $parts[2];
+
+        $date = $year .'-'.$month.'-'.'01';
+        $month = 'Tháng '.$month.'/'.$year;
         $month_data = ModelClass::firstOrCreate(['name' =>$month]);
+        $month_data->date = $date;
+        $month_data->save();
+
         return $month_data->_id;
     }
+
+    public static function getMonthIds($start_date, $end_date) {
+
+        $date = str_replace('/','-',$start_date);
+        $parts = explode('-', $date);
+        $month = $parts[0];
+        $year= $parts[2];
+
+        $start_date = $year .'-'.$month.'-'.'01';
+
+        $date = str_replace('/','-',$end_date);
+        $parts = explode('-', $date);
+        $month = $parts[0];
+        $year= $parts[2];
+
+        $end_date = $year .'-'.$month.'-'.'01';
+
+        $data = ModelClass::where('date', '>=',$start_date )->where('date', '<=',$end_date )
+            ->orderBy('date')
+            ->get();
+        return $data;
+
+
+
+    }
+
 }

@@ -152,9 +152,9 @@ class Grid extends BaseGrid
             else
                 $model = $model->orderBy( 'users.'.$query['order'], $query['dir']);
         }
-        $offset = isset($query['page']) ? 15 * ($query['page'] - 1) : 0;
+        $offset = isset($query['page']) ? 20 * ($query['page'] - 1) : 0;
         $total = $model->count();
-        $rows = $model->skip($offset)->take(15)->get();
+        $rows = $model->skip($offset)->take(20)->get();
         $ids = $model->lists('_id');
         if($thang_id > 0){
             foreach($rows as $key =>$value){
@@ -184,14 +184,55 @@ class Grid extends BaseGrid
                     else
                         $value->bandanhgia = $chuyenmon["bancham"] + $tiendo["bancham"] + $donggop["bancham"]
                             + $chatluong["bancham"] + $kyluat["bancham"] + $phamchat["bancham"]." (Chưa Duyệt)";
+                } elseif ( $chuyenmon['phongcham'] > 0) {
+                    $kyluat = Calculator::getDiemKyLuat($value->_id, $thang_id);
+                    $tiendo = Calculator::getDiemTienDo($value->_id, $thang_id);
+                    $chatluong = Calculator::getDiemChatLuong($value->_id, $thang_id);
+                    $phamchat = Calculator::getDiemPhamChat($value->_id, $thang_id);
+                    $donggop = Calculator::getDiemDongGop($value->_id, $thang_id);
+
+                    $value->tudanhgia = ' Chưa DG';
+
+                    if($value->phongdanhgia == 1)
+                        $value->phongdanhgia = $chuyenmon["phongcham"] + $tiendo["phongcham"] + $donggop["phongcham"]
+                            + $chatluong["phongcham"] + $kyluat["phongcham"] + $phamchat["phongcham"]." (Đã Duyệt)";
+                    else
+                        $value->phongdanhgia = $chuyenmon["phongcham"] + $tiendo["phongcham"] + $donggop["phongcham"]
+                            + $chatluong["phongcham"] + $kyluat["phongcham"] + $phamchat["phongcham"]." (Chưa Duyệt)";
+                    if($value->bandanhgia == 1)
+                        $value->bandanhgia = $chuyenmon["bancham"] + $tiendo["bancham"] + $donggop["bancham"]
+                            + $chatluong["bancham"] + $kyluat["bancham"] + $phamchat["bancham"]." (Đã Duyệt)";
+                    else
+                        $value->bandanhgia = $chuyenmon["bancham"] + $tiendo["bancham"] + $donggop["bancham"]
+                            + $chatluong["bancham"] + $kyluat["bancham"] + $phamchat["bancham"]." (Chưa Duyệt)";
+
+                } elseif ($chuyenmon['bancham'] > 0 ) {
+                    $kyluat = Calculator::getDiemKyLuat($value->_id, $thang_id);
+                    $tiendo = Calculator::getDiemTienDo($value->_id, $thang_id);
+                    $chatluong = Calculator::getDiemChatLuong($value->_id, $thang_id);
+                    $phamchat = Calculator::getDiemPhamChat($value->_id, $thang_id);
+                    $donggop = Calculator::getDiemDongGop($value->_id, $thang_id);
+
+                    $value->tudanhgia = ' Chưa DG';
+
+                    $value->phongdanhgia = 'Chưa DG' ;
+
+                    if($value->bandanhgia == 1)
+                        $value->bandanhgia = $chuyenmon["bancham"] + $tiendo["bancham"] + $donggop["bancham"]
+                            + $chatluong["bancham"] + $kyluat["bancham"] + $phamchat["bancham"]." (Đã Duyệt)";
+                    else
+                        $value->bandanhgia = $chuyenmon["bancham"] + $tiendo["bancham"] + $donggop["bancham"]
+                            + $chatluong["bancham"] + $kyluat["bancham"] + $phamchat["bancham"]." (Chưa Duyệt)";
+
                 }
+
             }
         }
         return [
             'all_ids' => $ids,
             'items' => $rows,
             'total' => $total,
-            'page_size' => 15,
+            'page_size' => 20,
             'from' => $offset,
         ];
     }

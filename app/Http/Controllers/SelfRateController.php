@@ -273,7 +273,14 @@ class SelfRateController extends Controller
             return;
         }
 
-        $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id ;
+
+        }
+
+
 
         $tmp = App\Models\StaffJob::where('congviec_id','=',$input['congviec_id'])
             ->where('thang_id','=',$thang_id)->first();
@@ -306,7 +313,14 @@ class SelfRateController extends Controller
             return;
         if (!isset($input['jobname']) || !isset($input['khoiluong']) || !isset($input['thang_id']) || !isset($input['heso']))
             return;
-        $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id ;
+
+        }
+
         $staffJob = new App\Models\StaffJob();
         $staffJob->congviec_id = 0;
         $staffJob->name = $input['jobname'];
@@ -333,7 +347,12 @@ class SelfRateController extends Controller
         if (!isset($input['thang_id']))
             return;
 
-        $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id ;
+
+        }
         $work = App\Models\Work::where('level_id','=',$data->level_id)
             ->where('room_id','=',$data->room_id)
             ->where('chucdanh_id','=',$data->chucdanh_id)->get();
@@ -375,7 +394,13 @@ class SelfRateController extends Controller
         if (!isset($input['thang_id']) ||!isset($input['month_apply']))
             return;
 
-        $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id ;
+
+        }
+
         $month_apply_id = App\Helpers\Month::getMonthIdByDate($input['month_apply']);
         $word = App\Models\StaffJob::where('user_id','=', $data->_id)
             ->where('thang_id','=',$month_apply_id)->get();
@@ -496,14 +521,20 @@ class SelfRateController extends Controller
         if(!$tmp){
             return;
         }
-//        print_r(json_encode($tmp)); die();
+
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id ;
+
+        }
 
         $tiendo = new App\Models\TienDoTaiKhoanThang();
         $tiendo->name = $tmp->name;
         $tiendo->tiendo_id = $tmp->_id;
         $tiendo->diemtru = $tmp->diemtru;
         $tiendo->user_id = $data->_id;
-        $tiendo->thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        $tiendo->thang_id = $thang_id;
         $tiendo->td_tutru = $input['diemtru'];
         $tiendo->td_phongtru = $input['diemtru'];
         $tiendo->td_bantru = $input['diemtru'];
@@ -603,14 +634,19 @@ class SelfRateController extends Controller
         if(!$tmp){
             return;
         }
-//        print_r(json_encode($tmp)); die();
 
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id ;
+
+        }
         $tiendo = new App\Models\ChatLuongTaiKhoanThang();
         $tiendo->name = $tmp->name;
         $tiendo->chatluong_id = $tmp->_id;
         $tiendo->diemtru = $tmp->diemtru;
         $tiendo->user_id = $data->_id;
-        $tiendo->thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        $tiendo->thang_id = $thang_id;
         $tiendo->cl_tutru = $input['diemtru'];
         $tiendo->cl_phongtru = $input['diemtru'];
         $tiendo->cl_bantru = $input['diemtru'];
@@ -709,14 +745,18 @@ class SelfRateController extends Controller
         if(!$tmp){
             return;
         }
-//        print_r(json_encode($tmp)); die();
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id ;
 
+        }
         $kyluat = new App\Models\KyLuatTaiKhoanThang();
         $kyluat->name = $tmp->name;
         $kyluat->kyluat_id = $tmp->_id;
         $kyluat->diemtru = $tmp->diemtru;
         $kyluat->user_id = $data->_id;
-        $kyluat->thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        $kyluat->thang_id = $thang_id;
         $kyluat->kl_tutru = $input['diemtru'];
         $kyluat->kl_phongtru = $input['diemtru'];
         $kyluat->kl_bantru = $input['diemtru'];
@@ -814,14 +854,20 @@ class SelfRateController extends Controller
         if(!$tmp){
             return;
         }
-//        print_r(json_encode($tmp)); die();
+
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id ;
+
+        }
 
         $phamchat = new App\Models\PhamChatTaiKhoanThang();
         $phamchat->name = $tmp->name;
         $phamchat->phamchat_id = $tmp->_id;
         $phamchat->diemtru = $tmp->diemtru;
         $phamchat->user_id = $data->_id;
-        $phamchat->thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        $phamchat->thang_id = $thang_id;
         $phamchat->pc_tutru = $input['diemtru'];
         $phamchat->pc_phongtru = $input['diemtru'];
         $phamchat->pc_bantru = $input['diemtru'];
@@ -920,14 +966,20 @@ class SelfRateController extends Controller
         if(!$tmp){
             return;
         }
-//        print_r(json_encode($tmp)); die();
+
+        if (isset($input['thang_id']) && $input['thang_id'] > 0) {
+            $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        } else {
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id ;
+
+        }
 
         $phamchat = new App\Models\DongGopTaiKhoanThang();
         $phamchat->name = $tmp->name;
         $phamchat->donggop_id = $tmp->_id;
         $phamchat->diemcong = $tmp->diemcong;
         $phamchat->user_id = $data->_id;
-        $phamchat->thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+        $phamchat->thang_id = $thang_id;
         $phamchat->dg_tucong = $input['diemtru'];
         $phamchat->dg_phongcong = $input['diemtru'];
         $phamchat->dg_bancong = $input['diemtru'];
@@ -981,7 +1033,7 @@ class SelfRateController extends Controller
             $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
         }
         else {
-            $thang_id = App\Helpers\Month::getCurrentMonth();
+            $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
         }
         $data = \Session::get('staffData');
         $chuyenMon = Calculator::getDiemChuyenMon($data->_id,$thang_id);

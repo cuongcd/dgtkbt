@@ -21,15 +21,13 @@
                         <label class="col-lg-1 control-label">Tháng</label>
 
                         <div class="col-lg-2">
-                            <input type="date" id="month_id" name="month_id" >
-
-                            {{--<select class="form-control input-sm valid" id="month_id" name="month_id"--}}
-                                    {{--aria-invalid="false">--}}
-                                {{--<option value=""></option>--}}
-                                {{--@foreach(\App\Helpers\Month::getAllMonth() as $key => $value)--}}
-                                    {{--<option value="{{$key}}">{{$value}}</option>--}}
-                                {{--@endforeach--}}
-                            {{--</select>--}}
+                            <div class='input-group date jsDatetimePicker'>
+                                <input type='text' class="form-control" id="month_id" name="month_id" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                            </div>
                         </div>
                         <label class="col-lg-3 control-label" style="color: red">Đánh Giá
                             : <span id="thang_danh_gia" >{{\App\Helpers\Month::getCurrentMonth()->name}} </span></label>
@@ -647,6 +645,10 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $(".jsDatetimePicker").datepicker({
+            autoclose:true
+        });
         $("#contentReview").css("display", "block");
         $("#staffs-grid-content").css("display", "block");
         var isdanhgia;
@@ -1486,7 +1488,8 @@
             var month_id = $('#month_id').val();
             $.ajax({
                 data: {
-                    'thang_id': month_id
+                    'thang_id': month_id,
+                    'self' : 1,
                 },
                 url: "/rates/getstatus",
                 beforeSend: function () {
@@ -1505,16 +1508,19 @@
             var month_id = $('#month_id').val();
             $.ajax({
                 data: {
-                    'thang_id': month_id
+                    'thang_id': month_id,
+                    'self' : 1,
                 },
                 url: "/rates/isupdate",
                 beforeSend: function () {
                 },
                 success: function (response) {
-                    if (response == 0)
+                    if (response == 0) {
                         isdanhgia = false;
-                    if (response == 1)
+                    }
+                    if (response == 1) {
                         isdanhgia = true;
+                    }
                 }
             });
 

@@ -97,6 +97,16 @@ class DiscriplineController extends Controller
      */
     public function massDelete()
     {
+        $idsString = Input::get($this->getGridId());
+        $ids = explode(',', $idsString) ? explode(',', $idsString) : $idsString;
+        $data = $this->massDestroy($ids);
+        if (isset($data['errors)'])) {
+            return Redirect::route('discriplines.list')->with('error', $data['errors'][0]['message'])->withInput();
+        } else {
+            $count = count($data);
+            return Redirect::route('discriplines.list')->with('success',
+                Lang::get('messages.number_records_have_been_deleted', ['count' => $count]));
+        }
 
     }
 

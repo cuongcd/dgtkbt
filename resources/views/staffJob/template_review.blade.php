@@ -23,7 +23,13 @@
                         <label class="col-lg-1 control-label">Chọn Tháng</label>
 
                         <div class="col-lg-2">
-                            <input type="date" id="month_id" name="month_id">
+                            <div class='input-group date jsDatetimePicker'>
+                                <input type='text' class="form-control" id="month_id" name="month_id" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                            </div>
                         </div>
 
                     </div>
@@ -167,15 +173,14 @@
                     <div class="modal-body">
                         <label class="col-lg-3 control-label">Chọn Tháng:</label>
 
-                        <div class="col-lg-9">
-                            <input type="date" id="month_apply" name="month_apply">
-                            {{--<select class="form-control input-sm valid" id="month_apply" name="month_apply"--}}
-                                    {{--aria-invalid="false">--}}
-                                {{--<option value=""></option>--}}
-                                {{--@foreach(\App\Helpers\Month::getAllMonth() as $key => $value)--}}
-                                    {{--<option value="{{$key}}">{{$value}}</option>--}}
-                                {{--@endforeach--}}
-                            {{--</select>--}}
+                        <div class="col-lg-6">
+                            <div class='input-group date jsDatetimePicker'>
+                                <input type='text' class="form-control" id="month_apply" name="month_apply" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -231,8 +236,18 @@
 
     </div>
 </div>
+
+
+<style>
+    .datepicker{z-index:1151 !important;}
+</style>
+
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $(".jsDatetimePicker").datepicker({
+            autoclose:true
+        });
         var bandanhgia;
         $("#contentReview").css("display", "block");
         $("#staffs-grid-content").css("display", "block");
@@ -273,7 +288,7 @@
         $(document).on('keyup, change', 'table tbody [name="khoiluong"]', function () {
             var _id = parseInt($(this).closest("tr").find('td:eq(0)').text());
             var KL = $(this).val();
-            if(bandanhgia==0)
+            if(bandanhgia == 0)
             {
                 alert('ban đã duyệt đánh giá cho tháng này, bạn không được update');
                 return;
@@ -292,7 +307,7 @@
             });
         });
         $(document).on('click', 'table tbody [name="delete_CV"]', function () {
-            if(bandanhgia==0)
+            if(bandanhgia == 0)
             {
                 alert('ban đã duyệt đánh giá cho tháng này, bạn không được update');
                 return;
@@ -367,10 +382,6 @@
             var congviec_id = $('#congviec_id').val();
             var khoiLuong = $('#KhoiLuongThem').val();
             var thang_id = $('#month_id').val();
-            if (thang_id <= 0) {
-                alert('bạn chưa chọn tháng');
-                return;
-            }
             if (congviec_id <= 0) {
                 alert('bạn chưa chọn công việc');
                 return;
@@ -407,10 +418,7 @@
             var khoiLuong = $('#khoiLuongdotxuat').val();
             var thang_id = $('#month_id').val();
             var heso = $('#hesodoxuat').val();
-            if (thang_id <= 0) {
-                alert('bạn chưa chọn tháng');
-                return;
-            }
+
             if (congviec_id <= 0) {
                 alert('bạn chưa chọn công việc');
                 return;
@@ -445,10 +453,7 @@
                 return;
             }
             var thang_id = $('#month_id').val();
-            if (thang_id <= 0) {
-                alert('bạn chưa chọn tháng');
-                return;
-            }
+
             $.ajax({
                 data: {
                     'thang_id': thang_id
@@ -473,10 +478,7 @@
             }
             var thang_id = $('#month_id').val();
             var month_apply = $('#month_apply').val();
-            if (thang_id <= 0) {
-                alert('bạn chưa chọn tháng để giao việc');
-                return;
-            }
+
             if (month_apply <= 0) {
                 alert('bạn chưa chọn tháng để ap dụng');
                 return;

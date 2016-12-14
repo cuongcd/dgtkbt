@@ -6,7 +6,7 @@ use App\Helpers\Position;
 use App\Helpers\Role;
 use App\Helpers\Room;
 use Lang;
-
+use App\Helpers\ViTriLamViec;
 class Form extends BaseForm
 {
 
@@ -42,6 +42,19 @@ class Form extends BaseForm
                 'type' => 'select',
                 "values" => [],
                 'required' => true,
+            ]);
+        }
+        if (isset($data["_id"])) {
+            $this->_addField('mission_id', [
+                'type' => 'select',
+                'label' => 'Vị Trí Làm Việc',
+                'values' =>ViTriLamViec::ViTriLamViecByRoomId($data['room_id']),
+            ]);
+        } else {
+            $this->_addField('mission_id', [
+                'type' => 'select',
+                'label' => 'Vị Trí Làm Việc',
+                'values' => [],
             ]);
         }
         $this->_addField('name', [

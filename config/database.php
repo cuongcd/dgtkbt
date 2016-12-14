@@ -50,7 +50,7 @@ return [
         'mysql' => array(
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'vtvnew',
+            'database' => 'dgldtkbt',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',

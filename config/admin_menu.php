@@ -57,6 +57,10 @@ return [
         'url' => '/contributes',
         'icon' => 'fa-list-alt',
     ],
+    'roomcharges'=>[
+        'url' => '/roomcharges',
+        'icon' => 'fa-list-alt',
+    ],
     'points'=>[
         'url' => '/points',
         'icon' => 'fa-list-alt',

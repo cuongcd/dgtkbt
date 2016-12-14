@@ -55,6 +55,8 @@
 	{!! HTML::script('js/mix.js') !!}
 	{!! HTML::script('js/product-custom-option.js') !!}
     {!! HTML::script('js/alert-jquery.js')!!}
+    {!! HTML::script('js/moment-with-locales.js')!!}
+    {!! HTML::script('js/bootstrap-datetimepicker.js')!!}
     {!! HTML::style('css/alert-jquery.css') !!}
     <!-- #FAVICONS -->
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">

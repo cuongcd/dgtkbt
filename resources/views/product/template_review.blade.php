@@ -90,13 +90,24 @@
 
                     </div>
                 <div class="col-lg-12">
-                    <div class="col-lg-10">
+                    <div class="col-lg-8">
                     </div>
+                    <div class="right">
+                        <button class="btn btn-sm btn-info import-button" type="button" id="uploadfile">
+                            <i class="fa fa-upload"></i>
+                            <span class="bold">Import File</span>
+                        </button>
+                    </div>
+
+                    <div class="right">
+                        <input type="file" id="basicModuleImage"  name="basicModuleImage" />
+                    </div>
+
                     <div class="col-lg-2">
                         <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                              id="add_new_key">
                             <i class="fa fa-plus"></i>
-                            <span class="bold" data-toggle="modal" data-target="#add_new_cv">Thêm </span>
+                            <span class="bold" data-toggle="modal" data-target="#add_new_cv">Thêm Mới</span>
                         </div>
                     </div>
                 </div>
@@ -245,5 +256,67 @@
             $("#contentReview").css("display", "block");
             $("#works-grid-content").css("display", "block");
         }
+
+        $('#uploadfile').click(function () {
+            var room_id = parseInt($('#room_id').val());
+            var level_id = parseInt($('#level_id').val());
+            var position_id = parseInt($('#position_id').val());
+            var mission_id = parseInt($('#mission_id').val());
+            var file_data = $("#basicModuleImage").prop("files")[0];
+
+            if(room_id <= 0 || isNaN(room_id)) {
+                alert('bạn chưa chọn phòng!!!');
+                return;
+            }
+            if(level_id <= 0 || isNaN(level_id)) {
+                alert('bạn chưa chọn bậc!!!');
+                return;
+            }
+            if(position_id <= 0 || isNaN(position_id)){
+                alert('bạn chưa chọn chức danh!!!');
+                return;
+            }
+            if(mission_id <= 0 || isNaN(mission_id)){
+                alert('bạn chưa chọn vị trí làm việc!!!');
+                return;
+            }
+            if(!file_data) {
+                alert('bạn chưa chọn file!!!');
+                return;
+            }
+
+            var form_data = new FormData();
+            form_data.append("room_id", room_id)
+            form_data.append("level_id", level_id)
+            form_data.append("position_id", position_id)
+            form_data.append("mission_id", mission_id)
+            form_data.append("file", file_data)
+
+
+
+            $.ajax({
+                url: 'works/import',
+                type: 'post',
+                dataType: 'text',  // what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+
+                data: form_data,
+
+                beforeSend: function () {
+                    $('#ajax-loading-mask').show();
+                    $('#ajax-loading').show();
+                },
+                success: function (response) {
+                    $('#ajax-loading-mask').hide();
+                    $('#ajax-loading').hide();
+                    alert(response);
+                    getGrid();
+                }
+            });
+
+        });
+
     });
 </script>

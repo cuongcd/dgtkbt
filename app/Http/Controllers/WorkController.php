@@ -15,6 +15,7 @@ use View;
 use App;
 use App\Blocks\Work\Tabs;
 use App\Blocks\Work\Grid as GridReview;
+use Excel;
 
 class WorkController extends Controller
 {
@@ -35,6 +36,7 @@ class WorkController extends Controller
      */
     public function indexWithoutParam()
     {
+
         $reviewGrid = [];
         if (isset($reviews) && !empty($reviews)) {
             $reviewGrid = $this->reviews(null);
@@ -141,6 +143,7 @@ class WorkController extends Controller
      */
     public function edit($id)
     {
+
         $data = App\Models\Work::find($id);
 
         if (isset($data['errors'])) {
@@ -224,5 +227,52 @@ class WorkController extends Controller
     }
     public function getList(){
 
+    }
+
+    public function import() {
+
+        ini_set('max_execution_time', 300);
+        $input = $this->_processData(Input::all());
+        $file = $input['file'];
+
+        if (!$file->isValid())
+            return 'No data could be read in the file.';
+        $filename = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        $extension_guessed = $file->guessExtension();
+
+        if ($extension != $extension_guessed) {
+            return 'No data could be read in the file.';
+        }
+
+        $filename_new = str_random(20) . '.' . $extension;
+
+        $path = public_path() . '/assets/import';
+
+        $file->move($path, $filename_new);
+
+        $sheet = Excel::load($path . '/' . $filename_new, function ($reader) {
+        })->get();
+
+        if (is_null($sheet)) {
+            File::delete($path . '/' . $filename_new);
+            return 'Could not load any sheets in the file.';
+        }
+
+        $job_total = $sheet->count();
+        if ($job_total < 1) {
+            File::delete($path . '/' . $filename_new);
+            return 'No data could be read in the file.';
+        }
+        foreach ($sheet as $data) {
+                $input['name'] = isset($data->tencongviec) ? $data->tencongviec : "";
+                $input['heso'] = isset($data->heso) ? $data->heso : 0;
+                $input['macdinh'] = isset($data->macdinh) ? $data->macdinh : 0;
+                $input['chucdanh_id'] = $input['position_id'];
+
+                $temp = $this->store($input);
+
+        }
+        return 'Import thành công công việc chuyên môn';
     }
 }

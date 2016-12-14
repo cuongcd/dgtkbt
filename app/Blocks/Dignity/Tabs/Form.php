@@ -16,34 +16,34 @@ class Form extends BaseForm
     {
         $data = $this->getData();
 
-        $this->_addField('room_id', [
-            'label' => 'Chọn Phòng',
-            'type' => 'select',
-            'values' => Room::getListRoom(),
-            'required' => true,
-        ]);
-        $this->_addField('level_id', [
-            'label' => 'Chọn Bậc',
-            'type' => 'select',
-            'values' => Level::getListLevel(),
-            'required' => true,
-        ]);
-        if(isset($data["_id"])) {
-            $this->_addField('chucdanh_id', [
-                'label' => 'Chọn Chức Danh',
-                'type' => 'select',
-                "values" => Position::getListPositions($data['room_id']),
-                'required' => true,
-            ]);
-        }
-        else{
-            $this->_addField('chucdanh_id', [
-                'label' => 'Chọn Chức Danh',
-                'type' => 'select',
-                "values" => [],
-                'required' => true,
-            ]);
-        }
+//        $this->_addField('room_id', [
+//            'label' => 'Chọn Phòng',
+//            'type' => 'select',
+//            'values' => Room::getListRoom(),
+//            'required' => true,
+//        ]);
+//        $this->_addField('level_id', [
+//            'label' => 'Chọn Bậc',
+//            'type' => 'select',
+//            'values' => Level::getListLevel(),
+//            'required' => true,
+//        ]);
+//        if(isset($data["_id"])) {
+//            $this->_addField('chucdanh_id', [
+//                'label' => 'Chọn Chức Danh',
+//                'type' => 'select',
+//                "values" => Position::getListPositions($data['room_id']),
+//                'required' => true,
+//            ]);
+//        }
+//        else{
+//            $this->_addField('chucdanh_id', [
+//                'label' => 'Chọn Chức Danh',
+//                'type' => 'select',
+//                "values" => [],
+//                'required' => true,
+//            ]);
+//        }
         $this->_addField('name', [
             'label' => "Tên Phẩm Chất Cá Nhân",
             'type' => 'text',

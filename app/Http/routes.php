@@ -156,6 +156,7 @@ Route::group(array('prefix' => 'works'), function () {
     Route::get('delete/{id}', array('as' => 'works.delete', 'uses' => 'WorkController@delete'));
     Route::get('reviews', array('as' => 'works.getlist', 'uses' => 'WorkController@reviews'));
     Route::get('addnew', array('as' => 'works.addnew', 'uses' => 'WorkController@addNew'));
+    Route::post('import', array('as' => 'works.import', 'uses' => 'WorkController@import'));
 
 
 });
@@ -173,6 +174,8 @@ Route::group(array('prefix' => 'progress'), function () {
     Route::get('delete/{id}', array('as' => 'progress.delete', 'uses' => 'ProgressController@delete'));
     Route::get('reviews', array('as' => 'progress.getlist', 'uses' => 'ProgressController@reviews'));
     Route::get('addnew', array('as' => 'progress.addnew', 'uses' => 'ProgressController@addNew'));
+    Route::post('import', array('as' => 'progress.import', 'uses' => 'ProgressController@import'));
+
 
 
 });
@@ -190,6 +193,8 @@ Route::group(array('prefix' => 'qualities'), function () {
     Route::get('delete/{id}', array('as' => 'qualities.delete', 'uses' => 'QualityController@delete'));
     Route::get('reviews', array('as' => 'qualities.getlist', 'uses' => 'QualityController@reviews'));
     Route::get('addnew', array('as' => 'qualities.addnew', 'uses' => 'QualityController@addNew'));
+    Route::post('import', array('as' => 'qualities.import', 'uses' => 'QualityController@import'));
+
 
 });
 Route::group(array('prefix' => 'contributes'), function () {
@@ -206,6 +211,7 @@ Route::group(array('prefix' => 'contributes'), function () {
     Route::get('delete/{id}', array('as' => 'contributes.delete', 'uses' => 'ContributeController@delete'));
     Route::get('reviews', array('as' => 'contributes.getlist', 'uses' => 'ContributeController@reviews'));
     Route::get('addnew', array('as' => 'contributes.addnew', 'uses' => 'ContributeController@addNew'));
+
 
 });
 Route::group(array('prefix' => 'dignities'), function () {
@@ -436,6 +442,7 @@ Route::group(array('prefix' => 'result'), function () {
     Route::get('apply-all', array('as' => 'result.apply_all', 'uses' => 'RateResultController@applyAll'));
     Route::get('apply', array('as' => 'result.apply', 'uses' => 'RateResultController@apply'));
     Route::get('printketqua', array('as' => 'result.printketqua', 'uses' => 'RateResultController@printKetQua'));
+    Route::get('print-report', array('as' => 'result.print_report', 'uses' => 'RateResultController@printReport'));
 
 });
 
@@ -522,5 +529,27 @@ Route::group(array('prefix' => 'mvps'), function () {
     Route::get('addnew', array('as' => 'mvps.addnew', 'uses' => 'MvpController@addNew'));
     Route::get('delete/{id}', array('as' => 'mvps.delete', 'uses' => 'MvpController@delete'));
     Route::get('reviews', array('as' => 'mvps.reviews', 'uses' => 'MvpController@reviews'));
+    Route::post('update', array('as' => 'mvps.update', 'uses' => 'MvpController@banUpdateTieuBieu'));
+    Route::get('apply', array('as' => 'mvps.apply', 'uses' => 'MvpController@applyTieuBieu'));
+    Route::get('un-apply', array('as' => 'mvps.un_apply', 'uses' => 'MvpController@unApplyTieuBieu'));
+
+
+});
+
+Route::group(array('prefix' => 'roomcharges'), function () {
+    Route::get('/', array('as' => 'roomcharges', 'uses' => 'RoomChangeController@indexWithoutParam'));
+    Route::get('index', array('as' => 'roomcharges.list', 'uses' => 'RoomChangeController@indexWithoutParam'));
+    Route::get('create', array('as' => 'roomcharges.create', 'uses' => 'RoomChangeController@create'));
+    Route::get('edit/{id}', array('as' => 'roomcharges.edit', 'uses' => 'RoomChangeController@edit'));
+    Route::get('export/{type}', array('as' => 'roomcharges.export', 'uses' => 'RoomChangeController@export'));
+    Route::get('index/filter/{param?}', array('as' => 'roomcharges.list.param', 'uses' => 'RoomChangeController@index'));
+    Route::get('grid/filter/{param?}', array('as' => 'roomcharges.grid', 'uses' => 'RoomChangeController@grid'));
+    Route::post('mass-delete', array('as' => 'roomcharges.mass-delete', 'uses' => 'RoomChangeController@massDelete'));
+    Route::post('mass-status', array('as' => 'roomcharges.mass-status', 'uses' => 'RoomChangeController@massStatus'));
+    Route::post('save/{id?}', array('as' => 'roomcharges.save', 'uses' => 'RoomChangeController@save'));
+    Route::get('addnew', array('as' => 'roomcharges.addnew', 'uses' => 'RoomChangeController@addNew'));
+    Route::get('delete/{id}', array('as' => 'roomcharges.delete', 'uses' => 'RoomChangeController@delete'));
+    Route::get('reviews', array('as' => 'roomcharges.reviews', 'uses' => 'RoomChangeController@reviews'));
+    Route::post('update', array('as' => 'roomcharges.update', 'uses' => 'RoomChangeController@banUpdateTieuBieu'));
 
 });

@@ -76,6 +76,10 @@ class DanhGia
         }
         if ($user->vaitro_id == config('vaitro.TruongBan') || $user->vaitro_id == config('vaitro.PhoTruongBan')) {
             $danhgia->bandanhgia = abs($danhgia->bandanhgia - 1);
+            $diem = self::getDiem($thang_id);
+            if($diem > 0) {
+                $danhgia->banxeploai = XepLoai::XepLoai($diem);
+            }
         } elseif ($user->vaitro_id == config('vaitro.TruongPhong') || $user->vaitro_id == config('vaitro.PhoTruongPhong')) {
             $danhgia->phongdanhgia = abs($danhgia->phongdanhgia - 1);
         } else {
@@ -107,7 +111,7 @@ class DanhGia
 
     }
 
-    public static function getStatusRate($thang_id)
+    public static function getStatusRate($thang_id, $self = false)
     {
         $data = \Session::get('staffData');
         if (!isset($data))
@@ -120,15 +124,19 @@ class DanhGia
         if (!count($danhgia))
             return 0;
         if ($user->vaitro_id == config('vaitro.TruongBan') || $user->vaitro_id == config('vaitro.PhoTruongBan')) {
+            if($self== true)
+                return $danhgia->tudanhgia;
             return $danhgia->bandanhgia;
         } elseif ($user->vaitro_id == config('vaitro.TruongPhong') || $user->vaitro_id == config('vaitro.PhoTruongPhong')) {
+            if($self== true)
+                return $danhgia->tudanhgia;
             return $danhgia->phongdanhgia;
         } else {
             return $danhgia->tudanhgia;
         }
     }
 
-    public static function isUpdateDanhGia($thang_id)
+    public static function isUpdateDanhGia($thang_id, $self = false)
     {
         $data = \Session::get('staffData');
         if (!isset($data))
@@ -144,8 +152,12 @@ class DanhGia
         if ($danhgia->bandanhgia == 1)
             return 1;
         if ($user->vaitro_id == config('vaitro.TruongBan') || $user->vaitro_id == config('vaitro.PhoTruongBan')) {
+            if($self == true)
+                return $danhgia->tudanhgia;
             return $danhgia->bandanhgia;
         } elseif ($user->vaitro_id == config('vaitro.TruongPhong') || $user->vaitro_id == config('vaitro.PhoTruongPhong')) {
+            if($self == true)
+                return $danhgia->tudanhgia;
             return $danhgia->phongdanhgia;
         } else {
             if ($danhgia->phongdanhgia == 0)
@@ -222,5 +234,34 @@ class DanhGia
         else
             return $b;
     }
+
+
+    public static function getDiem($thang_id){
+        if (!auth()->check())
+            return;
+        $id = Auth::id();
+        $user = \App\Models\User::find($id);
+        $data = \Session::get('staffData');
+        $chuyenMon = Calculator::getDiemChuyenMon($data->_id,$thang_id);
+
+        if($user->vaitro_id == config("vaitro.TruongBan") || $user->vaitro_id == "PhoTruongBan")
+            $temp = "bancham";
+        elseif($user->vaitro_id == config("vaitro.TruongPhong") || $user->vaitro_id == "PhoTruongPhong")
+            $temp = "phongcham";
+        else
+            $temp = "tucham";
+        if($chuyenMon[$temp] <= 0)
+            return 0;
+        else{
+            $phamchat = Calculator::getDiemPhamChat($data->_id,$thang_id);
+            $chatluong = Calculator::getDiemChatLuong($data->_id,$thang_id);
+            $kyluat = Calculator::getDiemKyLuat($data->_id,$thang_id);
+            $dongghop = Calculator::getDiemDongGop($data->_id,$thang_id);
+            $tiendo = Calculator::getDiemTienDo($data->_id,$thang_id);
+            return $chuyenMon[$temp] + $chatluong[$temp] + $phamchat[$temp] + $kyluat[$temp] + $tiendo[$temp] + $dongghop[$temp];
+
+        }
+    }
+
 
 }

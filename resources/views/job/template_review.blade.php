@@ -14,14 +14,13 @@
                     <div class="form-group locale-element">
                         <label class="col-lg-1 control-label">Tháng</label>
                         <div class="col-lg-2">
-                            <input type="date" id="month_id" name = "month_id">
-                            {{--<select class="form-control input-sm valid" id="month_id" name="month_id"--}}
-                                    {{--aria-invalid="false">--}}
-                                {{--<option value=""></option>--}}
-                                {{--@foreach(\App\Helpers\Month::getAllMonth() as $key => $value)--}}
-                                    {{--<option value="{{$key}}">{{$value}}</option>--}}
-                                {{--@endforeach--}}
-                            {{--</select>--}}
+                            <div class='input-group date jsDatetimePicker'>
+                                <input type='text' class="form-control" id="month_id" name="month_id" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                            </div>
                         </div>
                         <label class="col-lg-3 control-label" style="color: red">Tháng Hiện Tại: {{\App\Helpers\Month::getCurrentMonth()->name}} </label>
                     </div>
@@ -37,6 +36,9 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+        $(".jsDatetimePicker").datepicker({
+            autoclose:true
+        });
         $("#contentReview").css("display", "block");
         $("#staffs-grid-content").css("display", "block");
         getGrid();

@@ -24,14 +24,13 @@
                         </div>
                         <label class="col-lg-1 control-label">Tháng</label>
                         <div class="col-lg-2">
-                            <input type="date" name ="thang_id" id ="thang_id">
-                            <?php /*<select class="form-control input-sm valid" id="thang_id" name="thang_id"*/ ?>
-                                    <?php /*aria-invalid="false">*/ ?>
-                                <?php /*<option value=""></option>*/ ?>
-                                <?php /*<?php foreach(\App\Helpers\Month::getAllMonth() as $key => $value): ?>*/ ?>
-                                    <?php /*<option value="<?php echo e($key); ?>"><?php echo e($value); ?></option>*/ ?>
-                                <?php /*<?php endforeach; ?>*/ ?>
-                            <?php /*</select>*/ ?>
+                            <div class='input-group date jsDatetimePicker'>
+                                <input type='text' class="form-control" id="month_id" name="month_id" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                            </div>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
@@ -56,6 +55,9 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+        $(".jsDatetimePicker").datepicker({
+            autoclose:true
+        });
         $("#contentReview").css("display", "block");
         $("#staffs-grid-content").css("display", "block");
         getGrid();
@@ -65,25 +67,23 @@
         $('#room_id').change(function () {
             getGrid();
         });
-        $('#thang_id').change(function () {
+        $('#month_id').change(function () {
             getGrid();
         });
         $('#export_execel').click(function() {
             var room_id = $('#room_id').val();
-            var thang_id = $('#thang_id').val();
+            var thang_id = $('#month_id').val();
             window.location.assign("/classification/export?room_id=" +room_id +  "&thang_id=" + thang_id);
         });
         $('#export_all_execel').click(function(){
             var room_id = $('#room_id').val();
-            var thang_id = $('#thang_id').val();
+            var thang_id = $('#month_id').val();
             window.location.assign("/classification/export-all?room_id=" +room_id +  "&thang_id=" + thang_id);
         })
         $(document).on('change', 'table tbody [name="banxeploai"]', function () {
             var xeploai =$(this).val();
-            var month_id = $('#thang_id').val();
+            var month_id = $('#month_id').val();
             var email = ($(this).closest("tr").find('td:eq(0)').text().trim());
-            if(isNaN(parseInt(month_id)))
-                return;
             $.ajax({
                 data: {
                     'xeploai': xeploai,
@@ -107,9 +107,7 @@
         });
         function getGrid() {
             var room_id = $('#room_id').val();
-            var thang_id = $('#thang_id').val();
-            if(isNaN(parseInt(thang_id)))
-                thang_id = 0;
+            var thang_id = $('#month_id').val();
             $.ajax({
                 data: {
                     'room_id': room_id,

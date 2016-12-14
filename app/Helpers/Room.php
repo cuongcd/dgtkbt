@@ -10,7 +10,7 @@ namespace App\Helpers;
 use App\Models\Room as ModelClass;
 use App\Models\User as UserModel;
 use Auth;
-
+use DB;
 class Room
 {
 
@@ -48,8 +48,23 @@ class Room
         $tmp = [];
         $user = UserModel::find($id);
 
-        if ($user->vaitro_id == config('vaitro.TruongBan') || $user->vaitro_id == config('vaitro.PhoTruongBan'))
+        if ($user->vaitro_id == config('vaitro.TruongBan'))
             return self::getListRoom();
+        elseif ($user->vaitro_id == config('vaitro.PhoTruongBan')){
+            $phong = self::getRoomById($user->room_id);
+            $taikhoan_phongphutrach = DB::table('taikhoan_phongphutrach')->where('user_id','=',$user->_id)->get();
+
+
+            if(count($taikhoan_phongphutrach)) {
+                foreach($taikhoan_phongphutrach as $key => $value) {
+                    $temp = self::getRoomById($value->room_id);
+                    foreach($temp as $key => $value) {
+                        $phong[$key] = $value;
+                    }
+                }
+            }
+            return $phong;
+        }
         else
             return self::getRoomById($user->room_id);
     }
@@ -65,7 +80,6 @@ class Room
     }
 
     public static function getID($_id){
-        $_id = $_id-2;
         switch($_id){
             case 1:
                 return 'I';
@@ -87,8 +101,29 @@ class Room
                 return 'IX';
             case 10:
                 return 'X';
-            default :
+            case 11:
                 return 'XI';
+            case 12:
+                return 'XII';
+            case 13:
+                return 'XIII';
+            case 14:
+                return 'XIV';
+            case 15:
+                return 'XV';
+            case 16:
+                return 'XVI';
+            case 17:
+                return 'XVII';
+            case 18:
+                return 'XVIII';
+            case 19:
+                return 'XIX';
+            case 20:
+                return 'XX';
+
+            default :
+                return 'I';
         }
     }
 }

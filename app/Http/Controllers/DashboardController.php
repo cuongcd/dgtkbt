@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Helpers\Room;
 use Lang;
 use App\Helpers\User;
 class DashboardController extends Controller

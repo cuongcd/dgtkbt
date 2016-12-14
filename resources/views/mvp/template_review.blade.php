@@ -17,7 +17,7 @@
                         <select class="form-control input-sm valid limitedNumbChosen" id="user_id" name="user_id" multiple="true"
                                 aria-invalid="false">
                             <option value=""></option>
-                            @foreach(\App\Helpers\User::getAllUser() as $key => $value)
+                            @foreach(\App\Helpers\User::getAllUserPhuTrach() as $key => $value)
                                 <option value="{{$key}}">{{$value}}</option>
                             @endforeach
                         </select>
@@ -54,9 +54,15 @@
                 <div class="col-lg-12">
                     <label class="col-lg-1 control-label">Tháng</label>
                     <div class="col-lg-2">
-                        <input type="date" id="month_id" name="month_id" >
+                        <div class='input-group date jsDatetimePicker'>
+                                    <input type='text' class="form-control" id="month_id" name="month_id" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                                </div>
                     </div>
-                    {{--@if(\App\Helpers\User::isPermissionAddMvp())--}}
+                    @if(\App\Helpers\User::isPermissionAddMvp())
                     <div class="col-lg-2">
                         <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                              id="add_new_key">
@@ -64,7 +70,20 @@
                             <span class="bold" data-toggle="modal" data-target="#add_new_cv">Thêm </span>
                         </div>
                     </div>
-                    {{--@endif--}}
+                    @endif
+                    @if(\App\Helpers\User::isVaiTroCapBan())
+                        <div class="btn btn-sm btn-info download-button right" style="margin-left: 10px"
+                                 id="duyet_tieubieu">
+                                <i class="fa fa-check"></i>
+                                <span class="bold" data-toggle="modal" data-target="#duyet_tieubieu">Duyệt</span>
+                            </div>
+
+                        <div class="btn btn-sm btn-info download-button right" style="margin-left: 10px"
+                                 id="huy_tieubieu">
+                                <i class="fa fa-check"></i>
+                                <span class="bold" data-toggle="modal" data-target="#duyet_tieubieu">Bỏ Duyệt</span>
+                        </div>
+                    @endif
                 </div>
             </fieldset>
         </div>
@@ -76,6 +95,9 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+        $(".jsDatetimePicker").datepicker({
+            autoclose:true
+        });
         $("#contentReview").css("display", "block");
         $("#works-grid-content").css("display", "block");
         getGrid();
@@ -87,7 +109,73 @@
         });
         $('#month_id').change(function(){
             getGrid();
-        })
+        });
+        $('#duyet_tieubieu').click(function(){
+            var ids = '';
+            $('table tbody [name="massaction"]').each( function() {
+                if ($(this).is(':checked')) {
+                    if  (ids == '')
+                        ids =  $(this).val();
+                    else
+                        ids = ids + ',' + $(this).val();
+                }
+            });
+            if (ids == '') {
+                alert('Bạn chưa chọn Nhân viên để duyệt');
+                return;
+            } else {
+                var month_id = $('#month_id').val();
+                $.ajax({
+                    data: {
+                        'ids' :ids,
+                        'thang_id' :month_id,
+
+                    },
+                    url: "/mvps/apply",
+                    beforeSend: function () {
+
+                    },
+                    success: function (response) {
+                        alert('Đã Duyệt Thành Công DS Nhân Vật Tiêu Biểu');
+                    }
+                });
+                getGrid();
+
+            }
+        });
+        $('#huy_tieubieu').click(function(){
+            var ids = '';
+            $('table tbody [name="massaction"]').each( function() {
+                if ($(this).is(':checked')) {
+                    if  (ids == '')
+                        ids =  $(this).val();
+                    else
+                        ids = ids + ',' + $(this).val();
+                }
+            });
+            if (ids == '') {
+                alert('Bạn chưa chọn Nhân viên để duyệt');
+                return;
+            } else {
+                var month_id = $('#month_id').val();
+                $.ajax({
+                    data: {
+                        'ids' :ids,
+                        'thang_id' :month_id,
+
+                    },
+                    url: "/mvps/un-apply",
+                    beforeSend: function () {
+
+                    },
+                    success: function (response) {
+                        alert('Đã Hủy Duyệt Thành Công DS Nhân Vật Tiêu Biểu');
+                    }
+                });
+                getGrid();
+
+            }
+        });
         $('#save_cv').click(function(){
             var user_id = parseInt($('#user_id').val());
             var month_id = $('#month_id').val();
@@ -97,10 +185,7 @@
                 alert('bạn chưa chọn tên nhân viên!!!');
                 return;
             }
-            if(isNaN(parseInt(month_id))) {
-                alert('bạn chưa chọn tháng!!!');
-                return;
-            }
+
             if(ghichu.length <= 0){
                 alert('bạn chưa nêu rõ thành tích!!!');
                 return;
@@ -118,7 +203,10 @@
 
                 },
                 success: function (response) {
-                    alert('Thêm thành công');
+                    if(response == 1)
+                        alert('Ban Đã duyệt danh sách tiêu biểu cho tháng này, bạn không có quyền thêm');
+                    else
+                        alert('Thêm thành công');
                 }
             });
             getGrid();
@@ -128,6 +216,7 @@
             if(typeof($('#month_id').val()) === "null" )
                 return;
             var month_id = $('#month_id').val();
+//            alert (month_id);
             $.ajax({
                 data: {
                     'thang_id': month_id
@@ -155,3 +244,11 @@
         })
     });
 </script>
+{{--<script type="text/javascript">--}}
+    {{--$(function () {--}}
+        {{--$('.jsDatetimePicker').datetimepicker({--}}
+            {{--viewMode: 'years',--}}
+            {{--format: 'MM/YYYY'--}}
+        {{--});--}}
+    {{--});--}}
+{{--</script>--}}

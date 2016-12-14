@@ -5,6 +5,7 @@ use App\Helpers\Calculator;
 use App\Helpers\Level;
 use App\Helpers\Position;
 use App\Helpers\Room;
+use App\Helpers\XepLoai;
 use URL;
 use Lang;
 use DB;
@@ -65,42 +66,42 @@ class Grid extends BaseGrid
                 'type' => 'number',
                 'filter' => false,
                 'sort' => false,
-                'width' => '30px'
+                'width' => '20px'
             ])
             ->_addColumn('chatluong', [
                 'label' => 'Chất Lượng',
                 'type' => 'number',
                 'filter' => false,
                 'sort' => false,
-                'width' => '30px'
+                'width' => '20px'
             ])
             ->_addColumn('phamchat', [
                 'label' => 'Phẩm Chất',
                 'type' => 'number',
                 'filter' => false,
                 'sort' => false,
-                'width' => '30px'
+                'width' => '20px'
             ])
             ->_addColumn('kyluat', [
                 'label' => 'Kỷ Luật',
                 'type' => 'number',
                 'filter' => false,
                 'sort' => false,
-                'width' => '30px'
+                'width' => '20px'
             ])
             ->_addColumn('tiendo', [
                 'label' => 'Tiến Độ',
                 'type' => 'number',
                 'filter' => false,
                 'sort' => false,
-                'width' => '30px'
+                'width' => '20px'
             ])
             ->_addColumn('donggop', [
                 'label' => 'Đóng Góp',
                 'type' => 'number',
                 'filter' => false,
                 'sort' => false,
-                'width' => '30px'
+                'width' => '20px'
             ])
             ->_addColumn('tongdiem', [
                 'label' => 'Tổng Điểm',
@@ -109,29 +110,16 @@ class Grid extends BaseGrid
                 'sort' => false,
                 'width' => '30px'
             ])
-            ->_addColumn('ghichu', [
-                'label' => 'Ghi Chú',
+            ->_addColumn('banxeploai', [
+                'label' => 'Xếp Loại',
                 'type' => 'text',
                 'filter' => false,
                 'sort' => false,
+                'width' => '20px'
             ])
-            ->_addColumn('action', [
-                'label' => 'Xem',
-                'type' => 'action',
-                'align' => 'center',
-                'width' => '30px',
-                'links' => [
-                    [
-                        'route' => 'staffs.edit',
-                        'fields' => ['_id'],
-                        'getters' => ['_id'],
-                        'type' => 'edit',
-                        'label' => 'Giao Việc',
-                        'options' => ['title' => 'Giao Việc',
-                            'onclick' =>'return false',],
-
-                    ],
-                ],
+            ->_addColumn('ghichu', [
+                'label' => 'Ghi Chú',
+                'type' => 'text',
                 'filter' => false,
                 'sort' => false,
             ]);
@@ -165,12 +153,18 @@ class Grid extends BaseGrid
             }
         }
 
-        if (isset($query['order']) && $query['order'] != 'seq_no') {
-            if ($query['order'] == '_id' || $query['order'] == 'status')
-                $model = $model->orderBy($query['order'], $query['dir']);
-            else
-                $model = $model->orderBy($query['order'], $query['dir']);
-        }
+        $query['order'] = 'seq_no' ;
+        $query['dir'] = 'ASC';
+        $model = $model->orderBy($query['order'], $query['dir']);
+
+//        if (isset($query['order']) && $query['order'] != 'seq_no') {
+//            if ($query['order'] == 'seq_no' || $query['order'] == 'status')
+//                $model = $model->orderBy($query['order'], $query['dir']);
+//            else
+//                $model = $model->orderBy($query['order'], $query['dir']);
+//
+//        }
+
         $total = $model->count();
         $offset = isset($query['page']) ? 15 * ($query['page'] - 1) : 0;
         $rows = $model->skip($offset)->take(15)->get();
@@ -190,6 +184,9 @@ class Grid extends BaseGrid
                 $value->phamchat = $phamchat["bancham"];
                 $value->tongdiem = $chuyenmon["bancham"] + $tiendo["bancham"] + $donggop["bancham"]
                     + $chatluong["bancham"] + $kyluat["bancham"] + $phamchat["bancham"];
+
+                $value->banxeploai = XepLoai::BanXepLoai($thang_id,$value->_id,$value->tongdiem);
+
                 $ghichu ="";
                 $ghichu = $this->addString($ghichu,$chuyenmon["ghichu"]);
                 $ghichu = $this->addString($ghichu,$tiendo["ghichu"]);

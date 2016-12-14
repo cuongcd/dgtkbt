@@ -244,4 +244,5 @@ return [
     'current_month' => 'Đặt Làm Tháng Hiện Tại',
     'missions' => 'Vị Trí Làm Việc',
     'seq_no' =>'Thứ Tự',
+    'import' => 'Import File'
 ];

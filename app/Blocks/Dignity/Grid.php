@@ -44,12 +44,12 @@ class Grid extends BaseGrid
     * */
     protected function _addMassactions()
     {
-//        $this
-//            ->_addMassaction('delete', [
-//                'label' => Lang::get('general.delete'),
-//                'url' => URL::route('works.mass-delete'),
-//                'confirm' => Lang::get('general.are_you_sure'),
-//            ]);
+        $this
+            ->_addMassaction('delete', [
+                'label' => Lang::get('general.delete'),
+                'url' => URL::route('dignities.mass-delete'),
+                'confirm' => Lang::get('general.are_you_sure'),
+            ]);
     }
 
     protected function _addColumns()

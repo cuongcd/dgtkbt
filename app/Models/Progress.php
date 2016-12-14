@@ -16,7 +16,7 @@ class Progress extends Eloquent
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['name', 'level_id','chucdanh_id','room_id','diemtru'];
+    protected $fillable = ['name', 'level_id','chucdanh_id','room_id','diemtru','mission_id'];
 
     public static function rules($id = null)
     {
