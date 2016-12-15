@@ -29,3 +29,7 @@ public/assets/import
 *.xlsx
 
 .idea/dataSources.ids
+
+.idea/misc.xml
+
+*.xml
