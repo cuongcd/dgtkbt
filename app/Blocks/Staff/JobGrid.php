@@ -64,17 +64,20 @@ class JobGrid extends BaseGrid
                 'label' => 'Tên Công Việc',
                 'filter' => false,
 //                'editable' => true,
+                'sort' => false,
             ])
             ->_addColumn('heso', [
                 'label' => 'Hệ Số',
                 'filter' => false,
-                'width' => '10px'
+                'width' => '10px',
+                'sort' => false,
             ])
             ->_addColumn('macdinh', [
                 'label' => 'Mặc Định',
                 'type' => 'number',
                 'filter' => false,
-                'width' => '10px'
+                'width' => '10px',
+                'sort' => false,
             ])
             ->_addColumn('khoiluong', [
                 'label' => 'Khối Lượng',
@@ -82,13 +85,15 @@ class JobGrid extends BaseGrid
                 'filter' => false,
                 'editable' => true,
                 'min' => 0,
-                'width' => '10px'
+                'width' => '10px',
+                'sort' => false,
             ])
             ->_addColumn('nguoigiao', [
                 'label' => 'Người Giao',
                 'min' => 0,
                 'filter' => false,
-                'width' => '30px'
+                'width' => '30px',
+                'sort' => false,
             ])
         ->
         _addColumn('action', [

@@ -265,6 +265,9 @@ class StaffController extends Controller
             return;
         $staffJob = App\Models\StaffJob::find($input['congviec_id']);
         $staffJob->khoiluong = $input['khoiluong'];
+        $staffJob->cv_tudanhgia = $input['khoiluong'];
+        $staffJob->cv_bandanhgia = $input['khoiluong'];
+        $staffJob->cv_phongdanhgia = $input['khoiluong'];
         $staffJob->save();
         return;
 
@@ -280,35 +283,52 @@ class StaffController extends Controller
         $user = App\Models\User::find($id);
         $input = $this->_processData(Input::all());
         $data = \Session::get('staffData');
+
         if (!isset($data))
             return;
         if (!isset($input['congviec_id']) || !isset($input['khoiluong']) || !isset($input['thang_id']))
             return;
+
         $work = App\Models\Work::find($input["congviec_id"]);
         if (isset($work['errors'])) {
             return;
         }
+
         if (isset($input['thang_id']) && $input['thang_id'] > 0) {
             $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
         } else {
             $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
-        }        $tmp = App\Models\StaffJob::where('congviec_id','=',$input['congviec_id'])->where('user_id','=',$data['_id'])
+        }
+
+        $tmp = App\Models\StaffJob::where('congviec_id','=',$input['congviec_id'])->where('user_id','=',$data['_id'])
             ->where('thang_id','=',$thang_id)->first();
-        if($tmp){
+
+        if ($tmp){
             $tmp->khoiluong =  $input['khoiluong'];
+
+            $tmp->cv_tudanhgia = $input['khoiluong'];
+            $tmp->cv_bandanhgia = $input['khoiluong'];
+            $tmp->cv_phongdanhgia = $input['khoiluong'];
             $tmp->save();
             return;
         }
+
         $staffJob = new App\Models\StaffJob();
         $staffJob->congviec_id = $work->_id;
         $staffJob->name = $work->name;
         $staffJob->heso = $work->heso;
         $staffJob->macdinh = $work->macdinh;
         $staffJob->khoiluong = $input['khoiluong'];
+
+        $staffJob->cv_tudanhgia = $input['khoiluong'];
+        $staffJob->cv_bandanhgia = $input['khoiluong'];
+        $staffJob->cv_phongdanhgia = $input['khoiluong'];
+
         $staffJob->thang_id = $thang_id;
         $staffJob->user_id = $data->_id;
         $staffJob->nguoigiao = $user->first_name;
         $staffJob->save();
+
         return;
     }
     public function unexpected(){
@@ -336,10 +356,14 @@ class StaffController extends Controller
         $staffJob->heso = $input['heso'];
         $staffJob->macdinh = 0;
         $staffJob->khoiluong = $input['khoiluong'];
+        $staffJob->cv_tudanhgia = $input['khoiluong'];
+        $staffJob->cv_bandanhgia = $input['khoiluong'];
+        $staffJob->cv_phongdanhgia = $input['khoiluong'];
         $staffJob->thang_id = $thang_id;
         $staffJob->user_id = $data->_id;
         $staffJob->nguoigiao = $user->first_name;
         $staffJob->save();
+
         return;
     }
 
@@ -351,7 +375,7 @@ class StaffController extends Controller
         $user = App\Models\User::find($id);
         $input = $this->_processData(Input::all());
         $data = \Session::get('staffData');
-//        print_r(json_encode($data)); die();
+
         if (!isset($data))
             return;
         if (!isset($input['thang_id']))
@@ -362,31 +386,43 @@ class StaffController extends Controller
         } else {
             $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
         }
+
         $work = App\Models\Work::where('level_id','=',$data->level_id)
             ->where('room_id','=',$data->room_id)
             ->where('chucdanh_id','=',$data->chucdanh_id)->get();
+
         if (isset($work['errors'])) {
             return;
         }
+
         foreach($work as $value){
             unset($tmp);
             $tmp = App\Models\StaffJob::where('congviec_id','=',$value['_id'])->where('user_id','=',$data['_id'])->where('thang_id','=',$input['thang_id'])->first();
-            if($tmp){
+
+            if ($tmp) {
                 $tmp->khoiluong = $value['macdinh'];
+                $tmp->cv_tudanhgia = $value['macdinh'];
+                $tmp->cv_bandanhgia = $value['macdinh'];
+                $tmp->cv_phongdanhgia = $value['macdinh'];
                 $tmp->save();
-            }else {
+            } else {
                 $staffJob = new App\Models\StaffJob();
                 $staffJob->congviec_id = $value['_id'];
                 $staffJob->name = $value['name'];
                 $staffJob->heso =  $value['heso'];
                 $staffJob->macdinh =  $value['macdinh'];
                 $staffJob->khoiluong = $value['macdinh'];
+                $staffJob->cv_tudanhgia = $value['macdinh'];
+                $staffJob->cv_bandanhgia = $value['macdinh'];
+                $staffJob->cv_phongdanhgia = $value['macdinh'];
                 $staffJob->thang_id = $thang_id;
                 $staffJob->user_id = $data->_id;
                 $staffJob->nguoigiao = $user->first_name;
                 $staffJob->save();
                 unset($staffJob);
             }
+
+            return;
         }
     }
 
@@ -413,22 +449,29 @@ class StaffController extends Controller
 
         $word = App\Models\StaffJob::where('user_id','=', $data->_id)
             ->where('thang_id','=',$month_apply_id)->get();
+
         if (isset($work['errors'])) {
             return;
         }
+
         foreach($word as $value){
             $staffJob = new App\Models\StaffJob();
             $staffJob->congviec_id = $value['congviec_id'];
             $staffJob->name = $value['name'];
             $staffJob->heso =  $value['heso'];
             $staffJob->macdinh =  $value['macdinh'];
-            $staffJob->khoiluong = $value['macdinh'];
+            $staffJob->khoiluong = $value['khoiluong'];
+
+            $staffJob->cv_tudanhgia = $value['khoiluong'];
+            $staffJob->cv_bandanhgia = $value['khoiluong'];
+            $staffJob->cv_phongdanhgia = $value['khoiluong'];
             $staffJob->thang_id = $thang_id;
             $staffJob->user_id = $data->_id;
             $staffJob->nguoigiao = $user->first_name;
             $staffJob->save();
             unset($staffJob);
         }
+        return;
     }
     public function  deleteJob(){
         if (!auth()->check())
@@ -450,12 +493,10 @@ class StaffController extends Controller
             $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
         }
 
-        if(App\Helpers\DanhGia::getIsBanDanhGia($thang_id))
-        {
+        if (App\Helpers\DanhGia::getIsBanDanhGia($thang_id)) {
             echo (1);
             die();
-        }else
-        {
+        } else {
             echo (0);
             die();
         }
@@ -466,6 +507,9 @@ class StaffController extends Controller
             return;
         $staffJob = App\Models\StaffJob::find($input['_id']);
         $staffJob->khoiluong = $input['khoiluong'];
+        $staffJob->cv_tudanhgia = $input['khoiluong'];
+        $staffJob->cv_bandanhgia = $input['khoiluong'];
+        $staffJob->cv_phongdanhgia = $input['khoiluong'];
         $staffJob->heso = $input['heso'];
         $staffJob->name = $input['name'];
         $staffJob->save();

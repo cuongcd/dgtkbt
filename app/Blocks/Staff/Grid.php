@@ -58,12 +58,14 @@ class Grid extends BaseGrid
             ->_addColumn('first_name', [
                 'label' => 'Họ Tên',
                 'filter' =>false,
+                'sort' => false,
             ])
             ->_addColumn('room_id', [
                 'label' => 'Phòng',
                 'type' =>'select',
                 'filter' =>false,
                 'options' => Room::getListRoom(),
+                'sort' => false,
 
             ])
             ->_addColumn('level_id', [
@@ -71,17 +73,20 @@ class Grid extends BaseGrid
                 'type' =>'select',
                 'filter' =>false,
                 'options' => Level::getListLevel(),
+                'sort' => false,
             ])
             ->_addColumn('chucdanh_id', [
                 'label' => 'Chức Danh',
                 'type' =>'select',
                 'filter' =>false,
+                'sort' => false,
                 'options' => Position::getAllPositions()
             ])
             ->_addColumn('is_giaoviec', [
                 'label' => 'Đã Giao Việc',
                 'type' =>'select',
                 'filter' =>false,
+                'sort' => false,
                 'options' => [
                     '0' => 'Chưa Giao',
                     '1' => 'Đã Giao'
@@ -92,6 +97,7 @@ class Grid extends BaseGrid
                 'label' =>'Giao Việc',
                 'type' => 'action',
                 'align' => 'center',
+                'sort' => false,
                 'links' => [
                     [
                         'route' => 'staffs.edit',
@@ -142,9 +148,13 @@ class Grid extends BaseGrid
             }
         }
 
-        if (isset($query['order']) && $query['order'] != 'seq_no') {
-            $model = $model->orderBy($query['order'], $query['dir']);
-        }
+        $query['order'] = 'seq_no' ;
+        $query['dir'] = 'ASC';
+        $model = $model->orderBy($query['order'], $query['dir']);
+
+//        if (isset($query['order']) && $query['order'] != 'seq_no') {
+//            $model = $model->orderBy($query['order'], $query['dir']);
+//        }
 
         $offset = isset($query['page']) ? 20 * ($query['page'] - 1) : 0;
         $total = $model->count();

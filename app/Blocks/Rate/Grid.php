@@ -58,11 +58,13 @@ class Grid extends BaseGrid
             ->_addColumn('first_name', [
                 'label' =>'Họ Tên',
                 'filter' =>false,
+                'sort' => false,
             ])
             ->_addColumn('room_id', [
                 'label' => 'Phòng',
                 'type' =>'select',
                 'filter' =>false,
+                'sort' => false,
                 'options' => Room::getListRoom(),
 
             ])
@@ -70,28 +72,32 @@ class Grid extends BaseGrid
                 'label' => 'Bậc',
                 'type' =>'select',
                 'filter' =>false,
+                'sort' => false,
                 'options' => Level::getListLevel(),
             ])
             ->_addColumn('chucdanh_id', [
                 'label' => 'Chức Danh',
                 'type' =>'select',
                 'filter' =>false,
+                'sort' => false,
                 'options' => Position::getAllPositions()
             ])
             ->_addColumn('tudanhgia', [
                 'label' => 'Tự Đánh Giá',
-
+                'sort' => false,
                 'filter' =>false,
 
             ])
             ->_addColumn('phongdanhgia', [
                 'label' => 'Phòng Đánh Giá',
                 'filter' =>false,
+                'sort' => false,
 
             ])
             ->_addColumn('bandanhgia', [
                 'label' => 'Ban Đánh Giá',
                 'filter' =>false,
+                'sort' => false,
 
             ])
 
@@ -146,12 +152,16 @@ class Grid extends BaseGrid
             }
         }
 
-        if (isset($query['order']) && $query['order'] != 'seq_no') {
-            if ($query['order'] == 'users._id' || $query['order'] == 'status')
-                $model = $model->orderBy( 'users.'.$query['order'], $query['dir']);
-            else
-                $model = $model->orderBy( 'users.'.$query['order'], $query['dir']);
-        }
+        $query['order'] = 'seq_no' ;
+        $query['dir'] = 'ASC';
+        $model = $model->orderBy($query['order'], $query['dir']);
+
+//        if (isset($query['order']) && $query['order'] != 'seq_no') {
+//            if ($query['order'] == 'users._id' || $query['order'] == 'status')
+//                $model = $model->orderBy( 'users.'.$query['order'], $query['dir']);
+//            else
+//                $model = $model->orderBy( 'users.'.$query['order'], $query['dir']);
+//        }
         $offset = isset($query['page']) ? 20 * ($query['page'] - 1) : 0;
         $total = $model->count();
         $rows = $model->skip($offset)->take(20)->get();

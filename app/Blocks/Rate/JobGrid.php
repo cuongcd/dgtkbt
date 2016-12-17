@@ -59,11 +59,13 @@ class JobGrid extends BaseGrid
                 'label' => 'ID',
                 'filter' => false,
                 'width' => '10px',
+                'sort' => false,
 //                'type'=>"hidden",
             ])
             ->_addColumn('name', [
                 'label' => 'Tên Công Việc',
                 'filter' => false,
+                'sort' => false,
 //                'editable' => true,
             ])
             ->_addColumn('khoiluong', [
@@ -73,12 +75,14 @@ class JobGrid extends BaseGrid
                 'editable' => true,
                 'min' => 0,
                 'width' => '10px',
+                'sort' => false,
             ])
             ->_addColumn('khoiluong', [
                 'label' => 'Khối Lượng',
                 'type' => 'number',
                 'filter' => false,
                 'width' => '10px',
+                'sort' => false,
                 'min' => 0,
             ])
             ->_addColumn('cv_tudanhgia', [
@@ -87,6 +91,7 @@ class JobGrid extends BaseGrid
                 'filter' => false,
                 'min' => 0,
                 'width' => '10px',
+                'sort' => false,
             ])
             ->_addColumn('cv_phongdanhgia', [
                 'label' => 'Phòng Chấm',
@@ -95,6 +100,7 @@ class JobGrid extends BaseGrid
                 'editable' => VaiTro::getEditPhong(),
                 'min' => 0,
                 'width' => '10px',
+                'sort' => false,
             ])
             ->_addColumn('cv_bandanhgia', [
                 'label' => 'Ban Chấm',
@@ -102,12 +108,14 @@ class JobGrid extends BaseGrid
                 'filter' => false,
                 'min' => 0,
                 'width' => '10px',
+                'sort' => false,
                 'editable' => VaiTro::getEditBan(),
             ])
             ->_addColumn('ghichu', [
                 'label' => 'Ghi Chú',
                 'type' => 'text',
                 'filter' => false,
+                'sort' => false,
             ])
             ->_addColumn('action', [
                 'label' => 'Edit',

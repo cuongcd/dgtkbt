@@ -47,7 +47,7 @@ class JobGrid extends BaseGrid
             ->_addColumn('name', [
                 'label' => 'Tên Công Việc',
                 'filter' => false,
-//                'sort' => false,
+                'sort' => false,
 //                'editable' => true,
             ])
 //            ->_addColumn('heso', [
@@ -68,7 +68,7 @@ class JobGrid extends BaseGrid
                 'type' => 'number',
                 'filter' => false,
                 'min' => 0,
-//                'sort' => false,
+                'sort' => false,
                 'width' => '10px'
             ])
             ->_addColumn('cv_tudanhgia', [
