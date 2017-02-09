@@ -39,34 +39,32 @@ class JobGrid extends BaseGrid
     protected function _addColumns()
     {
         $this
-            ->_addColumn('_id', [
-                'label' => 'ID',
-                'filter' => false,
-                'sort' =>false,
-                'width' =>'10px',
-                'type' =>'hidden'
-            ])
+//            ->_addColumn('_id', [
+//                'label' => 'ID',
+//                'filter' => false,
+//                'sort' =>false,
+//                'width' =>'10px',
+//                'type' =>'hidden'
+//            ])
             ->_addColumn('name', [
                 'label' => 'Tên Công Việc',
                 'filter' => false,
                 'sort' =>false,
-
-//                'editable' => true,
             ])
-            ->_addColumn('heso', [
-                'label' => 'Hệ Số',
-                'filter' => false,
-                'sort' =>false,
-                'width' =>'10px'
-            ])
-            ->_addColumn('macdinh', [
-                'label' => 'Mặc Định',
-                'type' => 'number',
-                'filter' => false,
-                'min' => 0,
-                'sort' =>false,
-                'width' =>'10px'
-            ])
+//            ->_addColumn('heso', [
+//                'label' => 'Hệ Số',
+//                'filter' => false,
+//                'sort' =>false,
+//                'width' =>'10px',
+//            ])
+//            ->_addColumn('macdinh', [
+//                'label' => 'Mặc Định',
+//                'type' => 'number',
+//                'filter' => false,
+//                'min' => 0,
+//                'sort' =>false,
+//                'width' =>'10px'
+//            ])
             ->_addColumn('khoiluong', [
                 'label' => 'Khối Lượng',
                 'type' => 'number',
@@ -86,7 +84,28 @@ class JobGrid extends BaseGrid
                 'type' => 'text',
                 'filter' => false,
                 'sort' =>false,
-            ]);
+            ])
+            ->_addColumn('action', [
+                'label' => 'Xem chi tiết',
+                'type' => 'action',
+                'align' => 'center',
+                'links' => [
+                    [
+                        'route' => 'works.edit',
+                        'fields' => ['_id'],
+                        'getters' => ['_id'],
+                        'type' => 'fa fa-eye',
+                        'label' => Lang::get('general.edit'),
+                        'options' => [
+                            'title' => 'Xem',
+                            'onclick' => 'return false',
+                            'name' => 'view_cv'
+                        ],
+                    ],
+                ],
+                'filter' => false,
+                'sort' => false,
+            ]);;
     }
 
 }

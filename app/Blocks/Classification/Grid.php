@@ -117,25 +117,25 @@ class Grid extends BaseGrid
                 'type' => 'text',
                 'filter' => false,
                 'sort' => false,
-            ])
-            ->_addColumn('action', [
-                'label' => 'Xem',
-                'type' => 'action',
-                'align' => 'center',
-                'width' => '30px',
-                'links' => [
-                    [
-                        'route' => 'staffs.edit',
-                        'fields' => ['_id'],
-                        'getters' => ['_id'],
-                        'type' => 'edit',
-                        'label' => 'Giao Việc',
-                        'options' => ['title' => 'Giao Việc'],
-                    ],
-                ],
-                'filter' => false,
-                'sort' => false,
             ]);
+//            ->_addColumn('action', [
+//                'label' => 'Xem',
+//                'type' => 'action',
+//                'align' => 'center',
+//                'width' => '30px',
+//                'links' => [
+//                    [
+//                        'route' => 'staffs.edit',
+//                        'fields' => ['_id'],
+//                        'getters' => ['_id'],
+//                        'type' => 'edit',
+//                        'label' => 'Giao Việc',
+//                        'options' => ['title' => 'Giao Việc'],
+//                    ],
+//                ],
+//                'filter' => false,
+//                'sort' => false,
+//            ]);
     }
 
     public function getList()

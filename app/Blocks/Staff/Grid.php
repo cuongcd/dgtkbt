@@ -7,7 +7,7 @@ use App\Helpers\Position;
 use App\Helpers\Room;
 use URL;
 use Lang;
-
+use Session;
 class Grid extends BaseGrid
 {
     public function __construct($gridId, $resource, $collectionKey, $params = null, $toExport = false)
@@ -115,7 +115,13 @@ class Grid extends BaseGrid
 
     public function getRowUrl($row)
     {
-        return URL::route('staffs.edit', $row->_id);
+        $url = URL::route('staffs.edit', $row->_id);
+        $date_param = Session::get('param_date');
+        if(strlen($date_param) > 3) {
+            $url = $url .'?date_param=' . $date_param . '&room_id=' .$row->room_id ;
+        }
+
+        return $url;
     }
     public function getList()
     {

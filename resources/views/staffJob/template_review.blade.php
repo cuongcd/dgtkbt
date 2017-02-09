@@ -1,5 +1,10 @@
 <div id="product_review">
     <label class="control-label">Giao Việc</label>
+    <div class="btn btn-sm btn-default right" style="margin-left: 10px"
+         id="back_page">
+        <i class="fa fa-step-backward"></i>
+        <span class="bold">Back</span>
+    </div>
 
     <div class="ibox float-e-margins" id="productReviews">
         <div class="ibox-title">
@@ -13,14 +18,12 @@
                 <fieldset>
                     <div class="form-group locale-element">
                         @if(isset($product))
-                            <label class="col-lg-2 control-label">Họ Tên: {{$product->first_name}}</label>
-                            <label class="col-lg-2 control-label">Chức
+                            <label class="col-lg-3 control-label">Họ Tên: {{$product->first_name}}</label>
+                            <label class="col-lg-3 control-label">Chức
                                 Danh: {{\App\Helpers\Position::getPosition($product->chucdanh_id)}}</label>
                             {{--<label class="col-lg-2 control-label">Bậc: {{\App\Helpers\Level::getLevel($product->level_id)}}</label>--}}
                         @endif
-                        <label class="col-lg-2 control-label" style="color: red">Tháng Hiện
-                            Tại: {{\App\Helpers\Month::getCurrentMonth()->name}}</label>
-                        <label class="col-lg-1 control-label">Chọn Tháng</label>
+                        <label class="col-lg-2 control-label">Chọn Tháng</label>
 
                         <div class="col-lg-2">
                             <div class='input-group date jsDatetimePicker'>
@@ -113,6 +116,11 @@
                      </div>
                 </span>
             </div>
+            <div class="btn btn-sm btn-primary right" style="margin-left: 10px;"
+                 id="delete_grid">
+                <i class="fa fa-update"></i>
+                <span class="bold">Xóa Việc Đã Chọn</span>
+            </div>
             <div id="reviewGrid"></div>
             <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                  id="update_grid">
@@ -204,23 +212,20 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-body">
-                            <label class="col-lg-3 control-label">Tên Công Việc :</label>
-
-                            <div class="col-lg-9">
+                            <label class="col-lg-4 control-label">Tên Công Việc :</label>
+                            <div class="col-lg-8">
                                 <input type="textarea" class="form-control" id='tendotxuat' name="tendotxuat">
                             </div>
                         </div>
                         <div class="modal-body">
-                            <label class="col-lg-3 control-label">Hệ Số :</label>
-
-                            <div class="col-lg-9">
+                            <label class="col-lg-4 control-label">Hệ Số :</label>
+                            <div class="col-lg-8">
                                 <input type="number" class="form-control" id='hesodoxuat' name="hesodoxuat" min="0">
                             </div>
                         </div>
                         <div class="modal-body">
-                            <label class="col-lg-3 control-label">Khối Lượng :</label>
-
-                            <div class="col-lg-9">
+                            <label class="col-lg-4 control-label">Khối Lượng :</label>
+                            <div class="col-lg-8">
                                 <input type="number" class="form-control" id='khoiLuongdotxuat' name="khoiLuongdotxuat"
                                        min="0">
                             </div>
@@ -248,6 +253,9 @@
         $(".jsDatetimePicker").datepicker({
             autoclose:true
         });
+
+        $(".jsDatetimePicker").datepicker("setDate",getUrlParameter('date_param'));
+
         var bandanhgia;
         $("#contentReview").css("display", "block");
         $("#staffs-grid-content").css("display", "block");
@@ -279,14 +287,50 @@
                     $('#ajax-loading-mask').hide();
                     $('#ajax-loading').hide();
                     $('#reviewGrid').html(response);
+                    $('#staffJobMonth-massaction-form').hide();
                 }
             });
             $("#contentReview").css("display", "block");
             $("#staffs-grid-content").css("display", "block");
         }
+        $('#delete_grid').click(function() {
+            var ids = '';
+            if(bandanhgia==0) {
+                alert('ban đã duyệt đánh giá cho tháng này, bạn không được update');
+                return;
+            }
+            $('table tbody [name="massaction"]').each(function(){
+                if(this.checked) {
+                    if(ids == '')
+                        ids = $(this).val();
+                    else
+                        ids = ids + ',' + $(this).val();
+
+                }
+            });
+            if(ids.length <= 0) {
+                alert('Bạn chưa chọn công việc để xóa');
+                return
+            } else {
+                $.ajax({
+                    data: {
+                        'ids': ids
+                    },
+                    url: "/staffs/mass-delete-job",
+                    beforeSend: function () {
+                        $('#ajax-loading-mask').show();
+                        $('#ajax-loading').show();
+                    },
+                    success: function (response) {
+                        alert('Bạn Đã xóa thành công ' + response + ' Công việc');
+                        getGrid();
+                    }
+                });
+            }
+        })
 
         $(document).on('keyup, change', 'table tbody [name="khoiluong"]', function () {
-            var _id = parseInt($(this).closest("tr").find('td:eq(0)').text());
+            var _id = parseInt($(this).closest("tr").find('td:eq(1)').text());
             var KL = $(this).val();
             if(bandanhgia == 0)
             {
@@ -313,7 +357,7 @@
                 return;
             }
             if (confirm("Bạn Chắc Chắn Xóa?")) {
-                var _id = parseInt($(this).closest("tr").find('td:eq(0)').text());
+                var _id = parseInt($(this).closest("tr").find('td:eq(1)').text());
                 $.ajax({
                     data: {
                         'congviec_id': _id
@@ -331,10 +375,10 @@
         });
         $(document).on('click', 'table tbody [name="Edit_CV"]', function () {
 
-                var _id = parseInt($(this).closest("tr").find('td:eq(0)').text());
-                var name = $(this).closest("tr").find('td:eq(1)').text().trim();
-                var khoiluong = parseInt($(this).closest("tr").find('td:eq(4)').text());
-                var heso = parseInt($(this).closest("tr").find('td:eq(2)').text());
+                var _id = parseInt($(this).closest("tr").find('td:eq(1)').text());
+                var name = $(this).closest("tr").find('td:eq(2)').text().trim();
+                var khoiluong = parseInt($(this).closest("tr").find('td:eq(5)').text());
+                var heso = parseInt($(this).closest("tr").find('td:eq(3)').text());
 
 
             $('#khoiluong').val(khoiluong);
@@ -445,6 +489,15 @@
 
             });
         });
+        $('#back_page').click(function () {
+            var url = document.referrer;
+            if(url.indexOf('?') > 0) {
+              url =  url.substr(0, url.indexOf('?'));
+            }
+
+            url = url + '?date_param=' + $('#month_id').val() + '&room_id=' + getUrlParameter('room_id');
+            window.location.replace(url);
+        });
 
         $('#addBydictionary').click(function () {
             if(bandanhgia==0)
@@ -522,6 +575,20 @@
 
         });
         }
+        function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
     });
 
 </script>

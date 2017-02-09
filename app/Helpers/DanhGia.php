@@ -76,10 +76,10 @@ class DanhGia
         }
         if ($user->vaitro_id == config('vaitro.TruongBan') || $user->vaitro_id == config('vaitro.PhoTruongBan')) {
             $danhgia->bandanhgia = abs($danhgia->bandanhgia - 1);
-            $diem = self::getDiem($thang_id);
-            if($diem > 0) {
-                $danhgia->banxeploai = XepLoai::XepLoai($diem);
-            }
+//            $diem = self::getDiem($thang_id);
+//            if($diem > 0) {
+//                $danhgia->banxeploai = XepLoai::XepLoai($diem);
+//            }
         } elseif ($user->vaitro_id == config('vaitro.TruongPhong') || $user->vaitro_id == config('vaitro.PhoTruongPhong')) {
             $danhgia->phongdanhgia = abs($danhgia->phongdanhgia - 1);
         } else {
@@ -87,6 +87,7 @@ class DanhGia
             $danhgia->tudanhgia = abs($danhgia->tudanhgia - 1);
         }
         $danhgia->save();
+
         return;
     }
 
@@ -258,6 +259,7 @@ class DanhGia
             $kyluat = Calculator::getDiemKyLuat($data->_id,$thang_id);
             $dongghop = Calculator::getDiemDongGop($data->_id,$thang_id);
             $tiendo = Calculator::getDiemTienDo($data->_id,$thang_id);
+
             return $chuyenMon[$temp] + $chatluong[$temp] + $phamchat[$temp] + $kyluat[$temp] + $tiendo[$temp] + $dongghop[$temp];
 
         }

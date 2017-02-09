@@ -34,8 +34,7 @@
                                     </span>
                             </div>
                         </div>
-                        <label class="col-lg-3 control-label" style="color: red">Tháng Đánh Giá: {{\App\Helpers\Month::getCurrentMonth()->name}} </label>
-                        @if(\App\Helpers\VaiTro::getEditPhong())
+                        @if(\App\Helpers\VaiTro::getEditPhong() || \App\Helpers\VaiTro::getEditBan())
                             <div class="btn btn-sm btn-info download-button right" style="margin-left: 10px"
                                  id="un_apply" name="un_apply">
                                 <i class="fa-yoast"></i>
@@ -63,6 +62,13 @@
         $(".jsDatetimePicker").datepicker({
             autoclose:true
         });
+
+        var room_id = getUrlParameter('room_id');
+        if(room_id > 0) {
+            $("#room_id option[value=" + room_id +"]").attr("selected","selected");
+        }
+
+        $(".jsDatetimePicker").datepicker("setDate",getUrlParameter('date_param'));
         $("#contentReview").css("display", "block");
         $("#staffs-grid-content").css("display", "block");
         getGrid();
@@ -81,8 +87,8 @@
             var room_id = parseInt($('#room_id').val());
             var thang_name = thang_id;
 
-            if (isNaN(parseInt(thang_id)) || isNaN(room_id)){
-                alert('bạn chưa chọn tháng hoặc phòng để duyệt đánh giá');
+            if (isNaN(room_id)){
+                alert('bạn chưa chọn  phòng để duyệt đánh giá');
                 return
             }
 
@@ -101,6 +107,7 @@
                     $('#ajax-loading-mask').hide();
                     $('#ajax-loading').hide();
                     alert('Đã bỏ duyệt thành công  đánh giá cho ' + thang_name);
+                    getGrid();
                 }
             });
             $("#contentReview").css("display", "block");
@@ -110,8 +117,8 @@
             var thang_id = $('#month_id').val();
             var room_id = parseInt($('#room_id').val());
             var thang_name = thang_id;
-            if (isNaN(parseInt(thang_id)) || isNaN(room_id)){
-                alert('bạn chưa chọn tháng hoặc phòng để duyệt đánh giá');
+            if (isNaN(room_id)){
+                alert('bạn chưa chọn  phòng để duyệt đánh giá');
                 return
             }
 
@@ -129,6 +136,7 @@
                     $('#ajax-loading-mask').hide();
                     $('#ajax-loading').hide();
                     alert('Đã duyệt thành công  đánh giá cho ' + thang_name);
+                    getGrid()
                 }
             });
             $("#contentReview").css("display", "block");
@@ -160,5 +168,19 @@
             alert('abc');
 
         });
+        function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
     });
 </script>

@@ -1,6 +1,12 @@
 <div id="product_review">
     <label class="control-label">Đánh Giá Nhân Viên</label>
 
+    <div class="btn btn-sm btn-default right" style="margin-left: 10px"
+         id="back_page">
+        <i class="fa fa-step-backward"></i>
+        <span class="bold">Back</span>
+    </div>
+
     <div class="ibox float-e-margins" id="productReviews">
         <div class="ibox-title">
             <div class="ibox-tools">
@@ -13,8 +19,8 @@
                 <fieldset>
                     <div class="form-group locale-element">
                         <?php if(isset($product)): ?>
-                            <label class="col-lg-2 control-label">Họ Tên: <?php echo e($product->first_name); ?></label>
-                            <label class="col-lg-2 control-label">Chức
+                            <label class="col-lg-3 control-label">Họ Tên: <?php echo e($product->first_name); ?></label>
+                            <label class="col-lg-3 control-label">Chức
                                 Danh: <?php echo e(\App\Helpers\Position::getPosition($product->chucdanh_id)); ?></label>
                         <?php endif; ?>
                         <label class="col-lg-1 control-label">Tháng</label>
@@ -28,8 +34,6 @@
                                     </span>
                             </div>
                         </div>
-                        <label class="col-lg-3 control-label" style="color: red">Đánh Giá:
-                            <span id="thang_danh_gia"><?php echo e(\App\Helpers\Month::getCurrentMonth()->name); ?></span> </label>
                         <label class="col-lg-1 control-label">Duyệt </label>
                         <input class="checkbox" name="duyet_danh_gia" id="duyet_danh_gia" type="checkbox" value="1">
                     </div>
@@ -323,10 +327,10 @@
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title">Thêm Mới Tiến Độ</h4>
+                        <h4 class="modal-title">Thêm Lỗi Tiến Độ</h4>
                     </div>
                     <div class="modal-body">
-                        <label class="col-lg-3 control-label">Chọn :</label>
+                        <label class="col-lg-3 control-label">Chọn Lỗi:</label>
 
                         <div class="col-lg-9">
                             <select class="form-control input-sm valid" id="tiendo_id" name="tiendo_id"
@@ -369,10 +373,10 @@
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title">Thêm Mới Kỷ Luật</h4>
+                        <h4 class="modal-title">Thêm Lỗi Kỷ Luật</h4>
                     </div>
                     <div class="modal-body">
-                        <label class="col-lg-3 control-label">Chọn :</label>
+                        <label class="col-lg-3 control-label">Chọn Lỗi:</label>
 
                         <div class="col-lg-9">
                             <select class="form-control input-sm valid" id="kyluat_id" name="kyluat_id"
@@ -415,10 +419,10 @@
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title">Thêm Mới Phẩm Chất</h4>
+                        <h4 class="modal-title">Thêm Lỗi Phẩm Chất</h4>
                     </div>
                     <div class="modal-body">
-                        <label class="col-lg-3 control-label">Chọn :</label>
+                        <label class="col-lg-3 control-label">Chọn Lỗi:</label>
 
                         <div class="col-lg-9">
                             <select class="form-control input-sm valid" id="phamchat_id" name="phamchat_id"
@@ -462,10 +466,10 @@
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title">Thêm Mới Chất Lượng</h4>
+                        <h4 class="modal-title">Thêm Lỗi Chất Lượng</h4>
                     </div>
                     <div class="modal-body">
-                        <label class="col-lg-3 control-label">Chọn :</label>
+                        <label class="col-lg-3 control-label">Chọn Lỗi:</label>
 
                         <div class="col-lg-9">
                             <select class="form-control input-sm valid" id="chatluong_id" name="chatluong_id"
@@ -596,7 +600,7 @@
             <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                  id="add_new_key">
                 <i class="fa fa-plus"></i>
-                <span class="bold" data-toggle="modal" data-target="#add_new_chatluong">Thêm Chất Lượng</span>
+                <span class="bold" data-toggle="modal" data-target="#add_new_chatluong">Chọn Lỗi</span>
             </div>
             <div id="chatluongGrid"></div>
         </div>
@@ -606,7 +610,7 @@
             <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                  id="add_new_key" name="add_new_key">
                 <i class="fa fa-plus"></i>
-                <span class="bold" data-toggle="modal" data-target="#add_new_tiendo">Thêm Tiến Độ</span>
+                <span class="bold" data-toggle="modal" data-target="#add_new_tiendo">Chọn Lỗi</span>
             </div>
             <div id="tiendoGrid"></div>
         </div>
@@ -616,7 +620,7 @@
             <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                  id="add_new_key">
                 <i class="fa fa-plus"></i>
-                <span class="bold" data-toggle="modal" data-target="#add_new_kyluat">Thêm Kỷ Luật</span>
+                <span class="bold" data-toggle="modal" data-target="#add_new_kyluat">Chọn Lỗi</span>
             </div>
             <div id="kyluatGrid"></div>
         </div>
@@ -626,7 +630,7 @@
             <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                  id="add_new_key">
                 <i class="fa fa-plus"></i>
-                <span class="bold" data-toggle="modal" data-target="#add_new_phamchat">Thêm Phẩm Chất</span>
+                <span class="bold" data-toggle="modal" data-target="#add_new_phamchat">Chọn Lỗi</span>
             </div>
             <div id="phamchatGrid"></div>
         </div>
@@ -647,6 +651,9 @@
         $(".jsDatetimePicker").datepicker({
             autoclose:true
         });
+
+        $(".jsDatetimePicker").datepicker("setDate",getUrlParameter('date_param'));
+
         $("#contentReview").css("display", "block");
         $("#staffs-grid-content").css("display", "block");
         var isdanhgia;
@@ -788,6 +795,15 @@
             getGrid();
             getTongDiem();
         });
+
+        $('#back_page').click(function () {
+            var url = document.referrer;
+            if(url.indexOf('?') > 0) {
+                url =  url.substr(0, url.indexOf('?'));
+            }
+
+            url = url + '?date_param=' + $('#month_id').val() + '&room_id=' + getUrlParameter('room_id');
+            window.location.replace(url);        });
         /*
          Tiến Độ Công Việc
          */
@@ -1692,8 +1708,20 @@
                 }
             });
         }
+        function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
 
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
 
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
     });
 </script>
 

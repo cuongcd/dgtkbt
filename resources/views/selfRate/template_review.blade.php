@@ -54,10 +54,10 @@
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title">Thêm Mới Tiến Độ</h4>
+                        <h4 class="modal-title">Thêm Lỗi Tiến Độ</h4>
                     </div>
                     <div class="modal-body">
-                        <label class="col-lg-3 control-label">Chọn :</label>
+                        <label class="col-lg-3 control-label">Chọn Lỗi:</label>
 
                         <div class="col-lg-9">
                             <select class="form-control input-sm valid" id="tiendo_id" name="tiendo_id"
@@ -100,10 +100,10 @@
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title">Thêm Mới Kỷ Luật</h4>
+                        <h4 class="modal-title">Thêm Lỗi Kỷ Luật</h4>
                     </div>
                     <div class="modal-body">
-                        <label class="col-lg-3 control-label">Chọn :</label>
+                        <label class="col-lg-3 control-label">Chọn Lỗi :</label>
 
                         <div class="col-lg-9">
                             <select class="form-control input-sm valid" id="kyluat_id" name="kyluat_id"
@@ -146,10 +146,10 @@
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title">Thêm Mới Phẩm Chất</h4>
+                        <h4 class="modal-title">Thêm Lỗi Phẩm Chất</h4>
                     </div>
                     <div class="modal-body">
-                        <label class="col-lg-3 control-label">Chọn :</label>
+                        <label class="col-lg-3 control-label">Chọn Lỗi :</label>
 
                         <div class="col-lg-9">
                             <select class="form-control input-sm valid" id="phamchat_id" name="phamchat_id"
@@ -193,10 +193,10 @@
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title">Thêm Mới Chất Lượng</h4>
+                        <h4 class="modal-title">Thêm Lỗi Chất Lượng</h4>
                     </div>
                     <div class="modal-body">
-                        <label class="col-lg-3 control-label">Chọn :</label>
+                        <label class="col-lg-3 control-label">Chọn Lỗi :</label>
 
                         <div class="col-lg-9">
                             <select class="form-control input-sm valid" id="chatluong_id" name="chatluong_id"
@@ -595,7 +595,7 @@
             <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                  id="add_new_key">
                 <i class="fa fa-plus"></i>
-                <span class="bold" data-toggle="modal" data-target="#add_new_chatluong">Thêm Chất Lượng</span>
+                <span class="bold" data-toggle="modal" data-target="#add_new_chatluong">Chọn Lỗi</span>
             </div>
             <div id="chatluongGrid"></div>
         </div>
@@ -606,7 +606,7 @@
                  id="add_new_key" name="add_new_key">
                 <i class="fa fa-plus"></i>
                 <span class="bold" id="add_new_tiendo" name='add_new_tiendo' data-toggle="modal"
-                      data-target="#add_new_tiendo">Thêm Tiến Độ</span>
+                      data-target="#add_new_tiendo">Chọn Lỗi</span>
             </div>
             <div id="tiendoGrid"></div>
         </div>
@@ -617,7 +617,7 @@
             <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                  id="add_new_key">
                 <i class="fa fa-plus"></i>
-                <span class="bold" data-toggle="modal" data-target="#add_new_kyluat">Thêm Kỷ Luật</span>
+                <span class="bold" data-toggle="modal" data-target="#add_new_kyluat">Chọn Lỗi</span>
             </div>
             <div id="kyluatGrid"></div>
         </div>
@@ -627,7 +627,7 @@
             <div class="btn btn-sm btn-primary right" style="margin-left: 10px"
                  id="add_new_key">
                 <i class="fa fa-plus"></i>
-                <span class="bold" data-toggle="modal" data-target="#add_new_phamchat">Thêm Phẩm Chất</span>
+                <span class="bold" data-toggle="modal" data-target="#add_new_phamchat">Chọn Lỗi</span>
             </div>
             <div id="phamchatGrid"></div>
         </div>

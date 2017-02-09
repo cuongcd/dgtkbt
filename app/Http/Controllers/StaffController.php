@@ -18,6 +18,7 @@ use App\Blocks\Quality\Tabs;
 use App\Blocks\Staff\Grid as GridReview;
 use App\Blocks\Staff\JobGrid as JobGrid;
 use Auth;
+use DB;
 
 class StaffController extends Controller
 {
@@ -134,8 +135,10 @@ class StaffController extends Controller
         }
         $param['filter'] = $input;
         if(isset($input['thang_id']) && $input['thang_id'] > 0){
+            \Session::put('param_date',$input['thang_id']);
             $param['filter']['thang_id'] = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
         } else {
+            \Session::forget('param_date');
             $param['filter']['thang_id'] =App\Helpers\Month::getCurrentMonth()->_id;
         }
         if (!isset($input['room_id']) || $input['room_id'] <= 0) {
@@ -387,9 +390,16 @@ class StaffController extends Controller
             $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
         }
 
+        $vitrilamviecs = DB::table('taikhoan_vitrilamviec')->where('user_id','=',$data->_id)->get();
+        $mission_arr = [];
+        foreach($vitrilamviecs as $key =>$value) {
+            $mission_arr[] = $value->vitrilamviec_id;
+        }
+
+
         $work = App\Models\Work::where('level_id','=',$data->level_id)
-            ->where('room_id','=',$data->room_id)
-            ->where('chucdanh_id','=',$data->chucdanh_id)->get();
+            ->where('chucdanh_id','=',$data->chucdanh_id)
+            ->whereIn('mission_id', $mission_arr)->get();
 
         if (isset($work['errors'])) {
             return;
@@ -397,14 +407,11 @@ class StaffController extends Controller
 
         foreach($work as $value){
             unset($tmp);
-            $tmp = App\Models\StaffJob::where('congviec_id','=',$value['_id'])->where('user_id','=',$data['_id'])->where('thang_id','=',$input['thang_id'])->first();
+            $tmp = App\Models\StaffJob::where('congviec_id','=',$value['_id'])->where('user_id','=',$data->_id)
+                ->where('thang_id','=', $thang_id)->get();
 
-            if ($tmp) {
-                $tmp->khoiluong = $value['macdinh'];
-                $tmp->cv_tudanhgia = $value['macdinh'];
-                $tmp->cv_bandanhgia = $value['macdinh'];
-                $tmp->cv_phongdanhgia = $value['macdinh'];
-                $tmp->save();
+            if (count($tmp)) {
+                continue;
             } else {
                 $staffJob = new App\Models\StaffJob();
                 $staffJob->congviec_id = $value['_id'];
@@ -421,9 +428,8 @@ class StaffController extends Controller
                 $staffJob->save();
                 unset($staffJob);
             }
-
-            return;
         }
+        return;
     }
 
     public function applyMonth(){
@@ -514,5 +520,16 @@ class StaffController extends Controller
         $staffJob->name = $input['name'];
         $staffJob->save();
         return;
+    }
+
+    public function massDeleteJob() {
+        $idsString = Input::get('ids');
+        $ids = explode(',', $idsString) ? explode(',', $idsString) : $idsString;
+        foreach($ids as $id) {
+            $staffJob = App\Models\StaffJob::find($id);
+            $staffJob->delete();
+        }
+
+        return count($ids);
     }
 }

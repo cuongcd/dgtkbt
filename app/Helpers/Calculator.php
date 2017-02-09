@@ -39,8 +39,9 @@ class Calculator
             $thuchien = $thuchien + $value->heso * $value->cv_tudanhgia;
             $phongcham = $phongcham + $value->heso * $value->cv_phongdanhgia;
             $bancham = $bancham + $value->heso * $value->cv_bandanhgia;
-            if (strlen($value->ghichu) > 3)
-                $ghichu = $ghichu . $value->ghichu . "; ";
+            if (strlen($value->ghichu) > 3) {
+                $ghichu = $ghichu . $value->ghichu . ". ";
+            }
 
         }
         if($khoiLuong <=0)
@@ -84,9 +85,16 @@ class Calculator
             $thuchien = $thuchien - $value->td_tutru;
             $phongcham = $phongcham - $value->td_phongtru;
             $bancham = $bancham - $value->td_bantru;
-            $ghichu = $ghichu . $value->name . "; ";
-            if (strlen($value->ghichu) > 3)
-                $ghichu = $ghichu . $value->ghichu . "; ";
+            if (strlen($value->ghichu) > 3) {
+                $tmp  = strtoupper(substr($value->name,0,4));
+                if($tmp == 'KHAC' || $tmp == 'KHÁC') {
+                    $ghichu = $value->ghichu . '.';
+                } else {
+                    $ghichu = $ghichu . $value->name . "(" . $value->ghichu . "). ";
+                }
+            } else {
+                $ghichu = $ghichu . $value->name .'. ';
+            }
         }
         $result["tucham"] = $thuchien;
         $result["phongcham"] = $phongcham;
@@ -120,9 +128,16 @@ class Calculator
             $thuchien = $thuchien - $value->cl_tutru;
             $phongcham = $phongcham - $value->cl_phongtru;
             $bancham = $bancham - $value->cl_bantru;
-            $ghichu = $ghichu . $value->name . "; ";
-            if (strlen($value->ghichu) > 3)
-                $ghichu = $ghichu . $value->ghichu . "; ";
+            if (strlen($value->ghichu) > 3) {
+                $tmp  = strtoupper(substr($value->name,0,4));
+                if($tmp == 'KHAC' || $tmp == 'KHÁC') {
+                    $ghichu = $value->ghichu . '.';
+                } else {
+                    $ghichu = $ghichu . $value->name . "(" . $value->ghichu . "). ";
+                }
+            } else {
+                $ghichu = $ghichu . $value->name .'. ';
+            }
         }
         $result["tucham"] = $thuchien;
         $result["phongcham"] = $phongcham;
@@ -156,9 +171,17 @@ class Calculator
             $thuchien = $thuchien - $value->pc_tutru;
             $phongcham = $phongcham - $value->pc_phongtru;
             $bancham = $bancham - $value->pc_bantru;
-            $ghichu = $ghichu . $value->name . "; ";
-            if (strlen($value->ghichu) > 3)
-                $ghichu = $ghichu . $value->ghichu . "; ";
+
+            if (strlen($value->ghichu) > 3) {
+                $tmp  = strtoupper(substr($value->name,0,4));
+                if($tmp == 'KHAC' || $tmp == 'KHÁC') {
+                    $ghichu = $value->ghichu . '.';
+                } else {
+                    $ghichu = $ghichu . $value->name . "(" . $value->ghichu . "). ";
+                }
+            } else {
+                $ghichu = $ghichu . $value->name .'. ';
+            }
         }
         $result["tucham"] = $thuchien;
         $result["phongcham"] = $phongcham;
@@ -192,9 +215,16 @@ class Calculator
             $thuchien = $thuchien + $value->dg_tucong;
             $phongcham = $phongcham + $value->dg_phongcong;
             $bancham = $bancham + $value->dg_bancong;
-            $ghichu = $ghichu . $value->name . "; ";
+
             if (strlen($value->ghichu) > 3) {
-                $ghichu = $ghichu . $value->ghichu . "; ";
+                $tmp  = strtoupper(substr($value->name,0,4));
+                if($tmp == 'KHAC' || $tmp == 'KHÁC') {
+                    $ghichu = $value->ghichu . '.';
+                } else {
+                    $ghichu = $ghichu . $value->name . "(" . $value->ghichu . "). ";
+                }
+            } else {
+                $ghichu = $ghichu . $value->name .'. ';
             }
 
         }
@@ -230,9 +260,17 @@ class Calculator
             $thuchien = $thuchien - $value->kl_tutru;
             $phongcham = $phongcham - $value->kl_phongtru;
             $bancham = $bancham - $value->kl_bantru;
-            $ghichu = $ghichu . $value->name . "; ";
-            if (strlen($value->ghichu) > 3)
-                $ghichu = $ghichu . $value->ghichu . "; ";
+
+            if (strlen($value->ghichu) > 3) {
+                $tmp  = strtoupper(substr($value->name,0,4));
+                if($tmp == 'KHAC' || $tmp == 'KHÁC') {
+                    $ghichu = $value->ghichu . '.';
+                } else {
+                    $ghichu = $ghichu . $value->name . "(" . $value->ghichu . "). ";
+                }
+            } else {
+                $ghichu = $ghichu . $value->name .'. ';
+            }
         }
         $result["tucham"] = $thuchien;
         $result["phongcham"] = $phongcham;

@@ -131,7 +131,9 @@ class RateController extends Controller
         $param['filter'] = $input;
         if(isset($input['thang_id']) && $input['thang_id'] > 0) {
             $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
+            \Session::put('param_date',$input['thang_id']);
         } else {
+            \Session::forget('param_date');
             $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
         }
 

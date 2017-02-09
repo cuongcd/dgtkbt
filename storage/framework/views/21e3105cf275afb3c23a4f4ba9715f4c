@@ -290,7 +290,7 @@
 
             window.location.assign("/result/print-report?start_month=" + start_month + "&end_month=" + end_month);
 
-        })
+        });
 
         function getGrid() {
             var room_id = $('#room_id').val();

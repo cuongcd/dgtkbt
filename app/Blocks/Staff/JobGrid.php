@@ -43,12 +43,12 @@ class JobGrid extends BaseGrid
     * */
     protected function _addMassactions()
     {
-//        $this
-//            ->_addMassaction('delete', [
-//                'label' => Lang::get('general.delete'),
-//                'url' => URL::route('staffs.mass-delete'),
-//                'confirm' => Lang::get('general.are_you_sure'),
-//            ]);
+        $this
+            ->_addMassaction('delete', [
+                'label' => Lang::get('general.delete'),
+                'url' => URL::route('staffs.mass-delete'),
+                'confirm' => Lang::get('general.are_you_sure'),
+            ]);
     }
 
     protected function _addColumns()
@@ -66,19 +66,19 @@ class JobGrid extends BaseGrid
 //                'editable' => true,
                 'sort' => false,
             ])
-            ->_addColumn('heso', [
-                'label' => 'Hệ Số',
-                'filter' => false,
-                'width' => '10px',
-                'sort' => false,
-            ])
-            ->_addColumn('macdinh', [
-                'label' => 'Mặc Định',
-                'type' => 'number',
-                'filter' => false,
-                'width' => '10px',
-                'sort' => false,
-            ])
+//            ->_addColumn('heso', [
+//                'label' => 'Hệ Số',
+//                'filter' => false,
+//                'width' => '10px',
+//                'sort' => false,
+//            ])
+//            ->_addColumn('macdinh', [
+//                'label' => 'Mặc Định',
+//                'type' => 'number',
+//                'filter' => false,
+//                'width' => '10px',
+//                'sort' => false,
+//            ])
             ->_addColumn('khoiluong', [
                 'label' => 'Khối Lượng',
                 'type' => 'number',

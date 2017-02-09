@@ -194,10 +194,16 @@ class RateResultController extends Controller
     public function apply(){
         $input = Input::all();
         $un_apply = isset($input['un_apply'])?$input['un_apply'] : 0;
-        if(isset($input['thang_id']) && isset($input['room_id'])){
+        if(!isset($input['room_id']) || $input['room_id'] < 0) {
+            die('1');
+            return;
+        }
+
+        if(isset($input['thang_id']) && $input['thang_id'] > 0){
             $thang_id = App\Helpers\Month::getMonthIdByDate($input['thang_id']);
         } else {
             $thang_id = App\Helpers\Month::getCurrentMonth()->_id;
+
         }
 
         $users = App\Models\User::where('room_id','=', $input['room_id'])->get();
@@ -311,48 +317,48 @@ class RateResultController extends Controller
 
 
                 $sheet->row(7, function ($row) {
-                    $row->setFontSize(20);
+                    $row->setFontSize(14);
                 });
                 $sheet->cell('A7', function($cell) {
                     $cell->setValue('STT');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
                 });
                 $sheet->cell('B7', function($cell) {
                     $cell->setValue('Họ Tên');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
 
                 });
                 $sheet->cell('C7', function($cell) {
                     $cell->setValue('Chức Vụ/Chức Danh');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
 
                 });
                 $sheet->cell('D7', function($cell) {
                     $cell->setValue('KHỐI LƯỢNG (30)');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
 
                 });
                 $sheet->cell('E7', function($cell) {
                     $cell->setValue('CHẤT LƯỢNG (30)');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
                 });
                 $sheet->cell('F7', function($cell) {
                     $cell->setValue('TIẾN ĐỘ (10)');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
 
                 });
                 $sheet->cell('G7', function($cell) {
                     $cell->setValue('PHẨM CHẤT (5)');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
                 });
                 $sheet->cell('H7', function($cell) {
                     $cell->setValue('KỶ LUẬT (15)');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
 
                 });
                 $sheet->cell('I7', function($cell) {
                     $cell->setValue('ĐÓNG GÓP (10)');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
 
                 });
                 $sheet->cell('J7', function($cell) {
@@ -360,12 +366,12 @@ class RateResultController extends Controller
                 });
                 $sheet->cell('K7', function($cell) {
                     $cell->setValue('BAN XẾP LOẠI');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
 
                 });
                 $sheet->cell('L7', function($cell) {
                     $cell->setValue('Ghi Chú');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
 
                 });
 
@@ -396,8 +402,8 @@ class RateResultController extends Controller
                         $sheet->cell('I'.$i, $data['donggop']) ;
                         $sheet->cell('J'.$i, $data['tongdiem']) ;
                         $sheet->cell('K'.$i, $data['xeploai']) ;
-                        $sheet->cell('L'.$i, $data['ghichu']) ;
-                        $sheet->getStyle('L'.$i)->getAlignment()->setWrapText(true);
+//                        $sheet->cell('L'.$i, $data['ghichu']) ;
+//                        $sheet->getStyle('L'.$i)->getAlignment()->setWrapText(true);
 
                         $i++;
                         $j++;
@@ -416,7 +422,7 @@ class RateResultController extends Controller
                 $sheet->cell('H'.($i+3),'TRƯỞNG BAN' ) ;
 
                 $sheet->cell('B'.($i+6),'Bùi Văn Thành' ) ;
-                $sheet->cell('H'.($i+6),'Hà Nam' ) ;
+                $sheet->cell('H'.($i+6),'Nguyễn Hà Nam' ) ;
 
 
 
@@ -481,15 +487,15 @@ class RateResultController extends Controller
                 $sheet->setWidth('B', 30);
 
                 $sheet->row(7, function ($row) {
-                    $row->setFontSize(20);
+                    $row->setFontSize(14);
                 });
                 $sheet->cell('A7', function($cell) {
                     $cell->setValue('STT');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
                 });
                 $sheet->cell('B7', function($cell) {
                     $cell->setValue('Họ Tên');
-                    $cell->setFontSize(20);
+                    $cell->setFontSize(14);
 
                 });
 
@@ -588,7 +594,7 @@ class RateResultController extends Controller
                 $sheet->cell('H'.($i+3),'TRƯỞNG BAN' ) ;
 
                 $sheet->cell('B'.($i+6),'Bùi Văn Thành' ) ;
-                $sheet->cell('H'.($i+6),'Hà Nam' ) ;
+                $sheet->cell('H'.($i+6),'Nguyễn Hà Nam' ) ;
 
 
 

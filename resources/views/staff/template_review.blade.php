@@ -52,6 +52,13 @@
         $(".jsDatetimePicker").datepicker({
             autoclose:true
         });
+
+        var room_id = getUrlParameter('room_id');
+        if(room_id > 0) {
+            $("#room_id option[value=" + room_id +"]").attr("selected","selected");
+        }
+
+        $(".jsDatetimePicker").datepicker("setDate",getUrlParameter('date_param'));
         $("#contentReview").css("display", "block");
         $("#staffs-grid-content").css("display", "block");
         getGrid();
@@ -86,5 +93,20 @@
             $("#contentReview").css("display", "block");
             $("#staffs-grid-content").css("display", "block");
         }
+
+        function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
     });
 </script>

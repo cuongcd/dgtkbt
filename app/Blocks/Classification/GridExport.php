@@ -207,6 +207,9 @@ class GridExport extends BaseGrid
                 $ghichu = $this->addString($ghichu,$kyluat["ghichu"]);
                 $ghichu = $this->addString($ghichu,$phamchat["ghichu"]);
                 $ghichu = $this->addString($ghichu,$donggop["ghichu"]);
+
+                $ghichu = str_replace('; .', ':',$ghichu);
+                $ghichu = str_replace(';', ':',$ghichu);
                 $value->ghichu = $ghichu;
             } else
                 $value->ghichu = 'Chưa Đánh Giá';
@@ -223,7 +226,7 @@ class GridExport extends BaseGrid
     public function addString($a, $b)
     {
         if (strlen($a) > 0 && strlen($b) > 0)
-            return $a . "; " . $b;
+            return $a . ". " . $b;
         if (strlen($a) > 0)
             return $a;
         else

@@ -258,6 +258,7 @@ Route::group(array('prefix' => 'staffs'), function () {
     Route::get('index/filter/{param?}', array('as' => 'staffs.list.param', 'uses' => 'StaffController@index'));
     Route::get('grid/filter/{param?}', array('as' => 'staffs.grid', 'uses' => 'StaffController@grid'));
     Route::post('mass-delete', array('as' => 'staffs.mass-delete', 'uses' => 'StaffController@massDelete'));
+    Route::get('mass-delete-job', array('as' => 'staffs.mass-delete-job', 'uses' => 'StaffController@massDeleteJob'));
     Route::post('mass-status', array('as' => 'staffs.mass-status', 'uses' => 'StaffController@massStatus'));
     Route::post('save/{id?}', array('as' => 'staffs.save', 'uses' => 'StaffController@save'));
     Route::get('delete/{id}', array('as' => 'staffs.delete', 'uses' => 'StaffController@delete'));

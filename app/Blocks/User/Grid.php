@@ -80,7 +80,8 @@ class Grid extends BaseGrid
             ])
             ->_addColumn('seq_no', [
                 'label' => 'Thứ Tự',
-                'filter' =>false,
+                'type' => 'number',
+                'filter' =>true,
             ])
 
             ->_addColumn('action', [

@@ -87,7 +87,7 @@ class ChatLuongGrid extends BaseGrid
                 'sort' => false,
             ])
             ->_addColumn('ghichu', [
-                'label' => Lang::get('ghichu'),
+                'label' => 'Ghi Chú',
                 'type' => 'text',
                 'filter' => false,
                 'sort' => false,
